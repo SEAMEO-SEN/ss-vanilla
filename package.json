@@ -28,6 +28,7 @@
   "scripts": {
     "start": "yarn build && yarn serve",
     "build": "yarn build-scss && yarn build-js && yarn build-class-references",
+    "build-css": "sass -w --load-path=node_modules src:dist --style=compressed --no-source-map",
     "build-scss": "sass --load-path=node_modules --embed-sources --style=compressed scss:build/css && postcss --use autoprefixer --replace 'build/css/**/*.css' --map",
     "build:essential": "yarn run build-js && sass --load-path=node_modules --embed-sources --style=compressed scss/build.scss:build/css/build.css scss/docs:build/css/docs && postcss --use autoprefixer --replace 'build/css/**/*.css' --map",
     "build-js": "mkdir -p build/js/modules && cp node_modules/@canonical/cookie-policy/build/js/cookie-policy.js build/js/modules && cp node_modules/@canonical/latest-news/dist/latest-news.js build/js/modules",
@@ -40,6 +41,7 @@
     "test": "yarn lint-scss && yarn lint-prettier &&  yarn test-spelling && yarn test-scss",
     "lint-prettier": "prettier -c .",
     "lint-scss": "stylelint 'scss/**/*.scss'",
+    "watch-css": "yarn build-css && sass --load-path=node_modules -w src:dist --style=compressed --no-source-map",
     "watch:scss": "sass --load-path=node_modules --embed-sources --style=compressed scss:build/css --watch",
     "watch:essential": "sass --load-path=node_modules --embed-sources --style=compressed scss/build.scss:build/css/build.css --watch",
     "watch": "yarn build && yarn watch:scss",
