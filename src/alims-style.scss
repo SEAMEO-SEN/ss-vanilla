@@ -210,7 +210,7 @@ $font-weight-bold: 500;
 @import '../scss/patterns_table-of-contents';
 @import '../scss/patterns_table-mobile-card';
 @import '../scss/patterns_table-sortable';
-//@import '../scss/patterns_tabs';
+@import '../scss/patterns_tabs';
 @import '../scss/patterns_tooltips';
 
 // Layouts
@@ -292,7 +292,7 @@ $font-weight-bold: 500;
 @include vf-p-table-of-contents;
 @include vf-p-table-mobile-card;
 @include vf-p-table-sortable;
-//@include vf-p-tabs;
+@include vf-p-tabs;
 @include vf-p-tooltips;
 
 // Layouts
