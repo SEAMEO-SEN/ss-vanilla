@@ -216,7 +216,7 @@ $font-weight-bold: 500;
 // Layouts
 //@import '../scss/layouts_application';
 //@import '../scss/layouts_full-width';
-//@import '../scss/layouts_site';
+@import '../scss/layouts_site';
 @import '../scss/layouts_fluid-breakout';
 
 // Utilities
@@ -299,7 +299,7 @@ $font-weight-bold: 500;
 // Layouts
 //@include vf-l-application;
 //@include vf-l-full-width;
-//@include vf-l-site;
+@include vf-l-site;
 @include vf-l-fluid-breakout;
 
 // Utilities
