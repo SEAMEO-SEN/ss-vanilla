@@ -48,6 +48,7 @@ sub-navigation
 spec
 _n_
 px
+rems
 .5rem
 1.5rem
 1.0rem
@@ -75,6 +76,7 @@ patterns_buttons
 unsetting
 v3.0.
 Suru
+suru
 spec
 specs
 ×
@@ -88,6 +90,7 @@ datalist
 WAI-ARIA
 Heydon
 Pickering
-alt 
+alt
 WCAG
 A11y
+standalone

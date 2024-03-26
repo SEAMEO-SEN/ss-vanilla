@@ -48,7 +48,7 @@
     {% endif %}
   </head>
 
-  <body>
+  <body class="l-site is-paper">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7ZB6FL"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -56,7 +56,9 @@
 
     {% include "_layouts/_header.html" %}
     {% block body %}{% endblock %}
-    {% include "_layouts/_footer.html" %}
+    {% if not is_docs %}
+      {% include "_layouts/_footer.html" %}
+    {% endif %}
 
     <script src="{{ versioned_static('build/js/modules/cookie-policy.js') }}"></script>
     <script>

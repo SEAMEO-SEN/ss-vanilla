@@ -4,10 +4,6 @@ context:
   title: Images | Components
 ---
 
-# Images
-
-<hr>
-
 Enhance images by adding a variant style with a border or drop shadow.
 
 ## Image with border
@@ -32,6 +28,14 @@ When an image needs a caption, it can be wrapped in a `<figure>` element, along 
 
 <div class="embedded-example"><a href="/docs/examples/patterns/image/caption/" class="js-example">
 View example of image with a caption
+</a></div>
+
+## Media element with spacing
+
+Adds spacing to the top of a media element. This is usually needed when image or video is placed below the horizontal rule component to avoid media touching the line.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/image/spacing/" class="js-example">
+View example of media element with spacing
 </a></div>
 
 ## Import

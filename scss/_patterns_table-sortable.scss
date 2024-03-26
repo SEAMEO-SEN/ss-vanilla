@@ -3,7 +3,7 @@
 @mixin vf-p-table-sortable {
   %heading-icon {
     $vertical-offset: 0.5px;
-    @include vf-icon-chevron;
+    @include vf-icon-chevron-themed;
     @include vf-icon-size(map-get($icon-sizes, default));
 
     background: {
@@ -15,8 +15,8 @@
     display: inline-block;
     margin-left: $sp-x-small;
     // table heading text is smaller than the icon, so we need to compensate with negative top margin
-    margin-top: calc(#{map-get($font-sizes, x-small)}rem - #{$default-icon-size});
-    vertical-align: calc(#{$vertical-offset} + #{0.5 * $cap-height} - #{0.5 * $default-icon-size});
+    margin-top: calc(#{map-get($font-sizes, x-small)}rem - $default-icon-size);
+    vertical-align: calc($vertical-offset + 0.5 * $cap-height - 0.5 * $default-icon-size);
   }
 
   // stylelint-disable selector-max-type -- table elements can use selector types
@@ -39,7 +39,7 @@
     }
 
     &[aria-sort]:hover {
-      color: $color-link;
+      color: $colors--theme--link-default;
       text-decoration: underline;
     }
   }

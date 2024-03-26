@@ -14,14 +14,72 @@
     };
   };
 
+  var expandedSidenavContainer = null;
+  var lastFocus = null;
+  var ignoreFocusChanges = false;
+  var focusAfterClose = null;
+
+  // Traps the focus within the currently expanded sidenav drawer
+  function trapFocus(event) {
+    if (ignoreFocusChanges || !expandedSidenavContainer) return;
+    // skip the focus trap if the sidenav is not in the expanded status (large screens)
+    if (!expandedSidenavContainer.classList.contains('is-drawer-expanded')) return;
+    var sidenavDrawer = expandedSidenavContainer.querySelector('.p-side-navigation__drawer');
+
+    if (sidenavDrawer.contains(event.target)) {
+      lastFocus = event.target;
+    } else {
+      focusFirstDescendant(sidenavDrawer);
+      if (lastFocus == document.activeElement) {
+        focusLastDescendant(sidenavDrawer);
+      }
+      lastFocus = document.activeElement;
+    }
+  }
+
+  // Attempts to focus given element
+  function attemptFocus(child) {
+    if (child.focus) {
+      ignoreFocusChanges = true;
+      child.focus();
+      ignoreFocusChanges = false;
+      return document.activeElement === child;
+    }
+
+    return false;
+  }
+
+  // Focuses first child element
+  function focusFirstDescendant(element) {
+    for (var i = 0; i < element.childNodes.length; i++) {
+      var child = element.childNodes[i];
+      if (attemptFocus(child) || focusFirstDescendant(child)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Focuses last child element
+  function focusLastDescendant(element) {
+    for (var i = element.childNodes.length - 1; i >= 0; i--) {
+      var child = element.childNodes[i];
+      if (attemptFocus(child) || focusLastDescendant(child)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /**
-    Toggles the expanded/collapsed classed on side navigation element.
+    Toggles the expanded/collapsed classes on side navigation element.
 
     @param {HTMLElement} sideNavigation The side navigation element.
     @param {Boolean} show Whether to show or hide the drawer.
   */
   function toggleDrawer(sideNavigation, show) {
-    const toggleButtonOutsideDrawer = sideNavigation.querySelector('.p-side-navigation__toggle');
+    expandedSidenavContainer = show ? sideNavigation : null;
+    const toggleButtonOutsideDrawer = sideNavigation.querySelector('.p-side-navigation__toggle, .js-drawer-toggle');
     const toggleButtonInsideDrawer = sideNavigation.querySelector('.p-side-navigation__toggle--in-drawer');
 
     if (sideNavigation) {
@@ -32,6 +90,9 @@
         toggleButtonInsideDrawer.focus();
         toggleButtonOutsideDrawer.setAttribute('aria-expanded', true);
         toggleButtonInsideDrawer.setAttribute('aria-expanded', true);
+        focusFirstDescendant(sideNavigation);
+        focusAfterClose = toggleButtonOutsideDrawer;
+        document.addEventListener('focus', trapFocus, true);
       } else {
         sideNavigation.classList.remove('is-drawer-expanded');
         sideNavigation.classList.add('is-drawer-collapsed');
@@ -39,6 +100,10 @@
         toggleButtonOutsideDrawer.focus();
         toggleButtonOutsideDrawer.setAttribute('aria-expanded', false);
         toggleButtonInsideDrawer.setAttribute('aria-expanded', false);
+        if (focusAfterClose && focusAfterClose.focus) {
+          focusAfterClose.focus();
+        }
+        document.removeEventListener('focus', trapFocus, true);
       }
     }
   }
@@ -90,7 +155,7 @@
         sideNavigation.classList.remove('is-drawer-expanded');
         sideNavigation.classList.remove('is-drawer-collapsed');
         sideNavigation.classList.add('is-drawer-hidden');
-      }, 10)
+      }, 10),
     );
   }
 
@@ -119,15 +184,15 @@
     heading.setAttribute('id', id);
   });
 
-  // get all headings from page and add it to current highligted item in side navigation
+  // get all headings from page and add it to table of contents
   var list = document.createElement('ul');
-  list.classList.add('p-side-navigation__list');
+  list.classList.add('p-table-of-contents__list');
 
   var item = document.createElement('li');
-  item.classList.add('p-side-navigation__item');
+  item.classList.add('p-table-of-contents__item');
 
   var anchor = document.createElement('a');
-  anchor.classList.add('p-side-navigation__link');
+  anchor.classList.add('p-table-of-contents__link');
 
   // Add all H2s with IDs to the table of contents list
   [].slice.call(document.querySelectorAll('main h2[id]')).forEach(function (heading) {
@@ -135,21 +200,65 @@
     var thisAnchor = anchor.cloneNode();
     thisAnchor.setAttribute('href', '#' + heading.id);
     thisAnchor.textContent = heading.textContent;
-    thisAnchor.addEventListener('click', () => {
-      toggleDrawer(sideNav, false);
-    });
     thisItem.appendChild(thisAnchor);
     list.appendChild(thisItem);
   });
 
   // Add table of contents as nested list to side navigation
   if (list.querySelectorAll('li').length > 0) {
-    var currentPage = document.querySelector('.p-side-navigation__link[aria-current="page"]');
-    if (currentPage) {
-      var parent = currentPage.parentNode;
-      parent.appendChild(list);
+    var toc = document.querySelector('#toc');
+    if (toc) {
+      toc.appendChild(list);
+      toc.closest('.u-hide').classList.remove('u-hide');
     }
   }
+
+  // accordion side navigation
+  var currentPage = document.querySelector('.p-side-navigation__link[aria-current="page"]');
+  if (currentPage) {
+    var parentList = currentPage.parentNode.parentNode;
+    parentList.setAttribute('aria-expanded', true);
+    parentList.previousElementSibling.setAttribute('aria-expanded', true);
+  }
+
+  function setupSideNavigationExpandToggle(toggle) {
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    if (!isExpanded) {
+      toggle.setAttribute('aria-expanded', isExpanded);
+    }
+    const item = toggle.closest('.p-side-navigation__item');
+    const link = item.querySelector('.p-side-navigation__link');
+    const nestedList = item.querySelector('.p-side-navigation__list');
+    if (!link?.hasAttribute('aria-expanded')) {
+      link.setAttribute('aria-expanded', isExpanded);
+    }
+    if (!nestedList?.hasAttribute('aria-expanded')) {
+      nestedList.setAttribute('aria-expanded', isExpanded);
+    }
+  }
+
+  function handleExpandToggle(event) {
+    const item = event.currentTarget.closest('.p-side-navigation__item');
+    const button = item.querySelector('.p-side-navigation__expand, .p-side-navigation__accordion-button');
+    const link = item.querySelector('.p-side-navigation__link');
+    const nestedList = item.querySelector('.p-side-navigation__list');
+
+    [button, link, nestedList].forEach((el) => {
+      el.setAttribute('aria-expanded', el.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    });
+  }
+
+  function setupSideNavigationExpands() {
+    var expandToggles = document.querySelectorAll('.p-side-navigation__expand, .p-side-navigation__accordion-button');
+    expandToggles.forEach((toggle) => {
+      setupSideNavigationExpandToggle(toggle);
+      toggle.addEventListener('click', (e) => {
+        handleExpandToggle(e);
+      });
+    });
+  }
+
+  setupSideNavigationExpands();
 })();
 
 // scroll active side navigation item into view (without scrolling whole page)

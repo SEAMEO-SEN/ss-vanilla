@@ -4,10 +4,6 @@ context:
   title: Animations | Settings
 ---
 
-# Animations
-
-<hr>
-
 Vanilla provides a choice of duration and easing for animating components.
 
 ## Duration
@@ -26,7 +22,7 @@ animation.
 | `slow`   | `.5s`         |
 | `sleepy` | `1s`          |
 
-<hr>
+<hr />
 
 ## Easing
 
@@ -37,7 +33,7 @@ Recommended durations for easing can be `easeInCubic` or `easeOutCubic`.
 | `out`   | `cubic-bezier(.215, .61, .355, 1)`   |
 | `in`    | `cubic-bezier(.55, .055, .675, .19)` |
 
-<hr>
+<hr />
 
 ## Spin
 

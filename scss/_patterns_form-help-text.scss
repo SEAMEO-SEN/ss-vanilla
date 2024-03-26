@@ -4,7 +4,7 @@
   .p-form-help-text {
     @extend %small-text;
 
-    color: $color-mid-dark;
+    color: $colors--theme--text-muted;
     margin-top: -$sp-unit;
 
     &.is-tick-element {

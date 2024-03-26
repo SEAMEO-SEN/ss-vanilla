@@ -12,24 +12,19 @@ sites.
 The navigation items are collapsed behind a "Menu" link in small screens and
 displayed horizontally on larger screens.
 
-<div class="p-notification--information">
-  <p class="p-notification__content">
-    <span class="p-notification__title">Note:</span>
-    <span class="p-notification__message">By default, the width of the navigation is constrained to <code>$grid-max-width</code>. To make the navigation full width, replace <code>.p-navigation__row</code> with <code>.p-navigation__row--full-width</code>.</span>
-  </p>
-</div>
-
-The navigation pattern is one of the first patterns to implement the new theming architecture in Vanilla. The default is light. But, to switch to a dark navigation, you can either:
-
-- Override the value of the `$theme-default-nav` in `_settings_themes.scss` to `dark`
-- Add a state class to the `p-navigation` class: `is-dark` when the default navigation is light, or `is-light` when the default has been changed to dark
-
 You can change the breakpoint at which the menu changes to a small screen menu
 by adjusting the `$breakpoint-navigation-threshold` variable from `_settings_breakpoints.scss`.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/navigation/default/" class="js-example">
 View example of the navigation pattern
 </a></div>
+
+<div class="p-notification--information">
+  <p class="p-notification__content">
+    <span class="p-notification__title">New in Vanilla 4.7.0:</span>
+    <span class="p-notification__message">Starting with Vanilla 4.7.0 we recommend using new <code>p-navigation__row--25-75</code> in place of <code>p-navigation__row</code> on brochure websites to better align with the grid.</span>
+  </p>
+</div>
 
 ## Dropdown
 
@@ -39,8 +34,19 @@ To open the dropdown you need to set the `is-active` class on `p-navigation__ite
 
 By default, dropdowns are left-aligned with their parent; if you'd prefer the menu to be positioned from the right, use the `p-navigation__dropdown--right` modifier. This can be seen in the "My account" menu in the example.
 
-<div class="embedded-example"><a href="/docs/examples/patterns/navigation/dropdown" class="js-example">
+<div class="embedded-example"><a href="/docs/examples/patterns/navigation/dropdown-dark" class="js-example">
 View example of the dropdown pattern
+</a></div>
+
+## Sliding
+
+To use the sliding navigation pattern, add the `p-navigation--sliding` class to the root element of the navigation.
+
+You can add nested dropdowns to the navigation by nesting one or more `p-navigation__dropdown` in `p-navigation__item--dropdown-toggle` components.
+They will be rendered as sliding panels that slide in from the right side of the screen on small screens and as dropdowns on larger screens.
+
+<div class="embedded-example" style="max-width: 40rem"><a href="/docs/examples/patterns/navigation/sliding-search" class="js-example" data-height="600">
+View example of the sliding pattern
 </a></div>
 
 ## Expanding search box
@@ -61,13 +67,13 @@ On small screens the search box and menu items can be expanded individually as t
     <span class="p-notification__message">In Vanilla 3.2 we updated the way expanding search works on small screens and now it requires some changes to the HTML structure of menu items for small screens and additional JavaScript functionality for toggling the small screen navigation dropdowns.</p></span>
 </div>
 
-<div class="embedded-example"><a href="/docs/examples/patterns/navigation/search-light" class="js-example"> View example of the search navigation </a></div>
+<div class="embedded-example"><a href="/docs/examples/patterns/navigation/search-dark" class="js-example"> View example of the search navigation </a></div>
 
 ## Side navigation
 
 The side navigation pattern can be used to provide more detailed navigation alongside your content.
 
-It allows grouping the links into navigation sections and nesting them up to three levels.
+It allows grouping the links into navigation sections and nesting them up to four levels.
 
 Current page in the side navigation should be highlighted by adding `aria-current="page"` attribute to the corresponding `p-side-navigation__link` element. Alternatively, if `aria-current` attribute cannot be set, the `is-active` class can be used instead.
 

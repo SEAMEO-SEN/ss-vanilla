@@ -2,7 +2,7 @@
 
 $color-pre-bg: rgba($color-x-dark, 0.03);
 $digit-width: 1ch; // measured width of one character in the monospaced font
-$code-sidebar-width: calc(#{$sph--large} + (4 * #{$digit-width})) !default;
+$code-sidebar-width: calc($sph--large + (4 * $digit-width)) !default;
 $code-inline-padding: 0.25rem;
 
 // Base code styles
@@ -25,12 +25,11 @@ $code-inline-padding: 0.25rem;
   code,
   kbd,
   samp {
-    background-color: $color-code-background;
-    border-radius: $border-radius;
+    background-color: $colors--theme--background-code;
     box-decoration-break: slice;
     color: inherit;
     line-height: map-get($line-heights, default-text) - $code-inline-padding;
-    padding: calc(#{$code-inline-padding} - 1px) $code-inline-padding;
+    padding: calc($code-inline-padding - $input-border-thickness) $code-inline-padding;
   }
 
   code,
@@ -60,8 +59,8 @@ $code-inline-padding: 0.25rem;
   }
 
   pre {
-    background-color: $color-code-background;
-    color: $color-dark;
+    background-color: $colors--theme--background-code;
+    color: $colors--theme--text-default;
     display: block;
     margin-bottom: $spv--x-large;
     margin-top: 0;
@@ -82,7 +81,7 @@ $code-inline-padding: 0.25rem;
   %leading-linux-prompt-icon {
     &::before {
       @extend %icon;
-      @include vf-icon-linux-prompt($color-mid-dark);
+      @include vf-icon-linux-prompt-themed;
 
       content: '';
       left: $sph--large;
@@ -111,7 +110,7 @@ $code-inline-padding: 0.25rem;
     }
 
     &::before {
-      color: $color-mid-dark;
+      color: $colors--theme--text-muted;
       content: counter(line-numbering);
       counter-increment: line-numbering;
       height: 100%;
@@ -124,7 +123,7 @@ $code-inline-padding: 0.25rem;
       user-select: none;
       // We're adding a negative left position above of $digit-width,
       // so the width here needs to take that into account
-      width: calc(#{$code-sidebar-width} + #{$digit-width});
+      width: calc($code-sidebar-width + $digit-width);
     }
   }
 }

@@ -37,6 +37,7 @@
 @include vf-p-icon-connected;
 @include vf-p-icon-containers;
 @include vf-p-icon-copy-to-clipboard;
+@include vf-p-icon-desktop;
 @include vf-p-icon-disconnect;
 @include vf-p-icon-edit;
 @include vf-p-icon-export;
@@ -61,7 +62,9 @@
 @include vf-p-icon-mount-2;
 @include vf-p-icon-mount;
 @include vf-p-icon-open-terminal;
+@include vf-p-icon-pause;
 @include vf-p-icon-plans;
+@include vf-p-icon-play;
 @include vf-p-icon-pods;
 @include vf-p-icon-power-error;
 @include vf-p-icon-power-off;
@@ -85,8 +88,10 @@
 @include vf-p-icon-status-waiting-small;
 @include vf-p-icon-status-waiting;
 @include vf-p-icon-status;
+@include vf-p-icon-stop;
 @include vf-p-icon-submit-bug;
 @include vf-p-icon-success-grey;
+@include vf-p-icon-error-grey;
 @include vf-p-icon-switcher-dashboard;
 @include vf-p-icon-switcher-environments;
 @include vf-p-icon-switcher;

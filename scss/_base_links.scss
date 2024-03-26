@@ -10,7 +10,7 @@
   %vf-link-base {
     @include vf-focus;
 
-    color: $color-link;
+    color: $colors--theme--link-default;
     text-decoration: none;
 
     &:focus {
@@ -25,7 +25,7 @@
     }
 
     &:visited {
-      color: $color-link-visited;
+      color: $colors--theme--link-visited;
     }
   }
   // stylelint-enable selector-max-type

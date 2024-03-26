@@ -223,19 +223,19 @@ $application-layout--side-nav-width-expanded: 15rem !default;
 
   // Other panels
   // --------------
-  .l-main {
+  .l-application .l-main {
     grid-area: main;
     overflow-y: auto;
   }
 
-  .l-status {
+  .l-application .l-status {
     border-top: 1px solid $colors--light-theme--border-low-contrast;
     grid-area: status;
     z-index: 102;
   }
 
-  .l-aside {
-    @include vf-transition($property: #{transform, box-shadow}, $duration: snap);
+  .l-application .l-aside {
+    @include vf-transition($property: #{transform, box-shadow, visibility}, $duration: snap);
 
     box-shadow: $panel-drop-shadow;
     grid-area: main;
@@ -260,6 +260,7 @@ $application-layout--side-nav-width-expanded: 15rem !default;
     &.is-collapsed {
       box-shadow: $panel-drop-shadow-transparent;
       transform: translateX(100%);
+      visibility: hidden;
     }
 
     @media (min-width: $application-layout--breakpoint-side-nav-collapsed) {

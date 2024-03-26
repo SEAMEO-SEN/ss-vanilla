@@ -7,10 +7,51 @@ context:
 If you want to display lists in a way that is more visually distinctive than the
 standard `<ol>` and `<ul>`, we have 7 list styles at your disposal.
 
-## Default
+## Bulleted with horizontal divider
+
+Use the class `.p-list--divided` to add horizontal lines between the items and
+`.has-bullet` to add bullets.
+This is meant to be the new default list style please use this going forward.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-dividers-bulleted/" class="js-example">
+View example of the bulleted divided list pattern
+</a></div>
+
+## Bulletless with horizontal divider
+
+You can omit the `.has-bullet` class to style a list without them but keep in mind that the bulleted version is to be used as the default.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-dividers/" class="js-example">
+View example of the divided list pattern
+</a></div>
+
+## Ordered lists with horizontal divider
+
+You can use the class `.p-list--divided` to style an ordered list.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-dividers-ordered/" class="js-example">
+View example of the ordered divided list pattern
+</a></div>
+
+## Ticked with horizontal divider
+
+You can combine both `.is-ticked` and `.p-list--divided` to style a
+list with horizontal dividers and tick icons.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-dividers-ticked/" class="js-example">
+View example of the ticked divided list pattern
+</a></div>
+
+## Basic
 
 Use the class `.p-list` for a list without bullets and more spacing between
 items than the basic lists.
+
+<div class="p-notification--caution">
+  <p class="p-notification__content">
+    <span class="p-notification__title">Deprecated:</span>
+    <span class="p-notification__message">This style will be deprecated in the next major release. Please use the <code>.p-list--divided</code> style instead.</p></span>
+</div>
 
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/list/" class="js-example">
 View example of the list pattern
@@ -30,23 +71,6 @@ Add the `.is-ticked` or `.is-crossed` classes to each list item to display tick/
 
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-status/" class="js-example">
 View example of the list status pattern
-</a></div>
-
-## Horizontal divider
-
-Use the class `.p-list--divided` to add horizontal lines between the items.
-
-<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-dividers/" class="js-example">
-View example of the divided list pattern
-</a></div>
-
-## Ticked with horizontal divider
-
-You can combine both `.is-ticked` and `.p-list--divided` to style a
-list with horizontal dividers and tick icons.
-
-<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-dividers-ticked/" class="js-example">
-View example of the ticked divided list pattern
 </a></div>
 
 ## Inline
@@ -103,9 +127,7 @@ View example of the stepped list without headings
 
 ## Horizontal stepped
 
-The stepped list should be used for step by step instructions. This pattern is best
-used on a `.p-strip--light` as the description sections are displayed in a white
-box.
+The stepped list should be used for step by step instructions.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-stepped-detailed/" class="js-example">
 View example of the pattern stepped list detailed

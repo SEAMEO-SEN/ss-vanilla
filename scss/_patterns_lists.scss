@@ -1,37 +1,45 @@
 @import 'settings';
-$list-status-icon-height: 0.875rem; // 14px value from svg as rem so it can be used in calculations
-$list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that positions the icon correctly
+$list-status-icon-height: $default-icon-size;
+$list-step-bullet-margin: $sph--x-large;
 
 @mixin vf-p-list-placeholders {
+  // container for stepped lists (`ol`)
+  // defines the layout and resets the native browser counter
   %numbered-step-container {
-    counter-reset: li;
+    counter-reset: list-item;
     display: flex;
     flex-direction: column;
     list-style: none;
     padding-left: 0;
   }
 
+  // list item for stepped lists (`li`)
+  // increments the default browser counter
+  %numbered-step-item {
+    counter-increment: list-item;
+  }
+
+  // title for stepped lists
+  // displays the title and step counter
   %numbered-step-title {
     list-style: none;
     margin-left: 0;
+    padding-left: calc(map-get($line-heights, default-text) + $list-step-bullet-margin);
+    position: relative;
 
     &::before {
-      align-self: start;
-      background-color: $color-x-light;
-      border: 1px solid $color-x-dark;
-      border-radius: 100%;
-      content: counter(li);
-      counter-increment: li;
-      direction: rtl;
+      content: counter(list-item) '.';
       display: block;
-      font-size: map-get($base-font-sizes, base);
-      font-weight: $font-weight-regular-text;
+      height: map-get($line-heights, default-text);
       left: 0;
+      margin-right: $list-step-bullet-margin;
       position: absolute;
-      text-align: center;
+      text-align: right;
+      width: map-get($line-heights, default-text);
     }
   }
 
+  // used with .p-list--nested-counter
   %nested-counter {
     // Counter is named and it will be reset for each "ol" element.
     counter-reset: list-item;
@@ -64,32 +72,66 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
 
   %vf-list-item-state-base {
     @extend %vf-list;
-
-    background-position-y: $spv--x-small + $list-status-icon-nudge;
     background-repeat: no-repeat;
     background-size: $list-status-icon-height;
-    padding-left: 2rem;
+    content: '';
+    display: inline-block;
+    height: $sph--large;
+    top: $spv--small;
+  }
+
+  %vf-list-item-ordered {
+    &::marker {
+      content: none;
+      display: none;
+    }
+
+    &::before {
+      color: $colors--light-theme--text-default;
+      content: counters(list-item, '.') '. ';
+      display: inline-block;
+      text-align: right;
+    }
+  }
+
+  %vf-list-item-bullet {
+    &::before {
+      color: $colors--light-theme--text-default;
+      content: '•';
+      display: inline-block;
+      text-align: right;
+    }
+  }
+}
+
+@mixin vf-list-item-has-prefix {
+  padding-left: $sp-x-large;
+  position: relative;
+
+  > .p-list--divided,
+  > .p-list {
+    margin-left: 0;
+  }
+
+  &::before {
+    left: 0;
+    position: absolute;
+    width: $sp-medium;
   }
 }
 
 @mixin vf-list-item-divided {
-  position: relative;
+  box-shadow: inset 0px 1px 0px 0px $color-mid-x-light;
+  margin: 0;
+  padding-bottom: $sph--large;
+  padding-top: $sph--small;
 
-  &::after {
-    border-bottom: 1px solid $color-mid-light;
-    bottom: 0;
-    content: '';
-    height: 1px;
-    left: 0;
-    position: absolute;
-    right: 0;
+  &:first-child {
+    box-shadow: none;
   }
 
-  &:last-of-type,
-  .last-item {
-    &::after {
-      border-bottom: 0;
-    }
+  .p-list--divided > .p-list__item:first-child {
+    box-shadow: inset 0px 1px 0px 0px $color-mid-x-light;
   }
 }
 
@@ -103,14 +145,6 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
   &:last-of-type {
     margin-right: 0;
   }
-}
-
-@function svg-tick($color) {
-  @if type-of($color) != 'color' {
-    @warn '#{$color} is not a color.';
-    @return false;
-  }
-  @return url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle fill='" + vf-url-friendly-color($color) + "' cx='7' cy='7' r='7'/%3E%3Cpath fill='%23fff' d='M6.1 10.813L2.41 8.105l1.184-1.613L5.9 8.187l4.393-4.394 1.414 1.414z' /%3E%3C/svg%3E");
 }
 
 // List styling using list class
@@ -133,24 +167,64 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
     .p-list__item {
       @extend %vf-list-item;
       @include vf-list-item-divided;
+
+      &.is-ticked::before,
+      &.is-crossed::before {
+        top: $spv--medium;
+      }
     }
 
     &.is-split .p-list__item:last-of-type {
       border-bottom: 1px solid $color-mid-light;
     }
+
+    & & {
+      margin-bottom: 0;
+      margin-left: $sp-x-large;
+      padding-top: $sph--large;
+
+      .p-list__item:last-child {
+        padding-bottom: 0;
+      }
+    }
   }
+
+  // stylelint-disable selector-max-type -- we want to target ordered lists
+  ol.p-list--divided {
+    list-style: none;
+
+    .p-list__item {
+      @extend %vf-list-item-ordered;
+      @include vf-list-item-has-prefix;
+    }
+  }
+  // stylelint-enable selector-max-type -- we want to target ordered lists
 }
 
 // Displays item with a state icon
 @mixin vf-p-list-item-state {
-  .is-ticked {
-    @extend %vf-list-item-state-base;
-    @include vf-icon-success;
+  .p-list__item.is-ticked {
+    @include vf-list-item-has-prefix;
+
+    &::before {
+      @extend %vf-list-item-state-base;
+      @include vf-icon-success-grey-themed;
+    }
   }
 
-  .is-crossed {
-    @extend %vf-list-item-state-base;
-    @include vf-icon-error;
+  .p-list__item.is-crossed {
+    @include vf-list-item-has-prefix;
+
+    &::before {
+      @extend %vf-list-item-state-base;
+      @include vf-icon-error-grey-themed;
+    }
+  }
+
+  // Displays item with a bullet
+  .p-list__item.has-bullet {
+    @extend %vf-list-item-bullet;
+    @include vf-list-item-has-prefix;
   }
 }
 
@@ -192,37 +266,6 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
       }
     }
   }
-
-  // Theming
-  @if ($theme-default-p-inline-list--middot == 'dark') {
-    .p-inline-list--middot {
-      @include vf-p-inline-list-middot-dark-theme;
-    }
-
-    .p-inline-list--middot.is-light {
-      @include vf-p-inline-list-middot-light-theme;
-    }
-  } @else {
-    .p-inline-list--middot {
-      @include vf-p-inline-list-middot-light-theme;
-    }
-
-    .p-inline-list--middot.is-dark {
-      @include vf-p-inline-list-middot-dark-theme;
-    }
-  }
-}
-
-@mixin vf-p-inline-list-middot-theme($color-list-text) {
-  color: $color-list-text;
-}
-
-@mixin vf-p-inline-list-middot-light-theme {
-  @include vf-p-inline-list-middot-theme($colors--light-theme--text-default);
-}
-
-@mixin vf-p-inline-list-middot-dark-theme {
-  @include vf-p-inline-list-middot-theme($colors--dark-theme--text-default);
 }
 
 @mixin vf-p-inline-list-stretch {
@@ -250,6 +293,8 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
   }
 
   .p-stepped-list__item {
+    @extend %numbered-step-item;
+
     // override unecessary col-8 class in markup; layout is handled with css below
     float: none;
     margin-left: 0;
@@ -269,70 +314,35 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
 
   .p-stepped-list__title {
     @extend %numbered-step-title;
-
-    padding-left: $bullet-width-mobile + $sph--large;
-
-    @media (min-width: $breakpoint-heading-threshold) {
-      padding-left: $bullet-width + $sph--large;
-    }
-
-    &::before {
-      // Need to account for the 1px border:
-      line-height: calc(#{$bullet-width-mobile} - 2px);
-      margin-right: $sph--large;
-      width: $bullet-width-mobile;
-
-      @media (min-width: $breakpoint-heading-threshold) {
-        // Need to account for the 1px border:
-        line-height: calc(#{$bullet-width} - 2px);
-        width: $bullet-width;
-      }
-    }
   }
 
   .p-stepped-list__title + .p-stepped-list__content {
-    margin-left: $bullet-width-mobile + $sph--large;
+    margin-left: $bullet-width-mobile + $list-step-bullet-margin;
 
     @media (min-width: $breakpoint-heading-threshold) {
-      margin-left: $bullet-width + $sph--large;
+      margin-left: $bullet-width + $list-step-bullet-margin;
     }
   }
 
-  @for $i from 6 through 1 {
+  @for $i from 4 through 1 {
     // Bullet sizes for each heading level
-    $bullet-width: map-get($line-heights, default-text);
-    $bullet-width-mobile: map-get($line-heights, default-text);
-    // h6 line height is the same as the bullet width so no need to apply any margin:
-    $bullet-margin: 0;
-    $bullet-margin-mobile: 0;
-
-    @if $i < 5 {
-      // To align the bullet with the title we need to use half
-      // the height difference between the bullet and the title and then add the
-      // nudge to position it with the lower case text.
-      $bullet-margin: calc((map-get($line-heights, h#{$i}) - $bullet-width) / 2) + map-get($nudges, h#{$i});
-      $bullet-margin-mobile: calc((map-get($line-heights, h#{$i}-mobile) - $bullet-width-mobile) / 2) + map-get($nudges, h#{$i});
-    }
+    $bullet-width: map-get($line-heights, h#{$i});
+    $bullet-width-mobile: map-get($line-heights, h#{$i}-mobile);
 
     .p-heading--#{$i}.p-stepped-list__title,
     h#{$i}.p-stepped-list__title {
-      padding-left: $bullet-width-mobile + $sph--large;
+      padding-left: $bullet-width-mobile + $list-step-bullet-margin;
 
       @media (min-width: $breakpoint-heading-threshold) {
-        padding-left: $bullet-width + $sph--large;
+        padding-left: $bullet-width + $list-step-bullet-margin;
       }
 
       &::before {
-        // Need to account for the 1px border:
-        line-height: calc(#{$bullet-width-mobile} - 2px);
-        margin-right: $sph--large;
-        margin-top: $bullet-margin-mobile;
+        height: $bullet-width-mobile;
         width: $bullet-width-mobile;
 
         @media (min-width: $breakpoint-heading-threshold) {
-          // Need to account for the 1px border:
-          line-height: calc(#{$bullet-width} - 2px);
-          margin-top: $bullet-margin;
+          height: $bullet-width;
           width: $bullet-width;
         }
       }
@@ -340,10 +350,10 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
 
     .p-heading--#{$i}.p-stepped-list__title + .p-stepped-list__content,
     h#{$i}.p-stepped-list__title + .p-stepped-list__content {
-      margin-left: $bullet-width-mobile + $sph--large;
+      margin-left: $bullet-width-mobile + $list-step-bullet-margin;
 
       @media (min-width: $breakpoint-heading-threshold) {
-        margin-left: $bullet-width + $sph--large;
+        margin-left: $bullet-width + $list-step-bullet-margin;
       }
     }
   }
@@ -358,25 +368,26 @@ $list-status-icon-nudge: 0.3rem; // 0.3rem seems to be a magic number that posit
 @mixin vf-p-stepped-list-detailed {
   .p-stepped-list--detailed {
     @extend %numbered-step-container;
-
     margin-left: auto;
 
     @supports (display: grid) {
       .p-stepped-list__content {
-        @media (min-width: $threshold-6-12-col) {
+        @media (min-width: $threshold-4-6-col) {
           grid-column-end: span 6;
           margin-top: 0;
         }
       }
 
       .p-stepped-list__title {
-        display: flex;
-        grid-column-end: span 6;
-        margin-left: 0;
+        @media (min-width: $threshold-4-6-col) {
+          grid-column-end: span 6;
+          margin-top: 0;
+        }
       }
     }
 
     .p-stepped-list__item {
+      @extend %numbered-step-item;
       @extend %vf-row;
       @include vf-b-row-reset;
 

@@ -8,7 +8,7 @@
 
   // stylelint-disable selector-max-type -- base styles can use type selectors
   html {
-    color: $color-dark;
+    color: $colors--light-theme--text-default;
     font-family: unquote($font-base-family);
     // These vendor prefixes are unique and cannot be added by autoprefixer
     -moz-osx-font-smoothing: grayscale;
@@ -78,11 +78,11 @@
     @extend %x-small-text;
   }
 
+  .p-text--small-caps,
+  // deprecated: .p-text--x-small-capitalised is deprecated, use .p-text--small-caps instead
   .p-text--x-small-capitalised {
-    @extend %x-small-text;
-
+    @extend %small-caps-text;
     font-weight: $font-weight-bold;
-    text-transform: uppercase;
   }
 
   //@section Adjusted spacing for headings (or a p) following a paragraph

@@ -4,10 +4,6 @@ context:
   title: Building with Vanilla
 ---
 
-# Building with Vanilla
-
-<hr>
-
 Here you will find information on how you can use different tools to build Vanilla into production CSS.
 
 ## Sass
@@ -145,10 +141,12 @@ Now run the command with `yarn build`, which will bundle the code and put in a a
   <title>Vanilla using Webpack</title>
 </head>
 <body>
-  <section class="p-strip--light is-bordered">
-    <div class="row">
-      <h1>Hello Vanilla!</h1>
-      <p>This page has been built using Webpack!</p>
+  <section class="p-strip">
+    <div class="row--25-75">
+      <div class="col">
+        <h1>Hello Vanilla!</h1>
+        <p>This page has been built using Webpack!</p>
+      </div>
     </div>
   </section>
   <script src="./dist/bundle.js"></script>
@@ -276,7 +274,7 @@ Creating a submodule in the git repo does not add all the code to the project bu
 Run this command at the root of your project (replacing vX.X.X with the [release](https://github.com/canonical/vanilla-framework/releases) you wish to use)
 
 ```
-git submodule add -b vX.X.X -- git@github.com:vanilla-framework/vanilla-framework.git _sass/vanilla-framework
+git submodule add -- git@github.com:canonical/vanilla-framework.git _sass/vanilla-framework && cd _sass/vanilla-framework && git checkout vX.X.X
 ```
 
 By running the following command it will pull down the framework into the correct location.

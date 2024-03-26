@@ -4,6 +4,8 @@ context:
   title: Grid | Components
 ---
 
+## Structure
+
 Vanilla has a responsive grid with the following columns and gutters:
 
 <table>
@@ -51,6 +53,91 @@ Read also: [Breakpoints](/docs/settings/breakpoint-settings)
     View example of the default grid
 </a></div>
 
+## Common patterns
+
+On top of the regular row and column classes, we provide shortcut classes to help you build [often used layouts](/docs/layouts/brochure). Instead of specifying columns at each breakpoint, use one of these classes on the grid container, and the child elements will be arranged automatically as long as they have the `col` class.
+
+N.B.: the shortcut classes are not nestable. If you need further subdivision inside a shortcut class, please use the regular grid classes. Take care to specify a number of columns that is available (e.g. 3 columns in a 25% container, 6 columns in a 50% container, etc). Specifying more columns than are available leads to misalignemnts.
+
+|                         | Large screens | Medium screens | Small screens   |
+| ----------------------- | ------------- | -------------- | --------------- |
+| `.row--50-50`           | 50/50         | 50/50          | 100/100         |
+| `.row--50-50-on-medium` | -             | 50/50          | -               |
+| `.row--50-50-on-large`  | 50/50         | -              | -               |
+| `.row--25-75`           | 25/75         | 33/66          | 100/100         |
+| `.row--25-75-on-medium` | -             | 33/66          | -               |
+| `.row--25-75-on-large`  | 25/75         | -              | -               |
+| `.row--25-25-50`        | 25/25/50      | 50/50/100      | 100/100/100     |
+| `.row--25-25-25-25`     | 25/25/25/25   | 50/50/50/50    | 100/100/100/100 |
+
+<div class="p-notification--caution">
+  <div class="p-notification__content">
+    <h5 class="p-notification__title">Nesting</h5>
+    <p class="p-notification__message">
+      These common patterns are meant for top level rows only and are <strong>not intended to be nested</strong>. You should not nest <code>row--50-50</code> inside another column.
+      For nested rows, use the standard <code>.row</code> class, as described in <a href="#nested-columns">section about nested columns</a>later on this page.</p>
+  </div>
+</div>
+
+<div class="p-notification--caution">
+  <div class="p-notification__content">
+    <h5 class="p-notification__title">25/75 split changes in Vanilla 4.6.0</h5>
+    <p class="p-notification__message">
+      Vanilla 4.6.0, with introduction of responsive variants of row changed previous responsive behaviour of <code>.row--25-75</code>. The <code>is-split-on-medium</code> variant class was removed, as <code>.row--25-75</code> by default uses split layout on medium screens. See <a href="#responsive-5050-and-2575">responsive 50/50 and 25/75</a> section below for more details.
+    </p>
+  </div>
+</div>
+
+### 50/50
+
+The default variant of 50/50 split sets the layout on large and medium screens, stacking both columns on top of each other on small screens.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/grid/50-50/" class="js-example">
+    View example of 50/50 grid layout
+</a></div>
+
+### 25/75
+
+The default variant of 25/75 split sets the layout on large and medium screens, stacking both columns on top of each other on small screens.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/grid/25-75/" class="js-example">
+    View example of 25/75 grid layout
+</a></div>
+
+### Responsive 50/50 and 25/75
+
+The default `.row--50-50` and `.row--25-75` splits provide the most common default layouts for all screen sizes, as described in the table above. To have more direct control over the layout on different screen sizes, you can use the responsive variants of these classes: `.row--50-50-on-medium` and `.row--25-75-on-medium`, will only apply given layout on medium screens, while `.row--50-50-on-large` and `.row--25-75-on-large` will only apply given layout on large screens.
+
+For example, to only have 25/75 split on large screens, you can use `.row--25-75-on-large`. This is usually useful when main large column splits further with nested grid that would require full width of the page on medium screens.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/grid/25-75-responsive/" class="js-example">
+    View example of 25/75 grid layout
+</a></div>
+
+By utilising the responsive variants, you can also create mixed layouts with 50/50 splits on medium screens and 25/75 on large screens, without the need to nest grids.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/grid/25-75-mixed-responsive/" class="js-example">
+    View example of 25/75 mixed with 50/50 grid layout
+</a></div>
+
+<span class="p-status-label--negative">Removed</span> The `.is-split-on-medium` class has been removed in Vanilla 4.6.0 as `.row--25-75` how implements same responsive behaviour by default. If you want to only use 25/75 split on large screens, use `.row--25-75-on-large`.
+
+### 25/25/50
+
+The row with 25/25/50 split sets this layout on large screens only, switching to 50/50 stacked on top of full width column on medium screen, and stacking all 3 columns on top of each other on small screens.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/grid/25-25-50/" class="js-example">
+    View example of 25/25/50 grid layout
+</a></div>
+
+### 25/25/25/25
+
+The row with 25/25/25/25 split sets this layout on large screens only, switching to 50/50 stacked on top of 50/50 columns on medium screen, and stacking all 4 columns on top of each other on small screens.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/grid/25-25-25-25/" class="js-example">
+    View example of 25/25/25/25 grid layout
+</a></div>
+
 ## Fixed width containers
 
 If you only want to constrain content so it matches the grid's fixed width, you can use the utility `.u-fixed-width`. It behaves as a grid `.row` with a single 12 column container inside:
@@ -62,8 +149,9 @@ If you only want to constrain content so it matches the grid's fixed width, you 
 ## Nested columns
 
 Columns can be nested infinitely by adding `.row` classes within columns. When nesting, remember to:
-• keep track of the context (available columns), which is equal to the number of columns spanned by the parent element.
-• Ensure `.col-*` classes are direct descendants of `.row` classes. Failing to do so will result in a broken layout.
+
+- keep track of the context (available columns), which is equal to the number of columns spanned by the parent element.
+- Ensure `.col-*` classes are direct descendants of `.row` classes. Failing to do so will result in a broken layout.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/grid/nested/" class="js-example">
     View example of the nested columns within the grid
