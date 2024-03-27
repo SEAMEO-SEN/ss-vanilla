@@ -1,6 +1,3 @@
-// Override default Vanilla settings in your main Sass file
-$color-brand: hsl(244, 43%, 44%);
-
 // fonts
 /* ---------------------------------------------------
     GOOGLE FONTS
@@ -150,7 +147,6 @@ $font-weight-bold: 500;
 
 // Import Vanilla framework
 @import '../scss/build.scss';
-
 @include vf-p-icon-applications;
 @include vf-p-icon-controllers;
 @include vf-p-icon-fullscreen;
