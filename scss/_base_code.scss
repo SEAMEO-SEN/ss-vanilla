@@ -1,6 +1,5 @@
 @import 'settings';
 
-$color-pre-bg: rgba($color-x-dark, 0.03);
 $digit-width: 1ch; // measured width of one character in the monospaced font
 $code-sidebar-width: calc($sph--large + (4 * $digit-width)) !default;
 $code-inline-padding: 0.25rem;
@@ -25,11 +24,10 @@ $code-inline-padding: 0.25rem;
   code,
   kbd,
   samp {
-    background-color: $color-code-background;
-    border-radius: $border-radius;
+    background-color: $colors--theme--background-code;
     box-decoration-break: slice;
     color: inherit;
-    line-height: map-get($line-heights, default-text) - $code-inline-padding;
+    line-height: map-get($settings-text-default, line-height) - $code-inline-padding;
     padding: calc($code-inline-padding - $input-border-thickness) $code-inline-padding;
   }
 
@@ -52,16 +50,15 @@ $code-inline-padding: 0.25rem;
   pre code {
     background: none;
     box-shadow: none;
-    display: inline-block;
-    line-height: map-get($line-heights, default-text);
+    line-height: map-get($settings-text-default, line-height);
     margin-left: 0;
     margin-right: 0;
     padding: 0;
   }
 
   pre {
-    background-color: $color-code-background;
-    color: $color-dark;
+    background-color: $colors--theme--background-code;
+    color: $colors--theme--text-default;
     display: block;
     margin-bottom: $spv--x-large;
     margin-top: 0;
@@ -72,28 +69,21 @@ $code-inline-padding: 0.25rem;
     white-space: pre;
   }
 
-  // dark theme
-  [class*='--dark'] code,
-  code.is-dark {
-    background-color: $color-code-background-dark;
-    color: $colors--dark-theme--text-default;
-  }
-
   %leading-linux-prompt-icon {
     &::before {
       @extend %icon;
-      @include vf-icon-linux-prompt($color-mid-dark);
+      @include vf-icon-linux-prompt-themed;
 
       content: '';
       left: $sph--large;
       position: absolute;
-      top: #{$spv--small + 0.5 * (map-get($line-heights, default-text) - map-get($icon-sizes, default))};
+      top: #{$spv--small + 0.5 * (map-get($settings-text-default, line-height) - map-get($icon-sizes, default))};
       width: map-get($icon-sizes, default);
 
       @if ($increase-font-size-on-larger-screens) {
         // stylelint-disable-next-line max-nesting-depth
         @media (min-width: $breakpoint-x-large) {
-          top: #{$spv--small + 0.5 * (map-get($line-heights, default-text) * $font-size-ratio--largescreen - map-get($icon-sizes, default))};
+          top: #{$spv--small + 0.5 * (map-get($settings-text-default, line-height) * $font-size-ratio--largescreen - map-get($icon-sizes, default))};
         }
       }
     }
@@ -111,7 +101,7 @@ $code-inline-padding: 0.25rem;
     }
 
     &::before {
-      color: $color-mid-dark;
+      color: $colors--theme--text-muted;
       content: counter(line-numbering);
       counter-increment: line-numbering;
       height: 100%;

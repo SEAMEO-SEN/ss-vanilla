@@ -1,0 +1,29 @@
+# This workflow runs Percy against non-draft PRs that have changes in relevant examples filepaths.
+name: "Percy (pushed)"
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "templates/docs/examples/**"
+      - "templates/_macros/**"
+      - "scss/**"
+      - "tokens/**"
+      - "sd.config.json"
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  copy_artifact:
+    name: Copy changed files to GHA artifact
+    # Ignore draft PRS and PRs with the Percy label
+    # If we run tests against PRs with the Percy label, we will run tests twice (test is also ran by the labelling workflow)
+    if: "!github.event.pull_request.draft && !contains(toJson(github.event.pull_request.labels.*.name), 'Review: Percy needed')"
+    uses: ./.github/workflows/percy-prepare.yml
+    with:
+      pr_number: ${{ github.event.number }}
+      commitsh: ${{ github.event.pull_request.head.sha }}
+
+# Completion should trigger `pr-percy-snapshots` workflow.

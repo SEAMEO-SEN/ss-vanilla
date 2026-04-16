@@ -8,6 +8,10 @@
 /docs/component-status: /docs/whats-new
 /docs/upgrade-guide-v3: /docs/migration-guide-to-v3
 /docs/examples/patterns/x-small-capitalised: /docs/examples/patterns/text-small-caps
+/docs/base/separators: /docs/patterns/rule
+/docs/base/paper: /docs/base/themes
+/contribute: /docs/contribute
+/accessibility: /docs/accessibility
 
 # redirects based on class names
 /docs/patterns/code-snippet: /docs/base/code
@@ -54,3 +58,54 @@
 /docs/utilities/visualise-font-metrics: /docs/utilities/font-metrics
 /docs/utilities/no-margin: /docs/utilities/margin-collapse
 /docs/utilities/no-padding: /docs/utilities/margin-collapse
+
+# Below redirects are for examples that were either moved or removed in https://github.com/canonical/vanilla-framework/pull/5178
+/docs/examples/base/code-block: /docs/examples/base/code/block
+/docs/examples/base/code-inline-dark: /docs/examples/base/code/inline?theme=dark
+/docs/examples/base/code-inline: /docs/examples/base/code/inline
+/docs/examples/base/headings: /docs/examples/base/headings/default
+/docs/examples/base/headings-accented: /docs/examples/base/headings/accented
+/docs/examples/base/sub-headings: /docs/examples/base/headings/sub-headings
+/docs/examples/base/hr-fixed-width: /docs/examples/base/hr/fixed-width
+/docs/examples/base/hr-muted: /docs/examples/base/hr/muted
+/docs/examples/base/hr: /docs/examples/base/hr/default
+/docs/examples/base/table-empty: /docs/examples/base/table/empty
+/docs/examples/base/table: /docs/examples/base/table/default
+/docs/examples/patterns/buttons/dark: /docs/examples/patterns/buttons/default?theme=dark
+/docs/examples/patterns/chip/dark: /docs/examples/patterns/chip/default?theme=dark
+/docs/examples/patterns/code-snippet/default-dark: /docs/examples/patterns/code-snippet/default?theme=dark
+/docs/examples/patterns/code-snippet/dropdown-multiple-dark: /docs/examples/patterns/code-snippet/dropdown-multiple?theme=dark
+/docs/examples/patterns/code-snippet/icon-dark: /docs/examples/patterns/code-snippet/icon?theme=dark
+/docs/examples/patterns/equal-height-row/3-column-row: /docs/examples/patterns/equal-height-row/3-column-row-responsive
+/docs/examples/patterns/equal-height-row/4-items-per-column: /docs/examples/patterns/equal-height-row/4-items-per-column-responsive
+/docs/examples/patterns/equal-height-row/default: /docs/examples/patterns/equal-height-row/default-responsive
+/docs/examples/patterns/links/links-dark: /docs/examples/patterns/links/default?theme=dark
+/docs/examples/patterns/tables/table-mobile-card-dark: /docs/examples/patterns/tables/table-mobile-card?theme=dark
+/docs/examples/patterns/tables/table-sortable-dark: /docs/examples/patterns/tables/table-sortable?theme=dark
+/docs/examples/patterns/suru/dark: /docs/examples/patterns/suru/default?theme=dark
+/docs/examples/patterns/suru/50-50-dark: /docs/examples/patterns/suru/50-50?theme=dark
+/docs/examples/patterns/logo-section/logo-section: /docs/examples/patterns/logo-section/default
+/docs/examples/patterns/logo-block/logo-section: /docs/examples/patterns/logo-block/default
+/docs/examples/patterns/tabs/content-dark: /docs/examples/patterns/tabs/content?theme=dark
+/docs/examples/patterns/search-box/default-dark: /docs/examples/patterns/search-box/default?theme=dark
+/docs/examples/patterns/rule/dark: /docs/examples/patterns/rule/default?theme=dark
+/docs/examples/patterns/notifications/notifications-dark: /docs/examples/patterns/notifications/notifications?theme=dark
+/docs/examples/patterns/notifications/variants-dark: /docs/examples/patterns/notifications/variants?theme=dark
+/docs/examples/patterns/icons/icons-light: /docs/examples/patterns/icons/standard?theme=light
+/docs/examples/patterns/icons/icons-dark: /docs/examples/patterns/icons/standard?theme=dark
+/docs/examples/patterns/divider/dark: /docs/examples/patterns/divider/default?theme=dark
+/docs/examples/patterns/contextual-menu/dark: /docs/examples/patterns/contextual-menu/default?theme=dark
+/docs/examples/patterns/forms/form-validation-dark: /docs/examples/patterns/forms/form-validation?theme=dark
+/docs/examples/patterns/lists/lists-mid-dot-dark: /docs/examples/patterns/lists/lists-mid-dot?theme=dark
+/docs/examples/patterns/lists/lists-stepped-dark: /docs/examples/patterns/lists/lists-stepped?theme=dark
+/docs/examples/patterns/navigation/dropdown-dark: /docs/examples/patterns/navigation/dropdown?theme=dark
+/docs/examples/patterns/navigation/search-dark: /docs/examples/patterns/navigation/search?theme=dark
+/docs/examples/patterns/navigation/search-light: /docs/examples/patterns/navigation/search?theme=light
+/docs/examples/patterns/navigation/sliding-light: /docs/examples/patterns/navigation/sliding?theme=light
+/docs/examples/patterns/side-navigation/accordion-dark: /docs/examples/patterns/side-navigation/accordion?theme=dark
+/docs/examples/patterns/side-navigation/dark: /docs/examples/patterns/side-navigation/default?theme=dark
+/docs/examples/patterns/side-navigation/expandable-dark: /docs/examples/patterns/side-navigation/expandable?theme=dark
+/docs/examples/patterns/side-navigation/paper: /docs/examples/patterns/side-navigation/default?theme=paper
+
+/docs/examples/patterns/grid/25-75-responsive: /docs/examples/patterns/grid/25-75-responsive-large
+/docs/examples/patterns/list-tree: /docs/examples/patterns/list-tree/legacy

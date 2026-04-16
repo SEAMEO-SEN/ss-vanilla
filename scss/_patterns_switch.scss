@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import 'settings';
 $knob-size: $sp-unit * 2;
 
@@ -13,7 +14,7 @@ $knob-size: $sp-unit * 2;
     position: absolute;
 
     &:checked + .p-switch__slider::before {
-      border: $input-border-thickness solid $color-link;
+      border: $input-border-thickness solid $colors--theme--link-default;
       left: 50%;
     }
 
@@ -22,22 +23,21 @@ $knob-size: $sp-unit * 2;
     }
 
     &:checked + .p-switch__slider {
-      background: $color-link;
+      background: $colors--theme--link-default;
     }
 
     &:focus {
       outline: none;
 
       + .p-switch__slider {
-        outline: $bar-thickness solid $color-focus;
+        outline: $bar-thickness solid $colors--theme--focus;
       }
     }
   }
 
   .p-switch__slider {
-    background: $color-mid-light;
+    background: $colors--theme--border-high-contrast;
     border-radius: $knob-size;
-    box-shadow: inset 0 2px 5px 0 transparentize($color-dark, 0.8);
     display: inline-block;
     height: $knob-size;
     margin: 0;
@@ -45,12 +45,10 @@ $knob-size: $sp-unit * 2;
     width: $knob-size * 2;
 
     &::before {
-      @extend %vf-has-round-corners;
-      @extend %vf-has-box-shadow;
       @include vf-transition($duration: slow);
 
-      background: $color-x-light;
-      border: $input-border-thickness solid $color-mid-dark;
+      background: $colors--theme--background-default;
+      border: $input-border-thickness solid $colors--theme--border-high-contrast;
       border-radius: 50%;
       content: '';
       height: $knob-size;

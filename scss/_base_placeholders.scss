@@ -7,6 +7,8 @@
   @include vf-b-typography-definitions;
 
   // Styling
+
+  // deprecated, will be removed in future version of Vanilla
   %vf-has-round-corners {
     border-radius: $border-radius;
   }
@@ -23,28 +25,33 @@
     border: $border;
   }
 
-  %vf-bg--light {
-    background-color: $color-light;
-    color: $color-dark;
+  %vf-bg-themed {
+    background-color: $colors--theme--background-default;
+    color: $colors--theme--text-default;
   }
 
+  // deprecated -- use the theme colour variables
+  %vf-bg--light {
+    background-color: $color-light;
+    color: $colors--light-theme--text-default;
+  }
+
+  // deprecated -- use the theme colour variables
   %vf-bg--x-light {
     background-color: $color-x-light;
-    color: $color-dark;
+    color: $colors--light-theme--text-default;
   }
 
   %vf-card-padding {
-    overflow: auto;
+    overflow: auto; // prevent overflow of child margins
     padding: $spv--large;
   }
 
   %vf-card {
-    @extend %vf-bg--x-light;
+    @extend %vf-bg-themed;
     @extend %vf-card-padding;
 
     margin-bottom: $spv--x-large;
-    overflow: auto; // prevent overflow of child margins
-    padding: $spv--large;
   }
 
   //accordion, table
@@ -62,7 +69,7 @@
 
   // Bars and borders
   %vf-pseudo-border {
-    background-color: $color-mid-light;
+    background-color: $colors--theme--border-default;
     content: '';
     height: 1px;
     left: 0;
@@ -90,9 +97,23 @@
     }
   }
 
+  %vf-pseudo-border--left {
+    position: relative;
+
+    &::before {
+      @extend %vf-pseudo-border;
+      bottom: 0;
+      height: auto;
+      top: 0;
+      width: 1px;
+    }
+  }
+
   %hr {
+    background: $colors--theme--border-default;
     border: 0;
     height: 1px;
+    margin-bottom: calc($spv--small - 1px);
     margin-top: 0;
     position: relative;
     width: 100%;
@@ -100,13 +121,8 @@
 
   // Spacing
   %section-padding--shallow {
-    padding-bottom: $spv--x-large * 0.5;
-    padding-top: $spv--x-large * 0.5;
-
-    @media (min-width: $breakpoint-large) {
-      padding-bottom: $spv--x-large;
-      padding-top: $spv--x-large;
-    }
+    padding-bottom: $spv--x-large;
+    padding-top: $spv--x-large;
   }
 
   %section-padding--default {
@@ -128,6 +144,17 @@
   }
 
   // Utilities
+  %u-off-screen {
+    &:not(:focus):not(:active) {
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+  }
+
   %vf-hide-text {
     overflow: hidden;
     // vw value necessary because text indent in % does not work with padding;
@@ -150,55 +177,75 @@
   }
 
   %u-no-margin--bottom--h1 {
-    margin-bottom: -#{map-get($nudges, h1-mobile)} !important;
+    margin-bottom: -#{map-get($settings-text-h1-mobile, nudge)} !important;
 
     @media (min-width: $breakpoint-heading-threshold) {
-      margin-bottom: -#{map-get($nudges, h1)} !important;
+      margin-bottom: -#{map-get($settings-text-h1, nudge)} !important;
     }
 
     @if ($increase-font-size-on-larger-screens) {
       @media (min-width: $breakpoint-x-large) {
-        margin-bottom: -#{map-get($nudges, h1-large)} !important;
+        margin-bottom: -#{map-get($settings-text-h1-large, nudge)} !important;
       }
     }
   }
 
   %u-no-margin--bottom--h2 {
-    margin-bottom: -#{map-get($nudges, h2-mobile)} !important;
+    margin-bottom: -#{map-get($settings-text-h2-mobile, nudge)} !important;
 
     @media (min-width: $breakpoint-heading-threshold) {
-      margin-bottom: -#{map-get($nudges, h2)} !important;
-    }
-  }
-
-  %u-no-margin--bottom--h3 {
-    margin-bottom: #{$sp-unit - map-get($nudges, h3-mobile)} !important;
-
-    @media (min-width: $breakpoint-heading-threshold) {
-      margin-bottom: -#{map-get($nudges, h3)} !important;
-    }
-  }
-
-  %u-no-margin--bottom--h4 {
-    margin-bottom: #{$sp-unit - map-get($nudges, h4-mobile)} !important;
-
-    @media (min-width: $breakpoint-heading-threshold) {
-      margin-bottom: -#{map-get($nudges, h4)} !important;
+      margin-bottom: -#{map-get($settings-text-h2, nudge)} !important;
     }
 
     @if ($increase-font-size-on-larger-screens) {
       @media (min-width: $breakpoint-x-large) {
-        margin-bottom: -#{map-get($nudges, h4-large)} !important;
+        margin-bottom: -#{map-get($settings-text-h2-large, nudge)} !important;
       }
     }
   }
 
+  %u-no-margin--bottom--h3 {
+    margin-bottom: #{$sp-unit - map-get($settings-text-h3-mobile, nudge)} !important;
+
+    @media (min-width: $breakpoint-heading-threshold) {
+      margin-bottom: -#{map-get($settings-text-h3, nudge)} !important;
+    }
+
+    @if ($increase-font-size-on-larger-screens) {
+      @media (min-width: $breakpoint-x-large) {
+        margin-bottom: -#{map-get($settings-text-h3-large, nudge)} !important;
+      }
+    }
+  }
+
+  %u-no-margin--bottom--h4 {
+    margin-bottom: #{$sp-unit - map-get($settings-text-h4-mobile, nudge)} !important;
+
+    @media (min-width: $breakpoint-heading-threshold) {
+      margin-bottom: -#{map-get($settings-text-h4, nudge)} !important;
+    }
+
+    @if ($increase-font-size-on-larger-screens) {
+      @media (min-width: $breakpoint-x-large) {
+        margin-bottom: -#{map-get($settings-text-h4-large, nudge)} !important;
+      }
+    }
+  }
+
+  %u-no-margin--bottom--h5 {
+    margin-bottom: #{$sp-unit - map-get($settings-text-h5, nudge)} !important;
+  }
+
+  %u-no-margin--bottom--h6 {
+    margin-bottom: #{$sp-unit - map-get($settings-text-h6, nudge)} !important;
+  }
+
   %u-no-margin--bottom--default-text {
-    margin-bottom: #{$sp-unit - map-get($nudges, p)} !important;
+    margin-bottom: #{$sp-unit - map-get($settings-text-p, nudge)} !important;
   }
 
   %u-no-margin--bottom--small {
-    margin-bottom: -#{map-get($nudges, small)} !important;
+    margin-bottom: -#{map-get($settings-text-small, nudge)} !important;
   }
 
   %u-no-margin--bottom--hr {

@@ -3,7 +3,6 @@
 @mixin vf-p-article-pagination {
   %chevron-icon {
     @extend %icon;
-    @include vf-icon-chevron($color-mid-dark);
 
     content: '';
     position: absolute;
@@ -17,7 +16,7 @@
 
   .p-article-pagination__label,
   .p-article-pagination__title {
-    color: $color-dark;
+    color: $colors--theme--text-default;
     display: block;
     margin-top: 0;
     width: 100%;
@@ -56,7 +55,7 @@
     padding-left: $sp-xx-large;
     text-align: left;
 
-    @media (max-width: $breakpoint-x-small - 1) {
+    @media (width < $breakpoint-x-small) {
       margin-right: 0;
       width: auto;
 
@@ -73,9 +72,9 @@
 
     &::before {
       @extend %chevron-icon;
+      @include vf-icon-chevron-left-themed;
 
       left: $sp-small;
-      transform: rotate(90deg);
     }
   }
 
@@ -85,7 +84,7 @@
     padding-right: $sp-xx-large;
     text-align: right;
 
-    @media (max-width: $breakpoint-x-small - 1) {
+    @media (width < $breakpoint-x-small) {
       width: 100%;
     }
 
@@ -95,9 +94,9 @@
 
     &::after {
       @extend %chevron-icon;
+      @include vf-icon-chevron-right-themed;
 
       right: $sp-small;
-      transform: rotate(-90deg);
     }
   }
 }

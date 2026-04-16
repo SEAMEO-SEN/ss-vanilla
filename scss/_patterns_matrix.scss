@@ -15,7 +15,7 @@
   }
 
   .p-matrix__item {
-    border-top: 1px solid $color-mid-light;
+    border-top: 1px solid $colors--theme--border-low-contrast;
     display: flex;
     flex: 1 1 auto;
     padding-bottom: $spv--large;
@@ -31,7 +31,7 @@
       width: 33.333%;
     }
 
-    @media (min-width: $threshold-4-6-col) and (max-width: $threshold-6-12-col - 1) {
+    @media ($threshold-4-6-col <= width < $threshold-6-12-col) {
       flex-direction: column;
 
       &:nth-child(2),
@@ -40,8 +40,10 @@
       }
     }
 
+    // TODO: Multiple redundant properties between this media query and the one
+    // below
     @media (min-width: $threshold-6-12-col) {
-      border-right: 1px solid $color-mid-light;
+      border-right: 1px solid $colors--theme--border-low-contrast;
       padding-left: $spv--large;
       padding-right: $spv--large;
       width: 33.333%;
@@ -67,7 +69,7 @@
 
     @media (min-width: $threshold-6-12-col) {
       // 3 items per row
-      border-right: 1px solid $color-mid-light;
+      border-right: 1px solid $colors--theme--border-low-contrast;
       width: 33.333%;
 
       &:empty {
@@ -95,18 +97,19 @@
     align-self: flex-start;
     flex-shrink: 0;
     height: auto;
-    margin-bottom: $spv--small;
     margin-right: $matrix-img-gutter;
     margin-top: 0;
     width: $matrix-img-width;
 
     @media (min-width: $breakpoint-heading-threshold) {
-      margin-top: -#{map-get($nudges, h4)};
+      // place image in the middle of the heading text
+      margin-top: calc(map-get($settings-text-h4, nudge) + (map-get($settings-text-h4, line-height) - $matrix-img-width) / 2);
     }
 
     @if ($increase-font-size-on-larger-screens) {
       @media (min-width: $breakpoint-x-large) {
-        margin-top: -#{map-get($nudges, h4-large)};
+        // place image in the middle of the heading text
+        margin-top: calc(map-get($settings-text-h4-large, nudge) + (map-get($settings-text-h4, line-height) - $matrix-img-width) / 2);
       }
     }
   }
@@ -126,12 +129,12 @@
     @extend %vf-heading-4;
 
     @media (min-width: $breakpoint-heading-threshold) {
-      margin-bottom: -#{map-get($nudges, h4)};
+      margin-bottom: -#{map-get($settings-text-h4, nudge)};
     }
 
     @if ($increase-font-size-on-larger-screens) {
       @media (min-width: $breakpoint-x-large) {
-        margin-bottom: -#{map-get($nudges, h4-large)};
+        margin-bottom: -#{map-get($settings-text-h4-large, nudge)};
       }
     }
   }
@@ -139,7 +142,7 @@
   .p-matrix__desc {
     margin-bottom: $spv-nudge-compensation;
 
-    @media (max-width: $breakpoint-heading-threshold - 1) {
+    @media (width < $breakpoint-heading-threshold) {
       margin-top: -#{$sp-unit};
     }
 

@@ -2,3 +2,12 @@
 @include vf-base;
 
 @include vf-p-logo-section;
+
+// Used to keep the background dark on the dark logo section
+@include vf-p-strip;
+
+// Needed for .u-align--center
+@include vf-u-align;
+
+// Needed for .u-fixed-width
+@include vf-u-layout;

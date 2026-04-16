@@ -1,9 +1,711 @@
+- version: 4.49.0
+  features:
+    - component: Icon
+      url: /docs/patterns/icons
+      status: New
+      notes: Added icons for devtools (on/off), keyboard (on/off), resize (on/off), rotate left, rotate right, start/stop screen record, screenshot, volume down, and volume up.
+- version: 4.48.0
+  features:
+    - component: Card pattern
+      url: /docs/patterns/content-card
+      status: New
+      notes: Added Vanilla pattern for rendering cards.
+- version: 4.47.0
+  features:
+    - component: Chip
+      url: /docs/patterns/chip#branded-chip-new
+      status: Updated
+      notes: Added a branded chip to label items in relationship to Ubuntu Pro.
+    - component: Icon
+      url: /docs/patterns/icons
+      status: New
+      notes: Added icon for circle of friends.
+- version: 4.46.0
+  features:
+    - component: CTA section
+      url: /docs/patterns/cta-section
+      status: Updated
+      notes: Added <a href="/docs/patterns/cta-section#blocks">blocks</a> successor to slots.
+- version: 4.45.0
+  features:
+    - component: In-page navigation
+      url: /docs/patterns/in-page-navigation
+      status: New
+      notes: We've introduced a new in-page navigation pattern.
+- version: 4.44.0
+  features:
+    - component: Hero section
+      url: /docs/patterns/hero
+      status: Updated
+      notes: Added <a href="/docs/patterns/hero#blocks">blocks</a> successor to slots.
+    - component: Basic section
+      url: /docs/patterns/basic-section
+      status: Updated
+      notes: Added more aspect_ratio options to the image block. Introduced two new parameters, <code>is_cover</code> and <code>override_last_item_padding</code>.
+- version: 4.43.0
+  features:
+    - component: Icon
+      url: /docs/patterns/icons
+      status: New
+      notes: Added icons for storage pool, storage volume, and storage bucket.
+- version: 4.42.0
+  features:
+    - component: Resources
+      url: /docs/patterns/resources
+      status: Updated
+      notes: Added a new <code>padding</code> parameter to customize the section padding.
+- version: 4.41.0
+  features:
+    - component: Table
+      url: /docs/base/tables#sortable-updated
+      status: Updated
+      notes: We've added the table sort button, which enables keyboard-accessible table sorting.
+    - component: Tiered list
+      url: /docs/patterns/tiered-list
+      status: Updated
+      notes: Added a new <code>padding</code> parameter to customize the bottom padding.
+- version: 4.40.0
+  features:
+    - component: Logo section
+      url: /docs/patterns/logo-section
+      status: Updated
+      notes: Added a new <code>mode</code> parameter. Updated <code>padding</code> and <code>top_rule_variant</code> parameters.
+    - component: Logo block
+      url: /docs/patterns/logo-block
+      status: Deprecated
+      notes: Logo block is now deprecated in favor of the <a href="/docs/patterns/logo-section#full-vs-minimal-mode">Logo section</a> pattern.
+- version: 4.39.0
+  features:
+    - component: CTA section
+      url: /docs/patterns/cta-section
+      status: Updated
+      notes: Added <code>attrs</code> parameter to the section element.
+    - component: Tab section
+      url: /docs/patterns/tab-section
+      status: New
+      notes: We've introduced a new tab section pattern.
+    - component: Equal height row component
+      url: /docs/patterns/equal-height-row
+      status: Updated
+      notes: Update from legacy grid to 8 column grid.
+    - component: Equal heights
+      url: /docs/patterns/equal-heights
+      status: Updated
+      notes: Added support to link item titles.
+- version: 4.38.0
+  features:
+    - component: Basic section
+      url: /docs/patterns/basic-section
+      status: Updated
+      notes: Added <code>attrs</code> parameter to the section element.
+    - component: Pricing block
+      url: /docs/patterns/pricing-block
+      status: Updated
+      notes: Added <code>attrs</code> parameter to the section element.
+    - component: Equal heights
+      url: /docs/patterns/equal-heights
+      status: Updated
+      notes: Added <code>attrs</code> parameter to the section element.
+- version: 4.37.0
+  features:
+    - component: Icon
+      url: /docs/patterns/icons
+      status: New
+      notes: Added the <code>generative-ai</code>, <code>ignored</code>, and <code>vulnerable</code> icons.
+    - component: Equal heights
+      url: /docs/patterns/equal-heights
+      status: Updated
+      notes: Align two columns to the right.
+    - component: Equal heights
+      url: /docs/patterns/equal-heights
+      status: Updated
+      notes: Made the item <code>title_text</code> parameter optional.
+- version: 4.36.0
+  features:
+    - component: Blog pattern
+      url: /docs/patterns/blog
+      status: New
+      notes: We've introduced a new Blog pattern for displaying blog articles in a responsive grid layout.
+    - component: Resources pattern
+      url: /docs/patterns/resources
+      status: New
+      notes: We've introduced a new Resources pattern for displaying resources in a responsive layout, with support for categories, images, logos, and resource details including citations
+    - component: Hero
+      url: /docs/patterns/hero
+      status: Updated
+      notes: Added a new <code>display_blank_signpost_image_space</code> option to display a blank space instead of a signpost image.
+    - component: Equal heights
+      url: /docs/patterns/equal-heights
+      status: Updated
+      notes: Added an <code>"auto"</code> option to the <code>image_aspect_ratio</code> parameters, allowing images to retain their original aspect ratios.
+- version: 4.34.0
+  features:
+    - component: Data spotlight pattern
+      url: /docs/patterns/data-spotlight
+      status: New
+      notes: We've introduced a new Data spotlight pattern
+    - component: Logo section
+      url: /docs/patterns/logo-section
+      status: New
+      notes: We've introduced a new Logo section pattern.
+    - component: Logo block
+      url: /docs/patterns/logo-block
+      status: Updated
+      notes: We have renamed the formerly named "Logo section" component to "Logo block"
+- version: 4.33.0
+  features:
+    - component: Newsletter signup pattern
+      url: /docs/patterns/newsletter-signup
+      status: Updated
+      notes: We've introduced a new parameter and slot to the Newsletter signup pattern
+- version: 4.32.0
+  features:
+    - component: Divided section
+      url: /docs/patterns/divided-section
+      status: New
+      notes: We've introduced a new divided section pattern.
+    - component: Basic section
+      url: /docs/patterns/basic-section
+      status: Updated
+      notes: We've added notifications within the basic section pattern.
+- version: 4.31.0
+  features:
+    - component: Newsletter signup pattern
+      url: /docs/patterns/newsletter-signup#25-75
+      status: New
+      notes: We've introduced a new Newsletter signup pattern.
+    - component: Text spotlight pattern
+      url: /docs/patterns/text-spotlight#default
+      status: Updated
+      notes: We have added an optional <a href="/docs/patterns/text-spotlight#jinja-macro">item_heading_level</a> param to the text spotlight pattern.
+- version: 4.30.0
+  features:
+    - component: Basic section
+      url: /docs/patterns/basic-section
+      status: New
+      notes: We've introduced a new basic section pattern.
+    - component: Linked logo section
+      url: /docs/patterns/linked-logo-section
+      status: Updated
+      notes: The linked logo section now supports passing images as attribute dictionaries, rather than raw HTML, allowing the pattern to automatically add the <code>p-image-container__image</code> class to the images. The pattern now also supports customizing its top rule variant and bottom spacing, which can be used to embed it within other patterns.
+    - component: Pricing block
+      url: /docs/patterns/pricing-block
+      status: Updated
+      notes: The pricing block pattern now has a <a href="/docs/patterns/rule#default">default rule</a> at the top by default. The <a href="/docs/patterns/rule#highlighted">highlighted rule</a> can be used with <code>top_rule_variant="highlighted"</code>.
+- version: 4.29.0
+  features:
+    - component: Single-tier pricing block pattern variant
+      url: /docs/patterns/pricing-block#1-block
+      status: New
+      notes: We've added a new single-tier variant for the pricing block pattern.
+- version: 4.28.0
+  features:
+    - component: Equal heights
+      url: /docs/patterns/equal-heights
+      status: Updated
+      notes: We've introduced an option to use <a href="/docs/patterns/images#highlighted-image">highlighted images</a> within the equal heights pattern.
+- version: 4.27.0
+  features:
+    - component: Grid
+      url: /docs/patterns/grid#common-patterns-new
+      status: New
+      notes: We've added common grid pattern shorthands for the new grid.
+    - component: Spacing Settings
+      url: /docs/settings/spacing-settings#text-spacing-new
+      status: Updated
+      notes: We've migrated the <code>$sp-after</code>, <code>$nudges</code>, <code>$font-sizes</code>, and <code>$line-heights</code> maps to new per-text type maps <code>$settings-text-h1</code>, <code>$settings-text-h1-large</code>, <code>$settings-text-h1-mobile</code>, <code>$settings-text-h2</code>, etc., to enable text spacing customisation.
+    - component: Font Settings
+      url: /docs/settings/font-settings#heading-levels-new
+      status: Updated
+      notes: We've added <code>$font-weight-</code> variables for each heading level, allowing for customisation of font weights for headings.
+- version: 4.26.0
+  features:
+    - component: Icons
+      url: /docs/patterns/icons#recently-added-icons-new
+      status: New
+      notes: We've added the new <code>p-icon--history</code> icon.
+    - component: Text Spotlight Pattern
+      url: /docs/patterns/text-spotlight
+      status: New
+      notes: We've introduced a new Text Spotlight section pattern.
+    - component: CTA Section Pattern
+      url: /docs/patterns/cta-section
+      status: New
+      notes: We've introduced a new CTA section pattern.
+    - component: Tiered list
+      url: /docs/patterns/tiered-list
+      status: Updated
+      notes: We've removed the horizontal rule above the first tiered list item.
+- version: 4.25.0
+  features:
+    - component: CTA Block
+      url: /docs/patterns/cta-block
+      status: Updated
+      notes: We've updated the CTA block to be borderless by default. A new <code>has-border</code> class can be used to add a border back, but this will be deprecated in the next major version.
+    - component: Chip
+      url: /docs/patterns/chip
+      status: Updated
+      notes: We've added a <a href="/docs/patterns/chip#read-only-new">read-only</a> variant to the chip pattern. This subsumes the semantic status indication behavior of the <a href="/docs/patterns/status-labels">status label</a> pattern, which is being deprecated. We've also added <a href="/docs/patterns/chip#chip-with-badge-new">badged</a> and <a href="/docs/patterns/chip#chip-with-icon-new">icon</a> variants of the chip pattern.
+    - component: Status label
+      url: /docs/patterns/status-labels
+      status: Deprecated
+      notes: The status label pattern is deprecated in favor of the new <a href="/docs/patterns/chip#read-only-new">read-only chip variant</a>. It will be removed in the next major version.
+- version: 4.24.0
+  features:
+    - component: Equal heights
+      url: /docs/patterns/equal-heights
+      status: New
+      notes: We've introduced the new equal heights pattern.
+- version: 4.23.0
+  features:
+    - component: Pricing block
+      url: /docs/patterns/pricing-block
+      status: New
+      notes: We've introduced the new pricing block jinja pattern.
+    - component: Linked logo section
+      url: /docs/patterns/linked-logo-section
+      status: New
+      notes: We've introduced a new pattern for linked logo sections
+- version: 4.22.0
+  features:
+    - component: Icons / Heading, Quote
+      url: /docs/patterns/icons#new-icons
+      status: New
+      notes: We've added new heading and quote icons.
+- version: 4.21.0
+  features:
+    - component: Rich horizontal list
+      url: /docs/patterns/rich-list-horizontal
+      status: New
+      notes: We've introduced the new rich horizontal list pattern.
+- version: 4.20.1
+  features:
+    - component: Hero
+      url: /docs/patterns/hero#5050-with-no-image-new
+      status: Updated
+      notes: We've added support for 50/50 hero sections with no image.
+- version: 4.20.0
+  features:
+    - component: List
+      url: /docs/patterns/lists#horizontal-section-new
+      status: New
+      notes: We've introduced the <code>.p-list--horizontal-section</code> list variant.
+- version: 4.19.0
+  features:
+    - component: Icons / Credit card
+      url: /docs/patterns/icons#new-icons
+      status: New
+      notes: We've added the new credit card icon.
+- version: 4.18.0
+  features:
+    - component: Quote wrapper
+      url: /docs/patterns/quote-wrapper
+      status: New
+      notes: The quote wrapper pattern macro has been published.
+    - component: Grid
+      url: /docs/patterns/grid
+      status: New
+      notes: We've created a new grid component. It is a replacement for the <a href="/docs/patterns/grid-legacy">legacy grid</a> with 4 columns on small/medium and 8 columns on large screens.
+    - component: Legacy grid
+      url: /docs/patterns/grid-legacy
+      status: Deprecated
+      notes: We've deprecated the legacy grid component. Use the new <a href="/docs/patterns/grid">grid component</a> instead.
+    - component: Form / Dense / Validation, help text
+      url: /docs/base/forms#dense-form-elements
+      status: Updated
+      notes: We've added support for <code>.is-dense</code> to form validation messages and help text.
+    - component: Rich vertical list
+      url: /docs/patterns/rich-list-vertical
+      status: New
+      notes: We've introduced a new rich vertical list pattern.
+- version: 4.17.0
+  features:
+    - component: Tiered list
+      url: /docs/patterns/tiered-list
+      status: Updated
+      notes: The tiered list pattern macro has been published.
+    - component: Hero
+      url: /docs/patterns/hero
+      status: Updated
+      notes: The hero pattern macro has been published.
+    - component: Utilities / Align
+      url: /docs/utilities/align#vertical-alignment
+      status: New
+      notes: We've introduced a new <code>u-vertical-align--middle</code> utility class.
+    - component: Icons
+      url: /docs/patterns/icons#new-icons
+      status: New
+      notes: We added several new icons to the additional icon set.
+- version: 4.16.0
+  features:
+    - component: CTA Block / Borderless
+      url: /docs/patterns/cta-block#borderless-deprecated
+      status: New
+      notes: We've introduced a new borderless variant of the CTA block component.
+    - component: Forms / Fieldset required
+      url: /docs/base/forms#fieldset
+      status: New
+      notes: We've introduced <code>is-required</code> to legend fieldset elements.
+    - component: Rule
+      url: /docs/patterns/rule
+      status: Updated
+      notes: Rule component has been updated to provide consistent styling with base <code>hr</code> element and replace its deprecated variants.
+    - component: Separator styles
+      url: /docs/patterns/rule#deprecated
+      status: Deprecated
+      notes: We are deprecating <code>hr.is-muted</code> and <code>p-separator</code> class names.
+    - component: Image container
+      url: /docs/patterns/images#image-container-with-aspect-ratio
+      status: New
+      notes: We've added new breakpoint-specific aspect ratio classes to the image container component.
+    - component: Tiered list
+      url: /docs/patterns/tiered-list
+      status: Updated
+      notes: We've added new CTA block usage examples for the tiered list pattern.
+    - component: Equal Height Row
+      url: /docs/patterns/equal-height-row#wrap-variant
+      status: New
+      notes: We've added a new wrap variant to the equal height row component.
+    - component: List tree
+      url: /docs/patterns/list-tree
+      status: Updated
+      notes: We've updated the list tree to be more accessible and modern. We recommend you update your list tree markup and scripts to match the new structure. However, the legacy structure is still supported.
+- version: 4.15.0
+  features:
+    - component: CTA Block
+      url: /docs/patterns/cta-block
+      status: New
+      notes: We've introduced a new CTA block component.
+    - component: Grid
+      url: /docs/patterns/grid
+      status: New
+      notes: We've added the <code>.row--75-25</code> class to simplify creation of 75/25% grid layouts.
+    - component: Grid
+      url: /docs/patterns/grid
+      status: Deprecated
+      notes: We've deprecated the <code>.row.is-bordered</code> class.
+    - component: Navigation / Full-width dropdowns
+      url: /docs/patterns/navigation#full-width-dropdowns
+      status: New
+      notes: We've introduced a new full-width dropdown option to the top navigation component.
+    - component: Hero
+      url: /docs/patterns/hero#layouts
+      status: New
+      notes: We've added new layout options and detailed documentation to the hero pattern.
+    - component: Logo Section / Dense
+      url: /docs/patterns/logo-section#dense
+      status: Deprecated
+      notes: We've deprecated the dense version of the logo section component.
+    - component: Tiered list
+      url: /docs/patterns/tiered-list
+      status: New
+      notes: We've introduced a new tiered list pattern.
+- version: 4.14.0
+  features:
+    - component: Links / Anchor headings
+      url: /docs/patterns/links#anchor-link
+      status: New
+      notes: We've introduced a new class <code>.p-link--anchor-heading</code> to style anchor links in headings.
+    - component: Image container / Cover
+      url: /docs/patterns/images#cover-image
+      status: New
+      notes: We've added a new cover variant to the image container component via <code>is-cover</code> class to support having images cover the container with predefined aspect ratio.
+    - component: Navigation / Sticky
+      url: /docs/patterns/navigation#sticky
+      status: New
+      notes: We've introduced a new sticky option to the top navigation component via <code>is-sticky</code> class name.
+    - component: Navigation / Reduced
+      url: /docs/patterns/navigation#reduced
+      status: New
+      notes: We've introduced a new reduced variant of the top navigation for building two level top navigation.
+- version: 4.13.0
+  features:
+    - component: Image container
+      url: /docs/patterns/images
+      status: New
+      notes: "We've added a new image container component for controlling image aspect ratio and background."
+    - component: Images / Legacy variants
+      url: /docs/patterns/images
+      status: Deprecated
+      notes: "We've deprecated the <code>p-image--bordered</code> and <code>p-image--shadowed</code> classes. Use <code>p-image-container is-highlighted</code> instead."
+- version: 4.12.0
+  features:
+    - component: Typography
+      url: /docs/base/typography
+      status: New
+      notes: "We've added the new <code>text-wrap: pretty</code> value to avoid text widows on all elements."
+    - component: Icons
+      url: /docs/patterns/icons
+      status: Updated
+      notes: "We've added left and right (<code>.p-icon--chevron-left</code> and <code>.p-icon--chevron-right</code>) variants of the chevron icon."
+- version: 4.11.0
+  features:
+    - component: Suru / Divider
+      url: /docs/patterns/suru#divider-suru
+      status: New
+      notes: We've introduced a new divider variant of the Suru section component.
+    - component: Table layout
+      url: /docs/settings/table-layout
+      status: Updated
+      notes: We've updated the utility classes (<code>u-table-layout--auto</code> and <code>u-table-layout--fixed</code>) to apply to nested tables.
+    - component: Hero
+      url: /docs/patterns/hero
+      status: New
+      notes: We've introduced new detailed documenation for the hero pattern.
+    - component: Equal height row / Dividers
+      url: /docs/patterns/equal-height-row#cross-column-dividers
+      status: Updated
+      notes: We've updated the equal height row component divider class names and removed the dividers from smaller screens.
+- version: 4.10.0
+  features:
+    - component: Navigation / Themes
+      url: /docs/patterns/navigation
+      status: Updated
+      notes: We've updated the navigation to support new theming.
+    - component: Equal height row
+      url: /docs/patterns/equal-height-row
+      status: New
+      notes: We've introduced new equal height row component (<code>.p-equal-height-row</code>) to better align content across columns.
+- version: 4.9.0
+  features:
+    - component: Images
+      url: /docs/patterns/images#media-element-with-spacing
+      status: New
+      notes: We've introduced a way to add spacing above a media element.
+    - component: Buttons / Themes
+      url: /docs/patterns/buttons#theming
+      status: Updated
+      notes: Buttons have been updated to support new theming.
+    - component: Buttons / Brand
+      url: /docs/patterns/buttons#brand
+      status: Deprecated
+      notes: We've deprecated the brand buttons. Use other button styles instead.
+- version: 4.8.0
+  features:
+    - component: Themes
+      url: /docs/settings/color-settings#color-theming
+      status: Updated
+      notes: We're updating colour themes to use CSS custom properties. This affects the way theme is handled by the components.
+    - component: Themes / Default theme setting
+      url: /docs/settings/color-settings#color-theming
+      status: Deprecated
+      notes: We're deprecating the SCSS variables used to set the default theme. Theme can be set by using a class name on an element.
+    - component: Icons / Themes
+      url: /docs/patterns/icons#dark-theme
+      status: Updated
+      notes: Standard Vanilla icons have been updated to support new theming via <code>is-dark</code> class.
+    - component: Icons / Themes
+      url: /docs/patterns/icons#dark-theme
+      status: Deprecated
+      notes: We're deprecating the <code>is-light</code> class for icons. Use <code>is-dark</code> instead.
+    - component: Strip / Themes
+      url: /docs/patterns/strip#themes
+      status: Updated
+      notes: We've updated the strip component to support new theming via <code>is-dark</code> class.
+    - component: Strip / Highlighted
+      url: /docs/patterns/strip#highlighted-strip
+      status: New
+      notes: We've introduced a new highlighted strip component for more consistent use of alternative background colours across the themes.
+    - component: Strip / Deprecations
+      url: /docs/patterns/strip#deprecated
+      status: Deprecated
+      notes: We are deprecating a variety of legacy strip variants in favour of the new themed and highlighted strip.
+    - component: Section / Hero
+      url: /docs/patterns/section#hero-sections
+      status: New
+      notes: We've introduced a new hero variant to the section component using <code>p-section--hero</code>.
+    - component: Suru
+      url: /docs/patterns/suru
+      status: Updated
+      notes: We've updated the Suru component to work as a hero section container, added new backgrounds for 25/75 and 50/50 splits, corner fan and pyramid surus, and updated the theme support.
+    - component: Links / Themes
+      url: /docs/patterns/links
+      status: Updated
+      notes: We've updated the links to support new theming.
+    - component: Links / Inverted
+      url: /docs/patterns/links#inverted
+      status: Deprecated
+      notes: We're deprecating the inverted links. Use the new theme support instead.
+- version: 4.7.0
+  features:
+    - component: Navigation / 25/75 split
+      url: /docs/patterns/navigation
+      status: Updated
+      notes: We've introduced a new variant of top navigation that aligns with 25/75 grid split using <code>p-navigation__row--25-75</code>.
+- version: 4.6.0
+  features:
+    - component: Grid / Responsive
+      url: /docs/patterns/grid#responsive-5050-and-2575
+      status: New
+      notes: We've introduced new responsive variants for 50/50 and 25/75 grid components to allow targeting specific screen sizes with different layouts.
+    - component: Grid / 25/75 split
+      url: /docs/patterns/grid#responsive-5050-and-2575
+      status: Removed
+      notes: We are removing the <code>is-split-on-medium</code> class name as same behaviour is now implemented in `row--25-75` with introduction of the responsive variants <code>row--25-75-on-medium</code> and <code>row--25-75-on-large</code>.
+    - component: Headings
+      url: /docs/base/typography
+      status: Updated
+      notes: We've adjusted the spacing between headings of the same size when they follow one another.
+- version: 4.5.0
+  features:
+    - component: Documentation layout / Sticky container
+      url: /docs/layouts/documentation
+      status: New
+      notes: We improved the support for sticky and scrollable table of contents in documentation layout.
+- version: 4.4.0
+  features:
+    - component: Documentation layout
+      url: /docs/layouts/documentation
+      status: New
+      notes: We've implemented a new full-width documentation layout.
+    - component: Full-width layout
+      url: /docs/layouts/full-width
+      status: Deprecated
+      notes: We've deprecated the full-width layout in favour of the new documentation layout.
+    - component: Side navigation / Paper
+      url: /docs/patterns/navigation#paper
+      status: Updated
+      notes: We've added a support for paper background for the side navigation (via <code>is-paper</code> class on body element).
+    - component: Table of contents
+      url: /docs/patterns/table-of-contents
+      status: Updated
+      notes: We've refreshed the style of the table of contents and improved the consistency of HTML markup.
+- version: 4.3.0
+  features:
+    - component: Logo section
+      url: /docs/patterns/logo-section#fallback-for-misaligned-logos
+      status: Updated
+      notes: We've introduced new fallback variant for logo sections with misaligned images.
+- version: 4.2.0
+  features:
+    - component: Forms / Dark
+      url: /docs/base/forms#dark-theme
+      status: New
+      notes: We've added a new dark version for the forms inputs.
+    - component: Logo section
+      url: /docs/patterns/logo-section
+      status: Updated
+      notes: We've updated the logo section to support variable-width logos and line breaks.
+    - component: Logo section / Title
+      url: /docs/patterns/logo-section#deprecated-title-element
+      status: Deprecated
+      notes: The title element <code>p-logo-section__title</code> in the logo section is now deprecated and should not be used on any new pages. Use a heading instead.
+- version: 4.1.0
+  features:
+    - component: Tabs
+      url: /docs/patterns/tabs#theming
+      status: New
+      notes: We've added a new dark version for the tabs as well as updating the hover and active states.
+    - component: Display headings
+      url: /docs/base/typography#display-headings
+      status: New
+      notes: We've added a new display heading component.
+    - component: Responsive 27/75 grid
+      url: /docs/patterns/grid#2575-responsive
+      status: New
+      notes: We've added a new responsive variant to 27/75 grid component.
+    - component: Suru
+      url: /docs/patterns/suru
+      status: New
+      notes: We've added a new Suru component.
+    - component: Suru strips
+      url: /docs/patterns/strip#suru-strip
+      status: Deprecated
+      notes: Strips with old style of the Suru are now deprecated and should not be used on any new pages. Use a blank strip or new Suru component instead.
+    - component: Brochure site / Section examples
+      url: /docs/layouts/brochure#section-examples
+      status: New
+      notes: We've added examples of some brochure site hero sections.
+- version: 4.0.0
+  features:
+    - component: Migration guide
+      url: /docs/migration-guide-to-v4
+      status: New
+      notes: We've added a migration guide to help you upgrade to Vanilla 4.0.
+    - component: Section
+      url: /docs/patterns/section
+      status: Updated
+      notes: We've updated the section component with new shallow and deep options.
+    - component: Block
+      url: /docs/patterns/section#shallow-sections
+      status: Deprecated
+      notes: The block component should is deprecated, use shallow section instead.
+    - component: Border radius setting
+      url: /docs/settings/placeholder-settings
+      status: Deprecated
+      notes: We removed rounder corners from all Vanilla components and deprecated the use of <code>$border-radius</code> variable.
+    - component: Old-style numerals
+      url: /docs/base/typography#old-style-numerals
+      status: New
+      notes: We've added a new utility class <code>.u-oldstyle-nums</code> to use old-style numerals.
+    - component: Links dark theme
+      url: /docs/patterns/links#dark
+      status: New
+      notes: We've added a new class <code>.is-dark</code> to use the links on dark backgrounds.
+    - component: Rules dark theme
+      url: /docs/patterns/rule#dark-theme
+      status: New
+      notes: We've added a new class <code>.is-dark</code> to use the rules on dark backgrounds.
+    - component: Colours
+      url: /docs/settings/color-settings
+      status: Updated
+      notes: We've updated our brand colour to Ubuntu orange and added a teal accent colour.
+    - component: Accented headings
+      url: /docs/base/typography#accented-headings
+      status: New
+      notes: We've added a new class <code>.is-accent</code> to highlight headings with the accent colour.
+    - component: Accented rules
+      url: /docs/patterns/rule#highlighted
+      status: New
+      notes: We've added a new class <code>.is-accent</code> to highlight rules with the accent colour.
+    - component: Paper background
+      url: /docs/base/paper
+      status: New
+      notes: We've added new paper background colour that can be added to the body element using <code>is-paper</code> class name. Components designed for white backgrounds (like inputs) can use <code>on-paper</code> class to adjust for the new background.
+    - component: White strip
+      url: /docs/patterns/strip#white-strip
+      status: New
+      notes: We've added a new white strip component to highlight the content on new paper background.
+    - component: Text max width utility
+      url: /docs/utilities/text-max-width
+      status: New
+      notes: We've added a new utility class <code>.u-text-max-width</code> to limit the width of text lists.
+    - component: New grey error icon
+      url: /docs/patterns/icons#additional
+      status: New
+      notes: We've added new grey error icon.
+    - component: New grey status icons in lists
+      url: /docs/patterns/lists#status
+      status: Updated
+      notes: We've updated the status icons used in ticked lists to use grey outline instead of coloured background.
+- version: 3.15.0
+  features:
+    - component: Sliding navigation
+      url: /docs/patterns/navigation#sliding
+      status: New
+      notes: We've added a new sliding nested navigation component.
 - version: 3.14.0
   features:
-    - component: Vertical spacing
-      url: /docs/utilities/vertical-spacing
+    - component: Common grid patterns
+      url: /docs/patterns/grid#common-grid-patterns
       status: New
-      notes: "We've added three utility classes: <code>.u-sv--shallow</code>, <code>.u-sv--regular</code> and <code>.u-sv--deep</code> for managing spacing between elements on the page."
+      notes: "We've added new classes: <code>.row--50-50</code>, <code>.row--25-75</code>, <code>.row--25-25-50</code>, <code>.row--25-25-25-25</code> as an alias for common grid layouts."
+    - component: Rule
+      url: /docs/patterns/rule
+      status: New
+      notes: We've added a new horizontal bar component.
+    - component: Deep strip
+      url: /docs/patterns/strip#deep-strip
+      status: Updated
+      notes: "We've increased desktop and mobile paddings for the deep strip to <code>8rem</code> and <code>4rem</code> accordingly."
+    - component: Sections and blocks
+      url: /docs/patterns/section
+      status: New
+      notes: "We've added new components: <code>.p-block</code> and <code>.p-section</code> for managing spacing between different types of elements on the page."
+    - component: Divided lists
+      url: /docs/patterns/lists#bulleted-with-horizontal-divider
+      status: Updated
+      notes: 'We removed the line above the first list item in the bulleted list with horizontal divider.'
 - version: 3.13.0
   features:
     - component: Brochure site layout

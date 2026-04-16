@@ -1,0 +1,55 @@
+{% extends "_layouts/examples.html" %}
+{% from "_macros/vf_hero.jinja" import vf_hero %}
+
+{% block title %}Hero / Signpost logo{% endblock %}
+{% block standalone_css %}patterns_all{% endblock %}
+
+{% set is_paper = True %}
+{% block content %}
+{% call(slot) vf_hero(
+  title_text='H1 - ideally one line, up to two',
+  subtitle_text='H2 placeholder - aim for one line, 2 is acceptable, more - use a paragraph',
+  layout='25/75',
+  blocks=[
+    {
+      "type": "description",
+      "padding": "shallow",
+      "item": {
+        "type": "text",
+        "content": "Generally, the height of the right hand side of a 50/50 split should contain more content than the left
+        hand side."
+      }
+    },
+    {
+      "type": "cta-block",
+      "padding": "shallow",
+      "item": {
+        "primary": {
+          "content_html": "Learn more",
+          "attrs": {
+            "href": "#"
+          }
+        },
+        "link": {
+          "content_html": "Contact us ›",
+          "attrs": {
+            "href": "#"
+          }
+        }
+      }
+    },
+    {
+      "type": "signpost_image",
+      "item": {
+        "is_highlighted": false,
+        "attrs": {
+          "src": "https://assets.ubuntu.com/v1/fe20126d-RISC-V-logo.svg",
+          "alt": "alt-text"
+        }
+      }
+    },
+  ]
+) -%}
+{%- endcall -%}
+
+{% endblock %}

@@ -1,27 +1,9 @@
 {% extends "_layouts/examples.html" %}
 {% block title %}Chip / Colors{% endblock %}
+{% from "docs/examples/patterns/chip/_semantic-states.jinja" import chip_semantic_states %}
 
 {% block standalone_css %}patterns_chip{% endblock %}
 
 {% block content %}
-<button class="p-chip">
-  <span class="p-chip__lead">Type</span>
-  <span class="p-chip__value">Default</span>
-</button>
-<button class="p-chip--positive">
-  <span class="p-chip__lead">Type</span>
-  <span class="p-chip__value">Positive</span>
-</button>
-<button class="p-chip--caution">
-  <span class="p-chip__lead">Type</span>
-  <span class="p-chip__value">Caution</span>
-</button>
-<button class="p-chip--negative">
-  <span class="p-chip__lead">Type</span>
-  <span class="p-chip__value">Negative</span>
-</button>
-<button class="p-chip--information">
-  <span class="p-chip__lead">Type</span>
-  <span class="p-chip__value">Information</span>
-</button>
+{{ chip_semantic_states(use_linebreak=True) }}
 {% endblock %}

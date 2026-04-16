@@ -6,21 +6,13 @@ context:
 
 Tooltips are text labels that appear when the user hovers over, focuses on, or touches an element on the screen.
 
-They can be used to provide information about concepts/terms/actions that are not self-explanatory or well known.
+Use tooltips to further explain concepts, terms, or actions that are not immediately clear or well known, but are not necessary for users to complete an action.
 
-<div class="p-notification--caution">
-  <p class="p-notification__content">
-    <span class="p-notification__title">Avoid:</span>
-    <span class="p-notification__message">Using tooltips to provide instructions or guidance. They shouldn't be used to show rich information including images and formatted text and avoid placing over plain text or other places where they are not discoverable.</span>
-  </p>
-</div>
+Do not use them for information the user needs, it hides important information from the user. For example, the user should not need to scroll over a tooltip to find out that a button is disabled.
 
-<div class="p-notification--caution">
-  <p class="p-notification__content">
-    <span class="p-notification__title">Avoid:</span>
-    <span class="p-notification__message">Tooltips shouldn't be used on disabled elements, such as buttons. It should be clear to the user why the button is disabled, without the tooltip needing to be revealed first.</span>
-  </p>
-</div>
+Do not use tooltips for disabled elements, such as buttons. It should be clear to the user why the button is disabled, without the tooltip needing to be revealed first.
+
+Do not use tooltips for rich information (such as images and formatted text). Avoid using them over plain text or other places where users will not be able to find them.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/tooltips/default" class="js-example">
 View example of the tooltips pattern
@@ -32,6 +24,26 @@ In some cases you may need the tooltip element to exist outside of the element i
 
 <div class="embedded-example"><a href="/docs/examples/patterns/tooltips/detached"  data-height="120" class="js-example">
 View example of the detached tooltips pattern
+</a></div>
+
+## Theming
+
+Tooltips use the inverse theme of their background to contrast them from surrounding content. By default, this works by inverting the theme applied to the document body.
+For example, tooltips inside a `<body class="is-dark">` will use the light theme.
+
+If a tooltip is inside of an element with a different theme than the document body, you should apply the theme class (`.is-dark`, `.is-light`, or `.is-paper`)
+of the tooltip's background to the tooltip element, so that the tooltip inverts the theme of its background, not the document body.
+
+For example, if you have a tooltip inside a dark-themed element on a light-themed page, add the `.is-dark` class to the `.p-tooltip` to ensure that the tooltip uses the light theme.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/tooltips/nesting-theme-override-light" class="js-example">
+View example of the tooltips pattern with a light theme override
+</a></div>
+
+Conversely, if you have a tooltip inside a light-themed element on a dark-themed page, add the `.is-light` class to the `.p-tooltip` to ensure that the tooltip uses the dark theme.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/tooltips/nesting-theme-override-dark" class="js-example">
+View example of the tooltips pattern with a dark theme override
 </a></div>
 
 ## Import
@@ -53,7 +65,7 @@ For more information see [Customising Vanilla](/docs/customising-vanilla/) in yo
 
 You can use tooltips in React by installing our react-component library and importing `Tooltip` component.
 
-[See the documentation for our React `Tooltip` component](https://canonical.github.io/react-components/?path=/docs/tooltip--default-story)
+[See the documentation for our React `Tooltip` component](https://canonical.github.io/react-components/?path=/docs/components-tooltip--docs)
 
 ## Related
 

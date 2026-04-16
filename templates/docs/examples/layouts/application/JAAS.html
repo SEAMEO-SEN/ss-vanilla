@@ -40,11 +40,6 @@
       max-width: calc(100vw - 15rem - 13rem);
     }
   }
-
-  /* custom JAAS background color */
-  .is-jaas-background {
-    background: #003b4e !important;
-  }
 </style>
 {% endblock %}
 
@@ -78,7 +73,6 @@
           </div>
         </div>
         <div class="p-panel__content">
-          {% set is_dark = True %}
           {% include "docs/examples/patterns/side-navigation/_layout-JAAS.html" %}
         </div>
       </div>
@@ -248,7 +242,7 @@
                 <td class="" data-test-column="name">
                   <div><a href="#/models/gomboli@external/hadoopspark">hadoopspark</a></div>
                 </td>
-                <td class="u-overflow--visible" data-test-column="summary">
+                <td class="has-overflow" data-test-column="summary">
                   <div class="u-flex">
                     <div class="u-flex--block">
                       <div class="has-icon"><i class="p-icon--information"></i><span>11</span></div>
@@ -270,7 +264,7 @@
                 <td class="" data-test-column="name">
                   <div><a href="#/models/gomboli@external/mymodel4">mymodel4</a></div>
                 </td>
-                <td class="u-overflow--visible" data-test-column="summary">
+                <td class="has-overflow" data-test-column="summary">
                   <div class="u-flex">
                     <div class="u-flex--block">
                       <div class="has-icon"><i class="p-icon--information"></i><span>7</span></div>
@@ -292,7 +286,7 @@
                 <td class="" data-test-column="name">
                   <div><a href="#/models/gomboli@external/testing">testing</a></div>
                 </td>
-                <td class="u-overflow--visible" data-test-column="summary">
+                <td class="has-overflow" data-test-column="summary">
                   <div class="u-flex">
                     <div class="u-flex--block p-tooltip--top-center">
                       <div class="has-icon"><i class="p-icon--information"></i><span>2</span></div>
@@ -324,6 +318,7 @@
       </div>
     </div>
   </aside>
+</div>
 
 <script>
 {% include "docs/examples/layouts/application/_script.js" %}

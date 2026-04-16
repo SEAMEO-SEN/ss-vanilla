@@ -35,6 +35,12 @@ When you need to group a number of related blocks of content within an area on t
 View example of the tabs content pattern
 </a></div>
 
+## Theming
+
+Tabs use the default inherited theme of the page or parent element. To override the default add `is-dark` or `is-light` class to the contextual menu.
+
+[View example of the dark tabs content pattern](/docs/examples/patterns/tabs/content?theme=dark).
+
 ## Import
 
 To import just the standard tab component into your project, copy the snippet below and include it in your main Sass file.
@@ -50,8 +56,32 @@ To import just the standard tab component into your project, copy the snippet be
 
 For more information see [Customising Vanilla](/docs/customising-vanilla/) in your projects, which includes overrides and importing instructions.
 
+### Javascript
+
+Tabs require JavaScript to manage user interactions, such as switching between tab panels, updating the active state, and handling keyboard navigation for accessibility. Without JavaScript, only the static tab layout is rendered, and users cannot interact with or view different content panes.
+
+To use the Vanilla Framework tabs JavaScript, import the module in your project:
+
+```js
+import {tabs} from 'vanilla-framework/js/tabs';
+```
+
+Alternatively, you can copy the JS into your project directory, such as `/static/js/modules/vanilla-framework/js/tabs.js`
+
+```html
+<script src="/static/js/modules/vanilla-framework/js/tabs.js"></script>
+```
+
+or reference directly from `node_modules`
+
+```html
+<script src="/node_modules/vanilla-framework/js/tabs.js"></script>
+```
+
+For more information, see [Building Vanilla with JavaScript](/docs/building-vanilla#javascript)
+
 ## React
 
 You can use tabs in React by installing our react-component library and importing `Tab` component.
 
-[See the documentation for our React `Tab` component](https://canonical.github.io/react-components/?path=/docs/tabs--default-story#tabs)
+[See the documentation for our React `Tab` component](https://canonical.github.io/react-components/?path=/docs/components-tabs--docs)

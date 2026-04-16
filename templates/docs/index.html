@@ -2,10 +2,12 @@
 
 {% block title %}Get started{% endblock %}
 
-{% block content %}
+{% block content_title %}
 <h1>Get started</h1>
+<hr />
+{% endblock %}
 
-<hr>
+{% block content %}
 
 <p>You can use Vanilla in your projects in a few different ways. See <a href="/docs/building-vanilla">Building with Vanilla</a> and <a href="/docs/customising-vanilla">Customising Vanilla</a> for more in-depth setup instructions.</p>
 
@@ -28,7 +30,7 @@
 
 <h2>Hotlink</h2>
 <p>You can add Vanilla directly to your markup:</p>
-<pre><code>&lt;link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla-framework-version-{{ version }}.min.css" /&gt;</code></pre>
+<pre><code>&lt;link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla_framework_version_{{ version | replace(".", "_") }}_min.css" /&gt;</code></pre>
 
 <h2>Download</h2>
 <p>Download the latest version of Vanilla from GitHub.</p>
@@ -38,8 +40,7 @@
 <h2>Local development</h2>
 <p>To make improvements to Vanilla itself, please follow the instructions on the project’s <a href="https://github.com/canonical/vanilla-framework#vanilla-framework">README.md</a>.</p>
 <ul class="p-inline-list">
-  <li class="p-inline-list__item"><i class="p-list__icon--slack"></i><a href="https://vanillaframework.slack.com/">Join our channel</a></li>
-  <li class="p-inline-list__item"><i class="p-list__icon--twitter"></i><a href="https://twitter.com/vanillaframewrk">Tweet us</a></li>
+  <li class="p-inline-list__item"><i class="p-list__icon--matrix"></i><a href="https://matrix.to/#/#vanilla:ubuntu.com">Join us on Matrix</a></li>
   <li class="p-inline-list__item"><i class="p-list__icon--github"></i><a href="https://github.com/canonical/vanilla-framework/issues/new">Fork us on GitHub</a></li>
 </ul>
 

@@ -4,7 +4,6 @@
 {% block standalone_css %}patterns_tabs{% endblock %}
 
 {% block content %}
-
 <div class="p-tabs">
   <div class="p-tabs__list" role="tablist" aria-label="Juju technology">
     <div class="p-tabs__item">
@@ -51,7 +50,5 @@
   </div>
 </div>
 
-<script>
-  {% include 'docs/examples/patterns/tabs/_script.js' %}
-</script>
+<script type="module" src="/js/tabs.js"></script>
 {% endblock %}

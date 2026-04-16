@@ -1,14 +1,9 @@
 @mixin vf-l-application-panels {
   .p-panel {
-    background: $colors--light-theme--background-default;
-    color: $colors--light-theme--text-default;
+    background: $colors--theme--background-default;
+    color: $colors--theme--text-default;
     max-width: 100%;
     min-height: 100%; // make sure it fills whole container even when has little content
-
-    &.is-dark {
-      background: $colors--dark-theme--background-default;
-      color: $colors--dark-theme--text-default;
-    }
   }
 
   .p-panel__header {
@@ -18,13 +13,10 @@
   }
 
   .p-panel__header.is-sticky {
+    background: $colors--theme--background-default;
     position: sticky;
     top: 0;
-    z-index: 1;
-
-    .p-panel.is-dark & {
-      background: $colors--dark-theme--background-default;
-    }
+    z-index: 5;
   }
 
   .p-panel__content {

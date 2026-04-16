@@ -4,10 +4,6 @@ context:
   title: Color | Settings
 ---
 
-# Color
-
-<hr>
-
 These guidelines are the framework upon which we have built our system for how color is used in Vanilla, we use a fairly neutral color palette along with a traffic light palette.
 
 <div class="p-strip is-shallow">
@@ -57,9 +53,9 @@ These guidelines are the framework upon which we have built our system for how c
       </p>
     </div>
     <div class="col-2 p-card u-no-padding">
-      <div class="p-strip is-shallow is-bordered" style="background-color: #333"></div>
+      <div class="p-strip is-shallow is-bordered" style="background-color: #e95420"></div>
       <p class="p-card__content u-no-margin" style="padding: 1rem">
-        $color-brand<br><span class="p-muted-heading">#333</span>
+        $color-brand<br><span class="p-muted-heading">#e95420</span>
       </p>
     </div>
   </div>
@@ -97,27 +93,17 @@ These guidelines are the framework upon which we have built our system for how c
       </p>
     </div>
     <div class="col-2 p-card u-no-padding">
-      <div class="p-strip is-shallow is-bordered" style="background-color: #e95420"></div>
+      <div class="p-strip is-shallow is-bordered" style="background-color: #0f95a1"></div>
       <p class="p-card__content u-no-margin" style="padding: 1rem">
-        $color-accent<br><span class="p-muted-heading">#e95420</span>
-      </p>
-    </div>
-    <div class="col-2 p-card u-no-padding">
-      <div class="p-strip is-shallow is-bordered" style="background-color: #333"></div>
-      <p class="p-card__content u-no-margin" style="padding: 1rem">
-        $color-accent-background<br><span class="p-muted-heading">#333</span>
+        $color-accent<br><span class="p-muted-heading">#0f95a1</span>
       </p>
     </div>
   </div>
 </div>
 
-You can define a brand color (`$color-brand`) that can be used for call-to-action buttons and other highlights across the framework. The default Vanilla brand color is `$color-dark`.
-
-<img class="p-image--bordered" src="https://assets.ubuntu.com/v1/7446a44a-basics-brand-color.png" alt="">
-
 ## Accessibility
 
-It’s important for us to meet all web accessibility standards. Vanilla encourages meeting the minimum contrast ratios specified by WCAG 2.1 Level AA for text, icons and background colors.
+It’s important for us to meet all web accessibility standards. Vanilla encourages meeting the minimum contrast ratios specified by WCAG 2.2 Level AA for text, icons and background colors.
 
 <div class="p-strip is-shallow">
   <div class="row">
@@ -145,6 +131,19 @@ It’s important for us to meet all web accessibility standards. Vanilla encoura
 
 ## Color theming
 
+Vanilla (since version 4.8.0) supports client-side theming based on CSS properties (instead of previously used build-time SCSS based theming).
+
+See our [themes documentation](/docs/base/themes) for more details on how to use the new theming system.
+
+### Setting the default color theme per element / component {{ status("deprecated")}}
+
+<div class="p-notification--caution">
+  <div class="p-notification__content">
+    <h5 class="p-notification__title">Deprecated</h5>
+    <span class="p-notification__message">Setting default theme via SCSS variables is now deprecated. Use the new <a href="/docs/base/themes">theming class names</a> instead.</span>
+  </div>
+</div>
+
 Starting with the [2.3.0](https://github.com/canonical/vanilla-framework/releases/tag/v2.3.0) release, Vanilla framework introduces a theming mechanism. The current default for all components is referred to as the light theme. A subset of elements and components now offer a dark theme:
 
 - [Checkbox](/docs/base/forms#checkbox) and [radio](/docs/base/forms#radio-button) form inputs
@@ -168,15 +167,8 @@ Starting with the [2.3.0](https://github.com/canonical/vanilla-framework/release
 | Side navigation     | `$theme-default-p-side-navigation`     | `light`       |
 | Search box          | `$theme-default-p-search-box`          | `light`       |
 
+The `_settings_themes.scss` file contains a list of variables that used to define the default theme for a subset of elements and components. Starting with Vanilla 4.8.0 this type of theming is deprecated.
+
+With new theming mechanism based on CSS custom properties, the default theme for all components remains light. To change the theme of given element and all its children, add `is-dark` or `is-light` class to it.
+
 Future releases will expand this list to include all elements and components.
-
-### Setting the default color theme per element / component
-
-To set the default theme to dark on any of the elements / components listed above:
-
-- Go to `_settings_themes.scss`
-- Set the value of the respective variable in the table above to 'dark'
-
-### Invoking a theme that is not currently a default
-
-Besides setting the default, you can invoke the non-default theme by adding a class to your markup. For the list of themed elements above, add `is-dark` (if the default for the respective element or component is `light`, or `is-light` if the default is dark.

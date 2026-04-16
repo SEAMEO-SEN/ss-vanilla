@@ -1,0 +1,56 @@
+{% extends "_layouts/examples.html" %}
+{% from "_macros/vf_hero.jinja" import vf_hero %}
+
+{% block title %}Hero / 75/25{% endblock %}
+{% block standalone_css %}patterns_all{% endblock %}
+
+{% set is_paper = true %}
+{% block content %}
+{% call(slot) vf_hero(
+  title_text='H1 - ideally one line, up to two',
+  subtitle_text='H2 placeholder - aim for one line, 2 is acceptable, more - use a paragraph',
+  layout='75/25',
+  is_split_on_medium=true,
+  blocks=[
+    {
+      "type": "description",
+      "padding": "shallow",
+      "item": {
+        "type": "text",
+        "content": "Generally, the height of the right hand side of a 50/50 split should contain more content than the left
+        hand side."
+      }
+    },
+    {
+      "type": "cta-block",
+      "item": {
+        "primary": {
+          "content_html": "Learn more",
+          "attrs": {
+            "href": "#"
+          }
+        },
+        "link": {
+          "content_html": "Contact us ›",
+          "attrs": {
+            "href": "#"
+          }
+        }
+      }
+    },
+    {
+      "type": "image",
+      "item": {
+        "aspect_ratio": "2-3",
+        "is_highlighted": false,
+        "is_cover": true,
+        "attrs": {
+          "src": "https://assets.ubuntu.com/v1/6c909bd8-datacenter-tall.jpeg",
+          "alt": "alt-text"
+        }
+      }
+    },
+  ]
+) -%}
+  {% endcall -%}
+{% endblock %}

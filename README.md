@@ -1,16 +1,13 @@
 # ![vanilla](https://assets.ubuntu.com/v1/70041419-vanilla-framework.png?w=35 'Vanilla') Vanilla Framework
 
-[![CircleCI build status](https://circleci.com/gh/canonical/vanilla-framework.svg?style=shield)](https://circleci.com/gh/canonical/vanilla-framework)
 [![npm version](https://badge.fury.io/js/vanilla-framework.svg)](http://badge.fury.io/js/vanilla-framework)
 [![Downloads](http://img.shields.io/npm/dm/vanilla-framework.svg)](https://www.npmjs.com/package/vanilla-framework)
-[![devDependency Status](https://david-dm.org/canonical/vanilla-framework/dev-status.svg)](https://david-dm.org/canonical/vanilla-framework#info=devDependencies)
-[![Chat in #vanilla-framework on Freenode](https://img.shields.io/badge/chat-%23vanilla--framework-blue.svg)](http://webchat.freenode.net/?channels=vanilla-framework)
+[![Chat in #vanilla:ubuntu.com on Matrix](https://img.shields.io/badge/chat-%23vanilla:ubuntu.com-blue.svg)](https://matrix.to/#/#vanilla:ubuntu.com)
 [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io)
 
 Vanilla Framework is an extensible CSS framework, built using [Sass](http://sass-lang.com/) and is designed to be used either directly or by using themes to extend or supplement its patterns.
 
 [Documentation](https://vanillaframework.io/docs) |
-[Join the mailing list](http://canonical.us3.list-manage2.com/subscribe?u=56dac47c206ba0f58ec25f314&id=36f7d8394e)
 
 ## Table of contents
 
@@ -27,7 +24,7 @@ Vanilla Framework is an extensible CSS framework, built using [Sass](http://sass
 You can link to the latest build to add directly into your markup like so, by replacing the x values with the [version number you wish to link](https://github.com/canonical/vanilla-framework/releases).
 
 ```html
-<link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla-framework-version-x.x.x.min.css" />
+<link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla_framework_version_x_x_x_min.css" />
 ```
 
 ### Including Vanilla in your project via NPM or yarn
@@ -81,9 +78,9 @@ If you're looking to contribute to the Vanilla project itself, [start here](/CON
 
 Keep up to date with all new developments and upcoming changes with Vanilla.
 
-- Follow us on Twitter [@vanillaframewrk](https://twitter.com/vanillaframewrk)
 - Read our latest blog posts at [Ubuntu Blog](https://blog.ubuntu.com/topics/design)
+- Stay in touch with us on [Matrix](https://matrix.to/#/#vanilla:ubuntu.com)
 
-Code licensed [LGPLv3](http://opensource.org/licenses/lgpl-3.0.html) by [Canonical Ltd](http://www.canonical.com/)
+Code licensed [LGPLv3](https://opensource.org/license/lgpl-3-0/) by [Canonical Ltd](http://www.canonical.com/)
 
 With ♥ from Canonical

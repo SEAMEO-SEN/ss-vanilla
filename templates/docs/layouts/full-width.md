@@ -4,14 +4,11 @@ context:
   title: Full-width site layout | Layouts
 ---
 
-# Full-width site layout
-
-<div class="p-notification--caution">
+<div class="p-notification--negative">
   <div class="p-notification__content">
-    <h5 class="p-notification__title">Experimental</h5>
+    <h5 class="p-notification__title">Deprecated</h5>
     <p class="p-notification__message">
-      The full-width layout is currently considered as experimental and used only internally by Vanilla and Design sites.<br>
-      We may introduce breaking changes to it without major release.
+      The full-width layout was implemented as a proof of concept, but is now deprecated in favour of the new <a href="/docs/layouts/documentation">documentation layout</a>.
     </p>
   </div>
 </div>
@@ -20,7 +17,7 @@ context:
 
 The `.l-full-width` serves as a wrapper for full-width layout and allows for a start (left), main (central) and end (right) areas. Usually, the `l-full-width` class name would be placed on a strip component `p-strip` or an individual element. Additionally, a separate `l-full-width__sidebar` element can be added as a container for side navigation placed on top of the start (left) area of the layout.
 
-On screens smaller than `$breakpoint--large` the sidebar is hidden off-screen and the whole width of the page is occupied by the main content area. On larger screens, the sidebar is visible on the left side of the window.
+On screens smaller than `$breakpoint-large` the sidebar is hidden off-screen and the whole width of the page is occupied by the main content area. On larger screens, the sidebar is visible on the left side of the window.
 
 ### Main area
 

@@ -1,0 +1,28 @@
+{% extends "_layouts/examples.html" %}
+{% block title %}Logo section | Combined{% endblock %}
+{% block standalone_css %}patterns_all{% endblock %}
+{% block content %}
+  {% with is_combined = true %}
+    <section>
+      {% include 'docs/examples/patterns/logo-section/default.html' %}
+    </section>
+    <section>
+      {% include 'docs/examples/patterns/logo-section/linked-title.html' %}
+    </section>
+    <section>
+      {% include 'docs/examples/patterns/logo-section/no-description.html' %}
+    </section>
+    <section>
+      {% include 'docs/examples/patterns/logo-section/no-cta-block.html' %}
+    </section>
+    <section>
+      {% include 'docs/examples/patterns/logo-section/no-description-and-cta-block.html' %}
+    </section>
+    <section>
+      {% include 'docs/examples/patterns/logo-section/padding-variants.html' %}
+    </section>
+    <section>
+      {% include 'docs/examples/patterns/logo-section/minimal.html' %}
+    </section>
+  {% endwith %}
+{% endblock %}

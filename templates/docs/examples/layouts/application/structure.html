@@ -4,84 +4,86 @@
 {% block style %}
 <style>
   body { margin: 0; }
-
-  /* example structure styling to make panels visible */
-  .app-demo > .l-navigation-bar,
-  .app-demo > .l-main,
-  .app-demo > .l-navigation .l-navigation__drawer,
-  .app-demo > .l-aside,
-  .app-demo > .l-status {
-    background-color: #fff;
-    border: 1px solid #d9d9d9;
-    padding: 0.5rem;
-  }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="l-application app-demo" role="presentation">
+<div class="l-application" role="presentation">
   <div class="l-navigation-bar">
-    <div class="u-clearfix"><code>l-navigation-bar</code> <button class="u-float-right js-menu-toggle is-dense u-no-margin">Menu</button></div>
+    <div class="p-panel is-dark">
+      <code>l-navigation-bar</code>
+
+      <button class="js-menu-toggle is-dense u-float-right u-no-margin">Menu</button>
+    </div>
   </div>
 
-  <header class="l-navigation">
+  <header class="l-navigation is-collapsed">
     <div class="l-navigation__drawer">
-      <p class="demo-controls u-hide--large u-align--right">
-        <button class="js-menu-pin is-dense u-no-margin u-hide--small">Pin</button>
-        <button class="js-menu-close is-dense u-no-margin u-hide--medium">Close</button>
-      </p>
+      <div class="p-panel is-dark">
+        <code>l-navigation</code>
 
-      <code>l-navigation &gt;<br> l-navigation__drawer</code>
+        <button class="js-menu-pin is-dense u-float-right u-no-margin u-hide--small u-hide--large">Pin</button>
+        <button class="js-menu-close is-dense u-float-right u-no-margin u-hide--medium u-hide--large">Close</button>
+      </div>
     </div>
   </header>
 
   <main class="l-main">
-    <p><code>l-main</code></p>
-    <p class="u-clearfix">
-      <button class="js-aside-open">Open aside panel</button>
-    </p>
+    <div class="p-panel">
+      <code>l-main</code>
 
-    <table aria-label="Table with demo content">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Demo content</th>
-          <th>Demo content</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>Demo content</th>
-          <td>Demo content</td>
-          <td>Demo content</td>
-        </tr>
-        <tr>
-          <th>Demo content</th>
-          <td>Demo content</td>
-          <td>Demo content</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <th>Demo content</th>
-          <td>Demo content</td>
-          <td>Demo content</td>
-        </tr>
-      </tfoot>
-    </table>
+      <button class="js-aside-open is-dense u-no-margin u-float-right">Open aside panel</button>
+
+      <div class="u-fixed-width">
+        <table aria-label="Table with demo content">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Demo content</th>
+              <th>Demo content</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Demo content</th>
+              <td>Demo content</td>
+              <td>Demo content</td>
+            </tr>
+            <tr>
+              <th>Demo content</th>
+              <td>Demo content</td>
+              <td>Demo content</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Demo content</th>
+              <td>Demo content</td>
+              <td>Demo content</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
   </main>
 
   <aside class="l-aside" id="aside-panel">
-    <p>
-      <button class="js-aside-pin is-dense">Pin</button>
-      <button class="js-aside-close is-dense">Close</button>
-    </p>
-    <p><code>l-aside</code></p>
-    <p>Panel width: <button class="is-inline is-dense js-aside-resize" data-resize-class="is-narrow" aria-controls="aside-panel">narrow</button> <button class="is-dense is-inline js-aside-resize" data-resize-class="" aria-controls="aside-panel">default</button> <button class="is-dense is-inline js-aside-resize" data-resize-class="is-wide" aria-controls="aside-panel">wide</button></p>
+    <div class="p-panel">
+      <code>l-aside</code>
+
+      <button class="js-aside-pin is-dense u-float-right u-no-margin">Pin</button>
+      <button class="js-aside-close is-dense u-float-right u-no-margin">Close</button>
+
+      <div>
+        <p>Panel width: <button class="is-inline is-dense js-aside-resize" data-resize-class="is-narrow" aria-controls="aside-panel">narrow</button> <button class="is-dense is-inline js-aside-resize" data-resize-class="" aria-controls="aside-panel">default</button> <button class="is-dense is-inline js-aside-resize" data-resize-class="is-wide" aria-controls="aside-panel">wide</button></p>
+      </div>
+    </div>
   </aside>
 
   <aside class="l-status">
-    <code>l-status</code>
+    <div class="p-panel">
+      <code>l-status</code>
+    </div>
   </aside>
 </div>
 

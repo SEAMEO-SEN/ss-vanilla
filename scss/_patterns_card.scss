@@ -12,8 +12,6 @@
   .p-card {
     @extend %vf-card;
     @extend %vf-is-bordered;
-    @extend %vf-has-round-corners;
-
     padding: calc($spv--large - 1px);
   }
 }
@@ -22,7 +20,6 @@
   %p-card--highlighted {
     @extend %vf-card;
     @extend %vf-has-box-shadow;
-    @extend %vf-has-round-corners;
   }
 
   .p-card--highlighted {
@@ -32,8 +29,8 @@
 
 @mixin vf-p-card-overlay {
   .p-card--overlay {
-    background: transparentize($color-x-light, 0.1);
-    color: $color-dark;
+    background: $colors--theme--background-alt;
+    color: $colors--theme--text-default;
     margin-bottom: $spv--x-large;
     overflow: auto;
     padding: $spv--large;
@@ -42,10 +39,10 @@
 
 @mixin vf-p-card-muted {
   .p-card--muted {
-    @extend %vf-bg--light;
     @extend %vf-has-box-shadow;
-    @extend %vf-has-round-corners;
 
+    background-color: $colors--theme--background-default;
+    color: $colors--theme--text-default;
     margin-bottom: $spv--x-large;
     overflow: auto;
     padding: $spv--large;
@@ -63,7 +60,7 @@
   }
 
   .p-card__header {
-    border-bottom: 1px solid $color-mid-light;
+    border-bottom: 1px solid $colors--theme--border-low-contrast;
     padding-bottom: $spv--large;
 
     > .p-link--soft {

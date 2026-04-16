@@ -4,23 +4,13 @@ context:
   title: Code | Base elements
 ---
 
-# Code
-
-<hr>
-
 Vanilla gives you multiple ways to display code using the standard HTML elements.
 
 ## Inline
 
 When you refer to code inline with other text, use the <code>&lt;code></code> tag.
 
-<div class="embedded-example"><a href="/docs/examples/base/code-inline/" class="js-example">
-View example of inline code
-</a></div>
-
-An inline `code` element can be nested within a `.p-strip--dark` element, and can also use the `.is-dark` utility class as necessary:
-
-<div class="embedded-example"><a href="/docs/examples/base/code-inline-dark/" class="js-example">
+<div class="embedded-example"><a href="/docs/examples/base/code/inline/" class="js-example">
 View example of inline code
 </a></div>
 
@@ -30,13 +20,13 @@ To create a pre-formatted block, use either `<pre>` (where preserving white spac
 
 **Pre-formatted block:**
 
-<div class="embedded-example"><a href="/docs/examples/base/pre/" class="js-example">
+<div class="embedded-example"><a href="/docs/examples/base/typography/pre/" class="js-example">
 View example of the base pre block
 </a></div>
 
 **Pre-formatted code block:**
 
-<div class="embedded-example"><a href="/docs/examples/base/code-block/" class="js-example">
+<div class="embedded-example"><a href="/docs/examples/base/code/block/" class="js-example">
 View example of the base code block
 </a></div>
 
@@ -120,4 +110,4 @@ View example of the code snippet with a border
 
 You can use code snippet in React by installing our react-component library and importing code snippet component.
 
-[See the documentation for our React `CodeSnippet` component](https://canonical.github.io/react-components/?path=/docs/codesnippet--default-story#code-snippet)
+[See the documentation for our React `CodeSnippet` component](https://canonical.github.io/react-components/?path=/docs/components-codesnippet--docs)

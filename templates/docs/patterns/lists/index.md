@@ -29,6 +29,13 @@ View example of the divided list pattern
 
 You can use the class `.p-list--divided` to style an ordered list.
 
+<div class="p-notification--information">
+  <p class="p-notification__content">
+    <span class="p-notification__title">Note:</span>
+    <span class="p-notification__message">This list type only officially supports one level of nesting - additional levels of nesting may not inherit the correct numbered ordering.</span>
+  </p>
+</div>
+
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-dividers-ordered/" class="js-example">
 View example of the ordered divided list pattern
 </a></div>
@@ -61,6 +68,13 @@ View example of the list pattern
 
 If you want nested ordered lists to have numbers based on their parents, you can add the class `p-list--nested-counter` to the ordered list element.
 
+<div class="p-notification--information">
+  <p class="p-notification__content">
+    <span class="p-notification__title">Note:</span>
+    <span class="p-notification__message">This list type only officially supports one level of nesting - additional levels of nesting may not inherit the correct numbered ordering.</span>
+  </p>
+</div>
+
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/list-nested-count/" class="js-example">
 View example of the pattern nested counter
 </a></div>
@@ -88,12 +102,6 @@ inline list items.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-mid-dot/" class="js-example">
 View example of the middot list pattern
-</a></div>
-
-The utility class `.is-dark` can also be applied to a middot list:
-
-<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-mid-dot-dark/" class="js-example">
-View example of the middot list with an is-dark class
 </a></div>
 
 ## Inline stretched
@@ -127,11 +135,23 @@ View example of the stepped list without headings
 
 ## Horizontal stepped
 
-The stepped list should be used for step by step instructions. This pattern is best
-used on a `.p-strip--light` as the description sections are displayed in a white
-box.
+The stepped list should be used for step-by-step instructions.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-stepped-detailed/" class="js-example">
+View example of the pattern stepped list detailed
+</a></div>
+
+The stepped list can be combined with a `.p-list--divided` list to provide more
+granular step-by-step instructions.
+
+<div class="p-notification--information">
+  <p class="p-notification__content">
+    <span class="p-notification__title">Note:</span>
+    <span class="p-notification__message">This list type only officially supports one level of nesting - additional levels of nesting may not inherit the correct numbered ordering.</span>
+  </p>
+</div>
+
+<div class="embedded-example"><a href="/docs/examples/patterns/lists/list-nested-stepped-detailed/" class="js-example">
 View example of the pattern stepped list detailed
 </a></div>
 
@@ -141,6 +161,51 @@ If you wish to split the items in a list into two columns above `$breakpoint-sma
 
 <div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-split/" class="js-example">
 View example of the patterns list split
+</a></div>
+
+## Horizontal section {{ status("new") }}
+
+<div class="p-notification--caution">
+  <div class="p-notification__content">
+    <h3 class="p-notification__title">Experimental</h3>
+    <p class="p-notification__message">
+      The horizontal section component is an experimental list variant that is built with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries">container queries</a>, unlike the other list variants.
+      It does not respond to the same grid breakpoints as other components.
+    </p>
+  </div>
+</div>
+
+To display a list of items that flow horizontally in a grid, use `.p-list--horizontal-section-wrapper .p-list--horizontal-section`.
+
+By default, the horizontal section splits items 25/25/25/25 on large, 50/50 on medium and 100% on small screens.
+
+The horizontal section's column layout is responsive to the size of the `.p-list--horizontal-section-wrapper` container,
+and does not use the <a href="/docs/patterns/grid#structure">grid breakpoints</a>.
+It uses <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries">container queries</a>
+to adjust the layout based on the container's width. The following table shows the number of columns for different
+container widths:
+
+| Container width       | Number of columns |
+| --------------------- | ----------------- |
+| < 66ch                | 1                 |
+| 66ch <= width < 100ch | 2                 |
+| \>= 100ch             | 4                 |
+
+For optimal behaviour, you should use at least 4 list items to fit at least 1 row on all screen sizes.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-horizontal-section-responsive-ticked/" class="js-example">
+View example of the default horizontal list pattern
+</a></div>
+
+### 25/75 Horizontal section
+
+You can also add the `.is-25-75` modifier to reserve 25% space at the start of the list and place the remaining items in the remaining 75% space.
+This is especially effective when a section heading precedes the list.
+
+For optimal behaviour, you should use at least 3 list items to fit at least 1 row on all screen sizes.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/lists/lists-horizontal-section-25-75-responsive-ticked/" class="js-example">
+View example of the horizontal list pattern in a 25/75 split
 </a></div>
 
 ## Related components
@@ -190,4 +255,4 @@ For more information see [Customising Vanilla](/docs/customising-vanilla/) in yo
 
 You can use lists in React by installing our react-component library and importing `List` component.
 
-[See the documentation for our React `List` component](https://canonical.github.io/react-components/?path=/docs/list--default-story#list)
+[See the documentation for our React `List` component](https://canonical.github.io/react-components/?path=/docs/components-list--docs)

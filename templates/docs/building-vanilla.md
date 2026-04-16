@@ -4,11 +4,8 @@ context:
   title: Building with Vanilla
 ---
 
-# Building with Vanilla
-
-<hr>
-
-Here you will find information on how you can use different tools to build Vanilla into production CSS.
+Here you will find information on how you can use different tools to build
+Vanilla into production HTML and CSS.
 
 ## Sass
 
@@ -37,24 +34,36 @@ Now run `yarn build-css`, which will convert any Sass files in the `src/` folder
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-1-btn" role="tab" aria-controls="sub-1" aria-expanded="false">dist</button>
     <ul class="p-list-tree" id="sub-1" role="tabpanel" aria-hidden="true" aria-labelledby="sub-1-btn">
-      <li class="p-list-tree__item">style.css</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">style.css</a>
+      </li>
     </ul>
   </li>
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-2-btn" role="tab" aria-controls="sub-2" aria-expanded="false">node_modules</button>
     <ul class="p-list-tree" id="sub-2" role="tabpanel" aria-hidden="true" aria-labelledby="sub-2-btn">
-      <li class="p-list-tree__item">modules</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">modules</a>
+      </li>
     </ul>
   </li>
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-3-btn" role="tab" aria-controls="sub-3" aria-expanded="false">src</button>
     <ul class="p-list-tree" id="sub-3" role="tabpanel" aria-hidden="true" aria-labelledby="sub-3-btn">
-      <li class="p-list-tree__item">style.scss</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">style.scss</a>
+      </li>
     </ul>
   </li>
-  <li class="p-list-tree__item">index.html</li>
-  <li class="p-list-tree__item">package.json</li>
-  <li class="p-list-tree__item">yarn.lock</li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">index.html</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">package.json</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">yarn.lock</a>
+  </li>
 </ul>
 
 To watch for changes in your Sass files, add the following script to your `package.json`:
@@ -64,6 +73,111 @@ To watch for changes in your Sass files, add the following script to your `packa
 ```
 
 Now if you open an extra terminal and run `yarn watch-css`, the CSS will be rebuilt every time your Sass files are edited and saved.
+
+## Jinja Macros
+
+A variety of Vanilla's components and patterns are offered as
+[Jinja macros](https://jinja.palletsprojects.com/templates/#macros), which may
+be useful to you if you build sites using the
+[Jinja](https://jinja.palletsprojects.com/) templating engine. These macros can
+help abstract away some of the complexity of Vanilla's HTML, making producing
+complex page layouts simpler and faster.
+
+In order to pull Vanilla's macros into your project, you may need to expose them
+to your webserver or templating engine. An example of this using Flask and Jinja
+might look like the following:
+
+```python
+from flask import Flask
+from jinja2 import ChoiceLoader, FileSystemLoader
+
+app = Flask(__name__)
+
+# ChoiceLoader attempts loading templates from each path in successive order
+loader = ChoiceLoader([
+    FileSystemLoader('templates'),
+    FileSystemLoader('node_modules/vanilla-framework/templates/')
+])
+
+# Loader supplied to jinja_loader overwrites default jinja_loader
+app.jinja_loader = loader
+
+```
+
+After making the macros available to your webserver/templating engine, see the
+individual component/pattern docs for import and usage instructions.
+
+Some macros use [Jinja namespaces](https://jinja.palletsprojects.com/en/stable/templates/#jinja-globals.namespace) to allow for
+more powerful state management. Jinja namespaces were introduced in Jinja v2.10 - please ensure you are using a compatible version of Jinja.
+
+### Attribute forwarding
+
+Some macros support attribute forwarding, which allows you to pass structured attributes to specific elements within the macro.
+This enables macros to apply more structure to the markup they produce and reduce the amount of boilerplate code you need to write.
+
+For example, consider a pattern that accepts images as raw HTML, which are wrapped by the macro in a container that expects the image to have a specific class.
+A user would be required to apply that class manually, as with the `p-image-container__image` class in the example below:
+
+```jinja2
+{% raw -%}
+{{ vf_linked_logo_section(
+  title_text="Come for PostgreSQL, get security and support for your entire stack",
+  links=[
+    {
+      "href": "#",
+      "text": "Learn more &rsaquo;",
+      "label": "Kubeflow",
+      "image_html": '
+        <img
+            {#- we need to apply this class manually, or layouts will be broken -#}
+            class="p-image-container__image custom-class"
+            src="https://assets.ubuntu.com/v1/cd89477e-kubeflow-logo-container-vert-fill.png"
+            alt=""
+            width="432"
+            height="481"
+        />
+      '
+    },
+  {#- more links... -#}
+{% endraw %}
+```
+
+Going forward, some patterns will support a structured dictionary of attributes that are applied to specific elements within the macro.
+This allows the macro to handle more business logic, such as applying required classes to elements.
+
+The macro can apply its own structure to markup, and **forward** your attributes, allowing you to pass additional attributes without needing to know the internal structure of the macro.
+An example snippet that produces equivalent markup to the above, using attribute forwarding, is shown below:
+
+```jinja2
+{% raw %}
+{{ vf_linked_logo_section(
+  title_text="Come for PostgreSQL, get security and support for your entire stack",
+  links=[
+    {
+      "href": "#",
+      "text": "Learn more &rsaquo;",
+      "label": "Kubeflow",
+      "image_attrs": {
+        "src": "https://assets.ubuntu.com/v1/cd89477e-kubeflow-logo-container-vert-fill.png",
+        {#-
+            Class is no longer required - macro will apply p-image-container__image
+            We can still pass additional classes if needed
+        -#}
+        "class": "custom-class",
+        "alt": "",
+        "width": "432",
+        "height": "481"
+      }
+    },
+{% endraw %}
+```
+
+Any `_attrs` parameter in a macro should be treated as an attribute forwarding parameter.
+It applies all attributes to the targeted element, unless otherwise specified in the documentation for that macro.
+The macro may also apply its own attributes to the element, which will be merged with the attributes you pass in.
+
+If you use a templating tool that generates raw HTML, you should switch to an output mode that outputs element attributes as a dictionary or object, if available.
+For example, [canonicalwebteam.image-template](https://github.com/canonical/canonicalwebteam.image-template/blob/3182710447965de9241944591f3dffc48a17a2d5/README.md#attribute-output) supports an `output_mode="attrs"` option that outputs image attributes as a dictionary, rather than raw HTML.
 
 ## Webpack
 
@@ -145,10 +259,12 @@ Now run the command with `yarn build`, which will bundle the code and put in a a
   <title>Vanilla using Webpack</title>
 </head>
 <body>
-  <section class="p-strip--light is-bordered">
-    <div class="row">
-      <h1>Hello Vanilla!</h1>
-      <p>This page has been built using Webpack!</p>
+  <section class="p-strip">
+    <div class="row--25-75">
+      <div class="col">
+        <h1>Hello Vanilla!</h1>
+        <p>This page has been built using Webpack!</p>
+      </div>
     </div>
   </section>
   <script src="./dist/bundle.js"></script>
@@ -178,26 +294,42 @@ Your project's folder structure should now look something like this:
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-4-btn" role="tab" aria-controls="sub-4" aria-expanded="false">dist</button>
     <ul class="p-list-tree" id="sub-4" role="tabpanel" aria-hidden="true" aria-labelledby="sub-4-btn">
-      <li class="p-list-tree__item">bundle.js</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">bundle.js</a>
+      </li>
     </ul>
   </li>
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-5-btn" role="tab" aria-controls="sub-5" aria-expanded="false">node_modules</button>
     <ul class="p-list-tree" id="sub-5" role="tabpanel" aria-hidden="true" aria-labelledby="sub-5-btn">
-      <li class="p-list-tree__item">modules</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">modules</a>
+      </li>
     </ul>
   </li>
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-6-btn" role="tab" aria-controls="sub-6" aria-expanded="false">src</button>
     <ul class="p-list-tree" id="sub-6" role="tabpanel" aria-hidden="true" aria-labelledby="sub-6-btn">
-      <li class="p-list-tree__item">app.js</li>
-      <li class="p-list-tree__item">style.scss</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">app.js</a>
+      </li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">style.scss</a>
+      </li>
     </ul>
   </li>
-  <li class="p-list-tree__item">index.html</li>
-  <li class="p-list-tree__item">package.json</li>
-  <li class="p-list-tree__item">webpack.config.js</li>
-  <li class="p-list-tree__item">yarn.lock</li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">index.html</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">package.json</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">webpack.config.js</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">yarn.lock</a>
+  </li>
 </ul>
 
 To provide the same browser support as Vanilla, you should also include [autoprefixer](https://www.npmjs.com/package/autoprefixer) in the build pipeline via [postcss-loader](https://www.npmjs.com/package/postcss-loader).
@@ -242,25 +374,39 @@ Now run `gulp build-css`, which will convert any Sass files in the `src/` folder
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-7-btn" role="tab" aria-controls="sub-7" aria-expanded="false">dist</button>
     <ul class="p-list-tree" id="sub-7" role="tabpanel" aria-hidden="true" aria-labelledby="sub-7-btn">
-      <li class="p-list-tree__item">style.css</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">style.css</a>
+      </li>
     </ul>
   </li>
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-8-btn" role="tab" aria-controls="sub-8" aria-expanded="false">node_modules</button>
     <ul class="p-list-tree" id="sub-8" role="tabpanel" aria-hidden="true" aria-labelledby="sub-8-btn">
-      <li class="p-list-tree__item">modules</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">modules</a>
+      </li>
     </ul>
   </li>
   <li class="p-list-tree__item p-list-tree__item--group">
     <button class="p-list-tree__toggle" id="sub-9-btn" role="tab" aria-controls="sub-9" aria-expanded="false">src</button>
     <ul class="p-list-tree" id="sub-9" role="tabpanel" aria-hidden="true" aria-labelledby="sub-9-btn">
-      <li class="p-list-tree__item">style.scss</li>
+      <li class="p-list-tree__item">
+        <a class="p-list-tree__link" tabindex="0">style.scss</a>
+      </li>
     </ul>
   </li>
-  <li class="p-list-tree__item">gulpfile.js</li>
-  <li class="p-list-tree__item">index.html</li>
-  <li class="p-list-tree__item">package.json</li>
-  <li class="p-list-tree__item">yarn.lock</li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">gulpfile.js</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">index.html</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">package.json</a>
+  </li>
+  <li class="p-list-tree__item">
+    <a class="p-list-tree__link" tabindex="0">yarn.lock</a>
+  </li>
 </ul>
 
 If you open an extra terminal and run `gulp watch-css`, the CSS will be rebuilt every time your Sass files are edited and saved.
@@ -271,7 +417,7 @@ For more options on configuring `gulp-sass`, for example minification and autopr
 
 ## Git submodules
 
-Creating a submodule in the git repo does not add all the code to the project but includes a reference and path to include the framework. You may find this method useful if you're planing to host on Github Pages.
+Creating a submodule in the git repo does not add all the code to the project but includes a reference and path to include the framework. You may find this method useful if you're planning to host on Github Pages.
 
 Run this command at the root of your project (replacing vX.X.X with the [release](https://github.com/canonical/vanilla-framework/releases) you wish to use)
 
@@ -286,14 +432,69 @@ git submodule update
 ```
 
 <script>
-  var listTreeToggle = document.querySelectorAll('.p-list-tree__toggle');
-  for (var i = 0; i < listTreeToggle.length; i++) {
-    listTreeToggle[i].addEventListener('click', function(e) {
-      e.preventDefault();
-      var listTree = this.nextElementSibling;
-      var expand = this.getAttribute('aria-expanded') === 'true' ? false : true;
-      this.setAttribute('aria-expanded', expand);
-      listTree.setAttribute('aria-hidden', !expand);
-    });
-  }
+  {% include 'docs/examples/patterns/list-tree/_script.js' %}
 </script>
+
+## Javascript
+
+Vanilla Framework's JavaScript modules complement the CSS framework by providing the interactive behavior for components that require it. While Vanilla's CSS handles all the visual styling, some components need JavaScript to function properly - such as switching between tab panels, toggling navigation menus, or handling form interactions.
+
+The main benefits of using Vanilla's JavaScript modules are:
+
+- **Consistent behavior**: JavaScript that's designed to work seamlessly with Vanilla's CSS components
+- **Lightweight and focused**: Only include the functionality you actually need
+- **Framework agnostic**: Works with any JavaScript framework or vanilla JavaScript projects
+- **Accessibility**: Built with proper ARIA attributes and keyboard navigation support
+
+These modules are entirely optional - if you're building static pages or handling interactivity with your own JavaScript, you can use Vanilla's CSS styling without any JavaScript. However, for components that require interactive behavior, Vanilla's JavaScript ensures everything works as intended.
+
+**Note**: Vanilla's ESM (ES Module) support is currently being expanded. While the module system is in place, only a limited set of components have JavaScript modules available at this time.
+
+### Using ES Modules (Recommended - With a Bundler)
+
+For modern projects utilizing a module bundler like esbuild, Webpack, or Rollup, you can import the modules directly from the installed package.
+
+<h4 class="p-heading--5 u-no-padding--top">Import Specific Modules</h4>
+
+This is the recommended approach, as it allows your bundler to perform tree-shaking and include only the necessary code.
+
+```javascript
+// Import the 'tabs' module
+import {tabs} from 'vanilla-framework/js';
+
+// Initialize the tabs component
+tabs.initTabs('[role="tablist"]');
+```
+
+<h4 class="p-heading--5 u-no-padding--top">Import All Modules</h4>
+
+If you need access to everything or prefer a single import statement, you can import all modules into a single namespace.
+
+```javascript
+// Import all modules and assign them to the 'vanilla' object
+import * as vanilla from 'vanilla-framework/js';
+```
+
+### Using Modules in the Browser (Without Build Tools)
+
+If your project does not use a bundler (e.g., using a simple server or static HTML files), you need to manually copy the necessary JavaScript files into your project path and load them as native ES modules.
+
+<h4 class="p-heading--5 u-no-padding--top">Step 1: Copy the Module Files</h4>
+
+Copy the required module files from node_modules into a local directory that your web server can access. The exact path may vary based on your project setup.
+
+Example build script (e.g., in package.json):
+
+```bash
+"build-vanilla-js": "mkdir -p static/js/modules/vanilla-framework/js && cp -r node_modules/vanilla-framework/templates/js static/js/modules/vanilla-framework"
+```
+
+<h4 class="p-heading--5 u-no-padding--top">Step 2: Reference Modules in HTML</h4>
+
+Reference the individual module files in your HTML using a `<script type="module">` tag, pointing to the location where you copied the files.
+
+Example HTML:
+
+```html
+<script type="module" src="/static/js/modules/vanilla-framework/js/tabs.js"></script>
+```

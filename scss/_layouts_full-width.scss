@@ -1,3 +1,5 @@
+// DEPRECATED
+// .l-full-width is deprecated, use .l-docs and .l-docs__container instead
 @mixin vf-l-full-width {
   $l-full-screen-aside-width: 15rem;
 
@@ -17,13 +19,13 @@
     }
 
     .l-full-width__sidebar {
-      background: $color-light;
+      background: $colors--theme--background-alt;
 
       // height of top navigation, as padding applied to .p-navigation__link + line-heigh of the anchor text inside
-      $navigation-top-height: $spv--large * 2 + map-get($line-heights, default-text);
+      $navigation-top-height: $spv--large * 2 + map-get($settings-text-default, line-height);
 
       height: calc(100% - $navigation-top-height); // height of document reduced by height of top nav
-      min-height: calc(100vh - $navigation-top-height);
+      min-height: calc(100dvh - $navigation-top-height);
       position: absolute;
       width: $l-full-screen-aside-width;
       z-index: 1;
@@ -63,6 +65,7 @@
         // grid should align to the left (no left margin)
         // TODO: ideally this should be applied to %fixed-width-container
         .row,
+        .grid-row,
         .u-fixed-width {
           margin-left: 0;
         }
@@ -82,6 +85,7 @@
 
       .l-main {
         .row,
+        .grid-row,
         .u-fixed-width {
           margin-left: auto;
         }

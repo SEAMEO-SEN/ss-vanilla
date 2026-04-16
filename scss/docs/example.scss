@@ -2,14 +2,42 @@
 
 @import '../vanilla';
 @include vf-u-baseline-grid;
+@include vf-b-button;
+@include vf-p-segmented-control;
+@include vf-p-forms-inline;
 
-// stylelint-disable selector-max-type -- examples base can use type selectors
-html {
-  background: $colors--light-theme--background-default;
-}
-
+// stylelint-disable selector-max-type -- examples can use type selectors
 body {
-  background: $colors--light-theme--background-default;
   margin: 1rem;
 }
 // stylelint-enable selector-max-type
+
+.p-example-controls {
+  @include vf-transition($property: #{transform, box-shadow, visibility}, $duration: snap);
+  align-items: center;
+  background-color: var(--vf-color-background-alt);
+  bottom: 0;
+  box-shadow: $box-shadow--deep;
+  display: flex;
+  flex-flow: row wrap;
+  gap: $sph--small;
+  left: 0;
+  padding: $spv--x-small $sph--x-small;
+  position: fixed;
+  right: 0;
+
+  // Above *all* other elements.
+  z-index: 1000000;
+
+  .p-example-controls__close-button {
+    margin-left: auto;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    gap: $sph--large;
+  }
+
+  @media only percy {
+    visibility: hidden !important;
+  }
+}

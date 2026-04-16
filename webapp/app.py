@@ -3,13 +3,13 @@ import glob
 import json
 import os
 import random
+import werkzeug
 import yaml
 import urllib
 import markupsafe
 import mistune
 
 # Packages
-import talisker.requests
 import requests
 import flask
 import jinja2
@@ -17,8 +17,6 @@ from canonicalwebteam.flask_base.app import FlaskBase
 from canonicalwebteam.templatefinder import TemplateFinder
 from canonicalwebteam.search import build_search_view
 from canonicalwebteam import image_template
-from canonicalwebteam.discourse import DiscourseAPI, DocParser, Docs
-
 
 # Constants
 with open("package.json") as package_json:
@@ -32,11 +30,38 @@ with open("releases.yml") as releases_file:
 
 # Read side-navigation.yaml
 with open("side-navigation.yaml") as side_navigation_file:
+    # maps values of `side_navigation_file.subheadings.ordering` to their implementations
+    supported_orderings = {
+        "alphabetical": lambda subheadings, by_attribute: sorted(subheadings, key=lambda subheading: subheading[by_attribute])
+    }
+
     SIDE_NAVIGATION = yaml.load(
         side_navigation_file.read(),
         Loader=yaml.FullLoader,
     )
 
+    def alphabetize_heading_items(heading, by_attribute="title"):
+        """
+        Alphabetizes the sub-heading items contained by the heading
+        :param heading:
+        :param by_attribute: Key name of the attribute within each subheading item to use for alphabetization
+        :return: Altered `heading` with its subheading items alphabetized
+        """
+        subheadings = None
+        subheadings_ordering_identifier = None
+        subheadings_ordering_fn = None
+        try:
+            subheadings_ordering_identifier = heading["ordering"]
+            subheadings_ordering_fn = supported_orderings[subheadings_ordering_identifier]
+        except KeyError:
+            return heading
+
+        heading["subheadings"] = subheadings_ordering_fn(heading["subheadings"], by_attribute)
+
+        return heading
+
+    for heading in SIDE_NAVIGATION:
+        heading = alphabetize_heading_items(heading)
 
 app = FlaskBase(
     __name__,
@@ -46,13 +71,12 @@ app = FlaskBase(
     template_404="404.html",
     template_500="500.html",
 )
-session = talisker.requests.get_session()
+session = requests.Session()
 
 TEAM_MEMBERS = [
     {"login": "anthonydillon", "role": "Engineering Director"},
-    {"login": "bartaz", "role": "Senior Web Engineer"},
-    {"login": "lyubomir-popov", "role": "Lead Visual Designer"},
-    {"login": "elioqoshi", "role": "UX Designer"},
+    {"login": "advl", "role": "Engineering Manager"},
+    {"login": "lyubomir-popov", "role": "Lead Visual Designer"}
 ]
 
 
@@ -81,6 +105,10 @@ def _get_examples():
         examples_length = len("docs/examples/")
         # Remove "docs/examples/" and extension for the path
         example_path = os.path.splitext(template_path[examples_length:])[0]
+
+        # Ignore "combined" templates
+        if example_path.endswith("/combined"):
+            continue
 
         outermost_parent = example_path.split(os.sep).pop(0)
 
@@ -145,15 +173,32 @@ def _get_contributors():
     return contributors
 
 
-def _filter_contributors(contributors):
-    # Distinguish team_members from contributors
-
-    member_usernames = [member["login"] for member in TEAM_MEMBERS]
+def _filter_team_members_from_contributors(contributors):
+    member_usernames = {member["login"] for member in TEAM_MEMBERS}
     return [
         contributor
         for contributor in contributors
         if contributor["login"] not in member_usernames
     ]
+
+
+def _filter_bots_from_contributors(contributors):
+    return [
+        contributor
+        for contributor in contributors
+        if (
+            contributor["type"].lower() != "bot"
+            and contributor["id"] != 25180681 # renovate-bot
+        )
+    ]
+
+
+def _filter_contributors(contributors):
+    # Distinguish team_members and bots from contributors
+
+    return _filter_bots_from_contributors(
+        _filter_team_members_from_contributors(contributors)
+    )
 
 
 # Global context settings
@@ -170,6 +215,7 @@ def global_template_context():
             flask.request.path.replace("/docs/", "")
             .replace("/design/", "")
             .replace("/accessibility", "")
+            .replace("/design-guidelines", "")
         )
 
         docs_slug = "" if docs_slug == "/docs" else docs_slug
@@ -213,10 +259,21 @@ def class_reference(component=None):
         flask.render_template("_layouts/_class-reference.html", data=data)
     )
 
+def status_label(status):
+    variants = {
+        "new": "positive",
+        "updated": "information",
+        "deprecated":"negative",
+        "in progress": "warning",
+    }
+
+    return markupsafe.Markup(
+        flask.render_template("_layouts/_status-label.html", status=status, variant=variants.get(status.lower(), "information"))
+    )
 
 @app.context_processor
 def utility_processor():
-    return {"class_reference": class_reference, "image": image_template}
+    return {"class_reference": class_reference, "image": image_template, "status": status_label}
 
 
 template_finder_view = TemplateFinder.as_view("template_finder")
@@ -236,57 +293,59 @@ def standalone_examples_index():
     )
 
 
-@app.route("/docs/examples/standalone/<path:example_path>")
-def standalone_example(example_path):
+@app.route("/docs/examples/<path:example_path>")
+def example(example_path, is_standalone=False):
     try:
+        is_raw = (flask.request.args.get("raw") or "").lower() == "true"
+        # If the user has requested the raw template, serve it directly
+        if is_raw:
+            raw_example_path = f"../templates/docs/examples/{example_path}.html"
+            # separate directory from file name so that flask.send_from_directory() can prevent malicious file access
+            raw_example_directory = os.path.dirname(raw_example_path)
+            raw_example_file_name = os.path.basename(raw_example_path)
+            return flask.send_from_directory(raw_example_directory, raw_example_file_name, mimetype="text/raw")
+
         return flask.render_template(
-            f"docs/examples/{example_path}.html", is_standalone=True
+            f"docs/examples/{example_path}.html", is_standalone=is_standalone
         )
-    except jinja2.exceptions.TemplateNotFound:
+    except (jinja2.exceptions.TemplateNotFound, werkzeug.exceptions.NotFound):
         return flask.abort(404)
 
 
-@app.route("/contribute")
-def contribute_index():
-    all_contributors = _get_contributors()
-    team_members = list(_get_team_members(all_contributors))
-    contributors = _filter_contributors(all_contributors)
+@app.route("/docs/examples/standalone/<path:example_path>")
+def standalone_example(example_path):
+    return example(example_path, is_standalone=True)
 
-    response = flask.make_response(
-        flask.render_template(
-            "contribute.html",
-            team_members=team_members,
-            contributors=contributors,
-        )
-    )
 
-    response.cache_control.max_age = 86400
-    response.cache_control.public = True
+# Inject team_members and contributors for /docs/contribute
+@app.context_processor
+def contribute_context():
+    if flask.request.path.rstrip("/") == "/docs/contribute":
+        all_contributors = _get_contributors()
+        team_members = list(_get_team_members(all_contributors))
+        contributors = _filter_contributors(all_contributors)
+        return {
+            "team_members": team_members,
+            "contributors": contributors
+        }
+    return {}
 
+@app.after_request
+def set_contribute_cache_control(response):
+    if flask.request.path.rstrip("/") == "/docs/contribute":
+        response.cache_control.max_age = 86400
+        response.cache_control.public = True
     return response
-
 
 app.add_url_rule("/", view_func=template_finder_view)
 app.add_url_rule(
     "/docs/search",
     "search",
     build_search_view(
+        app=app,
         session=session,
         site="vanillaframework.io/docs",
         template_path="docs/search.html",
     ),
 )
 app.add_url_rule("/<path:subpath>", view_func=template_finder_view)
-
-discourse_docs = Docs(
-    parser=DocParser(
-        api=DiscourseAPI(
-            base_url="https://discourse.ubuntu.com/", session=session
-        ),
-        index_topic_id=27037,  # https://discourse.ubuntu.com/t/design-system-website-config/27037
-        url_prefix="/design",
-    ),
-    document_template="/_layouts/docs_discourse.html",
-    url_prefix="/design",
-)
-discourse_docs.init_app(app)

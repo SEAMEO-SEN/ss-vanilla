@@ -2,10 +2,10 @@
 (function () {
   // throttling function calls, by Remy Sharp
   // http://remysharp.com/2010/07/21/throttling-function-calls/
-  var throttle = function (fn, delay) {
-    var timer = null;
+  const throttle = function (fn, delay) {
+    let timer = null;
     return function () {
-      var context = this,
+      let context = this,
         args = arguments;
       clearTimeout(timer);
       timer = setTimeout(function () {
@@ -73,7 +73,7 @@
 
   /**
     Toggles the expanded/collapsed classes on side navigation element.
-  
+
     @param {HTMLElement} sideNavigation The side navigation element.
     @param {Boolean} show Whether to show or hide the drawer.
   */
@@ -155,7 +155,7 @@
         sideNavigation.classList.remove('is-drawer-expanded');
         sideNavigation.classList.remove('is-drawer-collapsed');
         sideNavigation.classList.add('is-drawer-hidden');
-      }, 10)
+      }, 10),
     );
   }
 
@@ -177,44 +177,91 @@
 
   // Generate id from H2s content when it does not exist
   document.querySelectorAll('main h2:not([id])').forEach(function (heading) {
-    var id = heading.textContent
+    // Only get direct text from h2 node, excluding any child nodes
+    var id = heading.childNodes[0].textContent
+      .trim()
       .toLowerCase()
       .replaceAll(/\s+/g, '-')
       .replaceAll(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '');
     heading.setAttribute('id', id);
   });
 
-  // get all headings from page and add it to current highligted item in side navigation
+  // get all headings from page and add it to table of contents
   var list = document.createElement('ul');
-  list.classList.add('p-side-navigation__list');
+  list.classList.add('p-table-of-contents__list');
 
   var item = document.createElement('li');
-  item.classList.add('p-side-navigation__item');
+  item.classList.add('p-table-of-contents__item');
 
   var anchor = document.createElement('a');
-  anchor.classList.add('p-side-navigation__link');
+  anchor.classList.add('p-table-of-contents__link');
 
   // Add all H2s with IDs to the table of contents list
   [].slice.call(document.querySelectorAll('main h2[id]')).forEach(function (heading) {
     var thisItem = item.cloneNode();
     var thisAnchor = anchor.cloneNode();
     thisAnchor.setAttribute('href', '#' + heading.id);
-    thisAnchor.textContent = heading.textContent;
-    thisAnchor.addEventListener('click', () => {
-      toggleDrawer(sideNav, false);
-    });
+    // Only get direct text from h2 node, excluding any child nodes
+    thisAnchor.textContent = heading.childNodes[0].textContent.trim();
     thisItem.appendChild(thisAnchor);
     list.appendChild(thisItem);
   });
 
   // Add table of contents as nested list to side navigation
   if (list.querySelectorAll('li').length > 0) {
-    var currentPage = document.querySelector('.p-side-navigation__link[aria-current="page"]');
-    if (currentPage) {
-      var parent = currentPage.parentNode;
-      parent.appendChild(list);
+    var toc = document.querySelector('#toc');
+    if (toc) {
+      toc.appendChild(list);
+      toc.closest('.u-hide').classList.remove('u-hide');
     }
   }
+
+  // accordion side navigation
+  var currentPage = document.querySelector('.p-side-navigation__link[aria-current="page"]');
+  if (currentPage) {
+    var parentList = currentPage.parentNode.parentNode;
+    parentList.setAttribute('aria-expanded', true);
+    parentList.previousElementSibling.setAttribute('aria-expanded', true);
+  }
+
+  function setupSideNavigationExpandToggle(toggle) {
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    if (!isExpanded) {
+      toggle.setAttribute('aria-expanded', isExpanded);
+    }
+    const item = toggle.closest('.p-side-navigation__item');
+    const link = item.querySelector('.p-side-navigation__link');
+    const nestedList = item.querySelector('.p-side-navigation__list');
+    if (!link?.hasAttribute('aria-expanded')) {
+      link.setAttribute('aria-expanded', isExpanded);
+    }
+    if (!nestedList?.hasAttribute('aria-expanded')) {
+      nestedList.setAttribute('aria-expanded', isExpanded);
+    }
+  }
+
+  function handleExpandToggle(event) {
+    const item = event.currentTarget.closest('.p-side-navigation__item');
+    const button = item.querySelector('.p-side-navigation__expand, .p-side-navigation__accordion-button');
+    const link = item.querySelector('.p-side-navigation__link');
+    const nestedList = item.querySelector('.p-side-navigation__list');
+
+    [button, link, nestedList].forEach((el) => {
+      el.setAttribute('aria-expanded', el.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    });
+  }
+
+  function setupSideNavigationExpands() {
+    var expandToggles = document.querySelectorAll('.p-side-navigation__expand, .p-side-navigation__accordion-button');
+    expandToggles.forEach((toggle) => {
+      setupSideNavigationExpandToggle(toggle);
+      toggle.addEventListener('click', (e) => {
+        handleExpandToggle(e);
+      });
+    });
+  }
+
+  setupSideNavigationExpands();
 })();
 
 // scroll active side navigation item into view (without scrolling whole page)

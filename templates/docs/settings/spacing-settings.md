@@ -4,9 +4,6 @@ context:
   title: Spacing | Settings
 ---
 
-# Spacing
-
-<hr>
 Spacing in Vanilla is controlled via a set of variables. There are two kinds of variables - nudges, which keep text aligned to the baseline grid, and multiples of the spacing unit, which define vertical and horizontal spacing.
 
 ## The baseline grid
@@ -81,12 +78,78 @@ There are also generic spacing units for backwards compatibility with components
 | `$sp-xxxx-large`  | `$sp-unit * 8`    | `4rem`        |
 | `$sp-xxxxx-large` | `$sp-unit * 12`   | `6rem`        |
 
-## Import
+## Text Spacing {{ status("new") }}
 
-To import just this utility into your project, copy the snippet below and include it in your main Sass file.
+In Vanilla 4.27.0, we migrated the `$sp-after`, `$nudges`, `$font-sizes`, and `$line-heights` maps to new per-text type maps `$settings-text-h1`, `$settings-text-h1-large`, `$settings-text-h1-mobile`, `$settings-text-h2`, etc.
+
+These maps can be used to customize the spacing of different type levels in your application.
+
+A list of all of the new text settings maps is given below.
+
+- `$settings-text-display`
+- `$settings-text-display-mobile`
+- `$settings-text-h1`
+- `$settings-text-h1-large`
+- `$settings-text-h1-mobile`
+- `$settings-text-h2`
+- `$settings-text-h2-large`
+- `$settings-text-h2-mobile`
+- `$settings-text-h3`
+- `$settings-text-h3-large`
+- `$settings-text-h3-mobile`
+- `$settings-text-h4`
+- `$settings-text-h4-large`
+- `$settings-text-h4-mobile`
+- `$settings-text-h5`
+- `$settings-text-h5-large`
+- `$settings-text-h5-mobile`
+- `$settings-text-h6`
+- `$settings-text-h6-large`
+- `$settings-text-h6-mobile`
+- `$settings-text-p`
+- `$settings-text-small`
+- `$settings-text-small-dense`
+- `$settings-text-x-small`
+- `$settings-text-default`
+
+Within each map, the following settings can be customised:
+
+| Attribute     | Description                                                                                   |
+| ------------- | --------------------------------------------------------------------------------------------- |
+| `nudge`       | The vertical offset applied to the top of the text to align it to the baseline grid.          |
+| `line-height` | The total height of the line for this text type, usually a multiple of the base spacing unit. |
+| `font-size`   | The font size for this text type, typically in `rem` units or as a multiplier.                |
+| `sp-after`    | The vertical spacing applied after this text element, controlling space between elements.     |
+| `sp-before`   | The additional spacing added to the nudge for padding-top when text follows other elements.   |
+
+To customise these settings, you can create overrides for whichever text types you need in your project's settings file. For example:
 
 ```scss
-@import 'utilities_vertical-spacing';
+// settings.scss (in your project)
+
+// sass:map is needed to merge settings maps
+@use 'sass:map';
+// Import Vanilla's base settings
+@import 'vanilla-framework';
+
+// Define maps that contain settings you want to customise.
+// You only need to specify the settings you want to change.
+$custom-settings-text-p: (
+  nudge: 0.5rem,
+  sp-after: $spv--medium,
+);
+
+// Merge the custom settings with the default settings.
+// Make sure your custom settings map is the second argument, so that it overrides the defaults.
+$settings-text-p: map.merge($settings-text-p, $custom-settings-text-p);
+
+// index.scss (in your project)
+// Import your custom settings
+@import 'settings';
+
+// Include Vanilla AFTER your settings are imported - this causes Vanilla to use your custom settings.
+@include vanilla;
+// or include only the parts you need - see the customising guide below for more details
 ```
 
 For more information see [Customising Vanilla](/docs/customising-vanilla/) in your projects, which includes overrides and importing instructions.

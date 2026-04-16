@@ -1,5 +1,7 @@
 {% extends "_layouts/_root.html" %}
 
+{% set is_docs=True %}
+
 {% block custom_head %}
   <link rel="stylesheet" href="{{ versioned_static('build/css/docs/site.css') }}" />
 {% endblock %}
@@ -9,88 +11,130 @@
 
     {% block banner %}{% endblock %}
 
-    <aside class="l-full-width__sidebar">
 
-      <nav class="p-side-navigation is-sticky is-drawer-hidden" id="side-navigation-drawer" aria-label="Side">
 
-        <div class="u-hide--large p-strip--light is-shallow">
-          <div class="u-fixed-width">
-            <a href="#side-navigation-drawer" class="p-button has-icon u-no-margin js-drawer-toggle" aria-expanded="false"><i class="p-icon--menu"></i><span>Contents</span></a>
-          </div>
-        </div>
+    <div class="l-docs">
 
-        <div class="p-side-navigation__overlay js-drawer-toggle" aria-controls="side-navigation-drawer" aria-expanded="false"></div>
+      <aside class="l-docs__sidebar">
 
-          <div class="p-side-navigation__drawer">
-            <div class="p-strip is-shallow">
-              <div class="p-side-navigation__drawer-header">
-                <a href="#" class="p-side-navigation__toggle--in-drawer js-drawer-toggle" aria-controls="side-navigation-drawer">
-                  Toggle side navigation
-                </a>
-              </div>
+        <nav class="p-side-navigation--accordion is-sticky is-drawer-hidden" id="side-navigation-drawer" aria-label="Side">
 
-              {% macro side_nav_item(url, title) -%}
-                  <li class="p-side-navigation__item">
-                    <a class="p-side-navigation__link" href="{{ url }}" {% if (slug and slug in url) or (url == path) %}aria-current="page"{% endif %}>
-                      {{ title | replace("{version}", version) }}
-                      {% if url in updatedFeatures %}
-                        <span class="p-side-navigation__status">
-                          {% if updatedFeatures[url]=="New" %}
-                          <span class="p-status-label--positive">
-                          {% elif updatedFeatures[url]=="Updated" %}
-                          <span class="p-status-label--information">
-                          {% elif updatedFeatures[url]=="Removed" %}
-                          <span class="p-status-label--negative">
-                          {% elif updatedFeatures[url]=="Deprecated" %}
-                          <span class="p-status-label--negative">
-                          {% elif updatedFeatures[url]=="In Progress" %}
-                          <span class="p-status-label--caution">    
-                          {% endif %}
-                          {{ updatedFeatures[url] }}
-                          </span>
-                        {% endif %}
-                    </a>
-                  </li>
-              {%- endmacro %}
-              
-              {% for item in sideNavigation %}
-              <ul class="p-side-navigation__list">
-                <li class="p-side-navigation__item--title"><span class="p-side-navigation__text">{{ item.heading | replace("{version}", version) }}</span></li>
-                {% for subheading in item.subheadings %}
-                {{ side_nav_item(subheading.url, subheading.title) }}
-                {% endfor %}
-              </ul>
-              {% endfor %}
-
+          <div class="u-hide--large p-strip--highlighted is-shallow">
+            <div class="u-fixed-width">
+              <button class="p-button has-icon u-no-margin js-drawer-toggle" aria-expanded="false"><i class="p-icon--menu"></i><span>Contents</span></button>
             </div>
           </div>
-      </div>
-    </aside>
-    
-    <div class="p-strip is-shallow l-full-width">
-      <div class="l-main">
-        <div class="row">
-          <main class="col-12" id="main-content">
-            {% block content %}
-              {% if page_tabs %}
-              <div class="p-strip u-no-padding--top">
-                <h1>{{ title.split('|')[0] }}</h1>
+
+          <div class="p-side-navigation__overlay js-drawer-toggle" aria-controls="side-navigation-drawer" aria-expanded="false"></div>
+
+            <div class="p-side-navigation__drawer">
+              <div class="p-strip is-shallow">
+                <div class="p-side-navigation__drawer-header">
+                  <button class="p-side-navigation__toggle--in-drawer js-drawer-toggle" aria-controls="side-navigation-drawer">
+                    Toggle side navigation
+                  </button>
+                </div>
+
+                {% macro side_nav_item(url, title) -%}
+                    <li class="p-side-navigation__item">
+                      <a class="p-side-navigation__link" href="{{ url }}" {% if (slug and url.endswith(slug)) or (url == path) %}aria-current="page"{% endif %}>
+                        {{ title | replace("{version}", version) }}
+                        {% if url in updatedFeatures %}
+                          {% set chip_class = "" %}
+                          {% if updatedFeatures[url] == "New" %}
+                            {% set chip_class = "p-chip--positive" %}
+                          {% elif updatedFeatures[url] == "Updated" %}
+                            {% set chip_class = "p-chip--information" %}
+                          {% elif updatedFeatures[url] == "Removed" or updatedFeatures[url] == "Deprecated" %}
+                            {% set chip_class = "p-chip--negative" %}
+                          {% elif updatedFeatures[url] == "In Progress" %}
+                            {% set chip_class = "p-chip--caution" %}
+                          {% endif %}
+                          <div class="p-side-navigation__status">
+                            <span class="{{ chip_class }} is-readonly is-inline is-dense">
+                               {{ updatedFeatures[url] }}
+                            </span>
+                          </div>
+                        {% endif %}
+                      </a>
+                    </li>
+                {%- endmacro %}
+
+                <ul class="p-side-navigation__list">
+                {% for item in sideNavigation %}
+
+                  <li class="p-side-navigation__item">
+                    <button class="p-side-navigation__accordion-button" aria-expanded="false">{{ item.heading | replace("{version}", version) }}</button>
+                    <ul class="p-side-navigation__list">
+                      {% for subheading in item.subheadings %}
+                      {{ side_nav_item(subheading.url, subheading.title) }}
+                      {% endfor %}
+                    </ul>
+                  </li>
+
+                {% endfor %}
+              </ul>
               </div>
+            </div>
+      </aside>
+
+      <div class="l-docs__title" id="main-content">
+        <div class="p-strip is-shallow u-no-padding--bottom">
+          <div class="u-fixed-width">
+            {% block content_title %}
+
+              {% if title %}
+                <h1>{{ title.split('|')[0] }}</h1>
               {% endif %}
 
               {% include "_layouts/_component_tabs.html" %}
+              {% if not page_tabs %}
+              <hr />
+              {% endif %}
 
+            {% endblock content_title %}
+          </div>
+        </div>
+      </div>
+
+      <div class="l-docs__main">
+        <div class="p-section">
+          <main class="u-fixed-width">
+            {% block content %}
               {{ content | safe }}
             {% endblock content %}
+
+            {% if path == '/docs/contribute' %}
+              {% include '_layouts/_contribute.html' %}
+            {% endif %}
           </main>
         </div>
       </div>
+
+      {# table of contents placeholder, to be filled by JS based on headings #}
+      <div class="l-docs__meta u-hide">
+        <div class="l-docs__sticky-container p-strip is-shallow">
+          <aside class="p-table-of-contents">
+            <div class="p-table-of-contents__section">
+              <h4 class="p-table-of-contents__header">On this page:</h4>
+              <nav class="p-table-of-contents__nav" aria-label="Table of contents" id="toc">
+              </nav>
+            </div>
+          </aside>
+        </div>
+      </div>
     </div>
+
+    {% include "_layouts/_footer.html" %}
 
     <script>
       window.Prism = window.Prism || {};
       Prism.manual = true;
     </script>
+    <script defer src="{{ versioned_static('build/js/modules/beautify.js') }}"></script>
+    <script defer src="{{ versioned_static('build/js/modules/beautify-html.js') }}"></script>
+    <script defer src="{{ versioned_static('build/js/modules/beautify-css.js') }}"></script>
     <script defer src="{{ versioned_static('js/prism.min.js') }}"></script>
+    <script type="module" src="{{ versioned_static('js/tabs.js') }}"></script>
     <script defer src="{{ versioned_static('js/example.js') }}"></script>
 {% endblock %}

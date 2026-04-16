@@ -4,13 +4,11 @@ context:
   title: Tables | Base elements
 ---
 
-# Tables
-
-<hr>
-
 Data tables are used to organize and display all information from a data set.
 
-<div class="embedded-example"><a href="/docs/examples/base/table/" class="js-example">
+We capitalize table headings and any proper nouns in the table. Use other capitalization and punctuation consistently throughout the table.
+
+<div class="embedded-example"><a href="/docs/examples/base/table/default" class="js-example">
 View example of the base table
 </a></div>
 
@@ -47,13 +45,26 @@ If any of the cells in a column has an icon, all cells in the same column (inclu
 View example of the base table
 </a></div>
 
-## Sortable
+## Sortable {{ status("updated") }}
 
 Assigning `aria-sort` to `<th>` elements will make given table columns sortable. With javascript toggling between `ascending` and `descending` for the `aria-sort` attribute it will change the chevron icon in that direction.
+
+Sortable header text should be wrapped in a `<button class="p-table__sort-button">`
+to enable sorting by keyboard.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/tables/table-sortable/" class="js-example">
 View example of the table sortable pattern
 </a></div>
+
+<div class="p-notification--information">
+  <div class="p-notification__content">
+    <h5 class="p-notification__title">Sorting via keyboard</h5>
+    <p class="p-notification__message">
+      In Vanilla 4.41.0 we added support for sorting tables with the Enter and Space keys.<br>
+      To enable sorting by keyboard, please wrap your header text in <code>&lt;button class=&quot;p-table__sort-button&quot;&gt;</code>.
+    </p>
+  </div>
+</div>
 
 ## Expanding
 
@@ -108,6 +119,6 @@ For more information see [Customising Vanilla](/docs/customising-vanilla/) in yo
 
 You can use tables in React by installing our react-component library and importing `MainTable` or `ModularTable` component.
 
-[See the documentation for our React `MainTable` component](https://canonical.github.io/react-components/?path=/docs/maintable--default-story#maintable)
+[See the documentation for our React `MainTable` component](https://canonical.github.io/react-components/?path=/docs/components-maintable--docs)
 
-[See the documentation for our React `ModularTable` component](https://canonical.github.io/react-components/?path=/docs/modulartable--default-story)
+[See the documentation for our React `ModularTable` component](https://canonical.github.io/react-components/?path=/docs/components-modulartable--docs)

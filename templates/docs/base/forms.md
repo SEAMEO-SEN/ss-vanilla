@@ -4,10 +4,6 @@ context:
   title: Forms | Base elements
 ---
 
-# Forms
-
-<hr>
-
 Form controls have global styling defined at the HTML element level.
 
 Most labels and controls are 100% the width of the `<form>` parent element, unless you [specify inline layout](#inline).
@@ -136,6 +132,12 @@ You can use the `<fieldset>` element to divide the form into different logical s
 View example of the base form fieldset
 </a></div>
 
+You can add `is-required` to `<legend>` to indicate required fields.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/forms/fieldset-required/" class="js-example">
+  View example of fieldset required fields
+</a></div>
+
 ## Inline
 
 By applying the class `.p-form--inline` and wrapping any form control in `.p-form__group` you can change the layout style of any form to be inline.
@@ -175,6 +177,14 @@ Supplementary help text can be provided for the form fields by adding an element
 View example of a form fields with help text
 </a></div>
 
+### Dense help text {{ status('updated') }}
+
+To use help text with a [dense input element](#dense-form-elements), add `.is-dense` to the `.p-form-validation__input` element.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/forms/form-help-text-dense" class="js-example">
+View example of a form fields with dense help text
+</a></div>
+
 ## Validation
 
 To use form validation feedback - which includes feedback messages, icons and border colours - wrap individual input elements in a `p-form-validation` and additionally apply the `.is-error`, `.is-caution` or `.is-success` to the wrapper as appropriate.
@@ -184,6 +194,14 @@ If your form uses select elements then you will additionally need to wrap only t
 Descriptive text relating to the element's validation status should use the class `p-form-validation__message`.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/forms/form-validation/" class="js-example">
+View example of form validation patterns
+</a></div>
+
+### Dense form validation select wrapper {{ status('updated') }}
+
+To create a [dense input](#dense-form-elements) inside a `p-form-validation__select-wrapper`, add the `.is-dense` class to the select wrapper, not the input.
+
+<div class="embedded-example"><a href="/docs/examples/patterns/forms/form-validation-select-wrapper-dense" class="js-example">
 View example of form validation patterns
 </a></div>
 
@@ -218,11 +236,17 @@ When using a password field, use this pattern to allow the user to toggle the pa
 View example of the password toggle
 </a></div>
 
+## Dark theme
+
+By default, the form elements are displayed in the light theme. To display them in the dark theme, add the class `.is-dark` to the input elements.
+
+View example of [dark form validation](/docs/examples/patterns/forms/form-validation?theme=dark).
+
 ## Accessibility
 
 Validated form input elements should indicate errors with `aria-invalid` attribute.
 
-See [WCAG Success Criterion 3.3.1 - Using Aria-Invalid to Indicate An Error Field](https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA21) for further information.
+See [WCAG Success Criterion 3.3.1 - Using Aria-Invalid to Indicate An Error Field](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA21) for further information.
 
 ## Import
 
@@ -244,8 +268,20 @@ For more information see [Customising Vanilla](/docs/customising-vanilla/) in yo
 
 ## React
 
-You can use forms in React by installing our react-component library and importing `Form` and `Input` component.
+You can use forms in React by installing our react-component library and importing `Form`, `Input`, `PasswordToggle`, `Textarea`, `CheckboxInput`, `RadioInput`, `Select` and `MultiSelect` components.
 
-[See the documentation for our React `Form` component](https://canonical.github.io/react-components/?path=/docs/form--default-story#form)
+[See the documentation for our React `Form` component](https://canonical.github.io/react-components/?path=/docs/components-form--docs)
 
-[See the documentation for our React `Input` component](https://canonical.github.io/react-components/?path=/docs/input--text-input#input)
+[See the documentation for our React `Input` component](https://canonical.github.io/react-components/?path=/docs/components-input--docs)
+
+[See the documentation for our React `PasswordToggle` component](https://canonical.github.io/react-components/?path=/docs/components-passwordtoggle--docs)
+
+[See the documentation for our React `Textarea` component](https://canonical.github.io/react-components/?path=/docs/components-textarea--docs)
+
+[See the documentation for our React `CheckboxInput` component](https://canonical.github.io/react-components/?path=/docs/components-checkboxinput--docs)
+
+[See the documentation for our React `RadioInput` component](https://canonical.github.io/react-components/?path=/docs/components-radioinput--docs)
+
+[See the documentation for our React `Select` component](https://canonical.github.io/react-components/?path=/docs/components-select--docs)
+
+[See the documentation for our React `MultiSelect` component](https://canonical.github.io/react-components/?path=/docs/components-multiselect--docs)

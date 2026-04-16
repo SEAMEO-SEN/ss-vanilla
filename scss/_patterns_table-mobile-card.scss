@@ -10,7 +10,7 @@
       text-align: left;
     }
 
-    @media (max-width: $threshold-6-12-col - 1) {
+    @media (width < $threshold-6-12-col) {
       @supports (display: grid) {
         thead {
           display: none;
@@ -24,9 +24,9 @@
           width: 100%;
         }
 
-        tr {
-          border: $border;
-          border-radius: $border-radius;
+        // tbody selector needed to override the default table styles
+        tbody tr {
+          border: 1px solid $colors--theme--border-default;
           display: block;
           margin-bottom: $spv--x-large;
           padding: 0 $sph--large;
@@ -56,7 +56,7 @@
           &[data-heading]::before {
             content: attr(data-heading);
             display: block;
-            margin-bottom: map-get($sp-after, x-small) - map-get($nudges, x-small) - $sp-unit;
+            margin-bottom: map-get($settings-text-x-small, sp-after) - map-get($settings-text-x-small, nudge) - $sp-unit;
             overflow: hidden;
             padding-left: 0;
             padding-right: 0;
@@ -65,7 +65,7 @@
           }
 
           &:not(:first-child)::after {
-            background-color: $color-mid-light;
+            background-color: $colors--theme--border-low-contrast;
             content: '';
             height: 1px;
             left: 0;

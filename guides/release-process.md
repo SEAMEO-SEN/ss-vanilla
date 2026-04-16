@@ -31,7 +31,7 @@
 - Publish the latest release on [Github](https://github.com/canonical/vanilla-framework/releases/) with the new version number and add the release notes you created earlier.
   - Make sure to mark the release as a pre-release if it's an Alpha or Beta
 
-### Releasng to NPM
+### Releasing to NPM
 
 This should happen automatically after publishing the release on GH (thanks to [GH actions workflow](https://github.com/canonical/vanilla-framework/blob/main/.github/workflows/publish-on-release.yml)).
 
@@ -67,7 +67,4 @@ Please follow the [release process](https://github.com/canonical/react-component
 
 Only major/minor releases need to be promoted.
 
-- New releases should be announced on newsletter via MailChimp
-- New releases should be announced on the [@vanillaframewrk twitter account](https://twitter.com/vanillaframewrk)
-  - this should happen automatically when newsletter is sent
 - Major and minor releases should also be announced in detail on the [ubuntu blog](https://blog.ubuntu.com/)

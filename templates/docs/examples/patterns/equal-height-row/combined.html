@@ -1,0 +1,15 @@
+{% extends "_layouts/examples.html" %}
+{% block title %}Equal height row / Combined{% endblock %}
+
+{% block standalone_css %}patterns_equal-height-row{% endblock %}
+
+{% block content %}
+{% with is_combined = true %}
+<section>{% include 'docs/examples/patterns/equal-height-row/3-column-row-responsive.html' %}</section>
+<section>{% include 'docs/examples/patterns/equal-height-row/3-column-row-wrap-responsive.html' %}</section>
+<section>{% include 'docs/examples/patterns/equal-height-row/4-items-per-column-responsive.html' %}</section>
+<section>{% include 'docs/examples/patterns/equal-height-row/4-items-per-column-wrap-responsive.html' %}</section>
+<section>{% include 'docs/examples/patterns/equal-height-row/default-responsive.html' %}</section>
+<section>{% include 'docs/examples/patterns/equal-height-row/default-wrap-responsive.html' %}</section>
+{% endwith %}
+{% endblock %}

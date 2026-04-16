@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:color';
 
 // Functions used across multiple patterns or utils
 
@@ -33,33 +34,49 @@
 
 // Test value of bg $color and return light or dark text color accordingly
 @function vf-contrast-text-color($color) {
-  @if (lightness($color) > 55) {
-    @return $color-dark; // Lighter background, return dark color
+  @if (color.channel($color, 'lightness', $space: hsl) > 55) {
+    @return $colors--light-theme--text-default; // Lighter background, return dark color
   } @else {
-    @return $color-x-light; // Darker background, return light color
+    @return $colors--dark-theme--text-default; // Darker background, return light color
   }
 }
 
 // Returns the font color to be presented on the passed background-color
 // variable.
 @function vf-determine-text-color($background-color) {
-  @if (lightness($background-color) > 50) {
-    @return $color-dark;
+  @if (color.channel($background-color, 'lightness', $space: hsl) > 50) {
+    @return $colors--light-theme--text-default;
   } @else {
-    @return $color-x-light;
+    @return $colors--dark-theme--text-default;
   }
 }
 
-// Adds visual focus to elements on :focus-visible,
-// or :focus if the browser doesn't support the former
-@mixin vf-focus($color: $color-focus, $width: $bar-thickness, $has-validation: false) {
+// Includes the theme variables based on the background color passed as an argument.
+// This is currently only used in the deprecated p-strip--accent.
+@mixin vf-determine-theme-from-background($background-color) {
+  @if (color.channel($background-color, 'lightness', $space: hsl) > 50) {
+    @include vf-theme-light;
+  } @else {
+    @include vf-theme-dark;
+  }
+}
+
+// Adds visual focus to elements on :focus-visible or :focus if the browser
+// doesn't support the former
+@mixin vf-focus-themed($light-color: $colors--light-theme--focus, $dark-color: $colors--dark-theme--focus, $width: $bar-thickness, $has-validation: false) {
+  --vf-focus-outline-color: #{$light-color};
+
+  .is-dark & {
+    --vf-focus-outline-color: #{$dark-color};
+  }
+
   &:focus {
-    outline: $width solid $color;
+    outline: $width solid var(--vf-focus-outline-color);
     outline-offset: -#{$width};
   }
 
   &:focus-visible {
-    outline: $width solid $color;
+    outline: $width solid var(--vf-focus-outline-color);
     outline-offset: -#{$width};
   }
 
@@ -81,6 +98,12 @@
       outline-color: $color-positive;
     }
   }
+}
+
+// This mixin is deprecated and will be removed in a future version of Vanilla.
+// Please use vf-focus-themed instead.
+@mixin vf-focus($color: $colors--theme--focus, $width: $bar-thickness, $has-validation: false) {
+  @include vf-focus-themed($light-color: $color, $width: $width, $has-validation: $has-validation);
 }
 
 // Raises a number to a power (https://css-tricks.com/snippets/sass/power-function/)

@@ -10,18 +10,18 @@ The grid gives the ability to maintain semantic meaning in the page, while placi
 
 ## Considerations
 
-This component strives to follow [WCAG 2.1 (level AA) guidelines](https://www.w3.org/TR/WCAG21/), and care must be taken to ensure this effort is maintained when the component is implemented across other projects. This section offers advice to that effect:
+This component strives to follow [WCAG 2.2 (level AA) guidelines](https://www.w3.org/TR/WCAG22/), and care must be taken to ensure this effort is maintained when the component is implemented across other projects. This section offers advice to that effect:
 
-- Each column containing text should span a minimum of 3 columns.
+- Each column containing text should span a minimum of 2 columns.
 - Only columns should be direct children of rows.
-- The starting point of your page should be a well structured and accessible source document. Ensure the document remains in a logical order for screen readers, irrespective of how the content looks visually.
+- The starting point of your page should be a well-structured and accessible source document. Ensure the document remains in a logical order for screen readers, irrespective of how the content looks visually.
 - Ensure to use order and the grid-placement properties only for visual, not logical, reordering of content.
 
 ## Resources
 
 - [CSS Grid Layout and Accessibility - CSS: Cascading Style Sheets | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/CSS_Grid_Layout_and_Accessibility)
 - [CSS Grid Layout Module Level 2 - Order accessibility](https://drafts.csswg.org/css-grid/#order-accessibility)
-- [WAI-ARIA examples - Grid layout ](https://www.w3.org/TR/wai-aria-practices/examples/grid/LayoutGrids.html)
-- [WAI-ARIA practices - Grid](https://www.w3.org/TR/wai-aria-practices-1.1/#grid)
+- [WAI-ARIA examples - Grid layout](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/)
+- [WAI-ARIA practices - Grid](https://www.w3.org/WAI/ARIA/apg/patterns/grid/)
 - Guidelines
-  - [WCAG 2.1 - 2.4.3 Focus order](https://www.w3.org/TR/WCAG21/#focus-order)
+  - [2.4.3: Focus Order](https://www.w3.org/TR/WCAG22/#focus-order)

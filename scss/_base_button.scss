@@ -15,7 +15,7 @@
 
   %vf-button-base {
     @include vf-transition(#{background-color, border-color}, snap, in);
-    @include vf-focus;
+    @include vf-focus-themed;
 
     border-style: solid;
     border-width: $input-border-thickness;
@@ -24,7 +24,7 @@
     font-size: 1rem;
     font-weight: $font-weight-regular-text;
     justify-content: center;
-    line-height: map-get($line-heights, default-text);
+    line-height: map-get($settings-text-default, line-height);
     margin: 0 $sph--large $input-margin-bottom 0;
     padding: $input-vertical-padding $sph--large;
     text-align: center;
@@ -53,10 +53,10 @@
     }
 
     &.is-small {
-      font-size: #{map-get($font-sizes, small)}rem;
-      line-height: map-get($line-heights, small);
+      font-size: #{map-get($settings-text-small, font-size)}rem;
+      line-height: map-get($settings-text-small, line-height);
       margin-bottom: $input-margin-bottom - $sp-unit;
-      padding: calc(map-get($nudges, small) - $input-border-thickness) $sph--small;
+      padding: calc(map-get($settings-text-small, nudge) - $input-border-thickness) $sph--small;
     }
 
     &.is-small.is-dense {
@@ -77,6 +77,8 @@
     // stylelint-enable selector-max-type
   }
 
+  // FIXME: buttons are using a custom version of success icon that is not themed
+  // this should ideally be replaced with a themed icon that uses text colour
   %vf-button-white-success-icon {
     & .p-icon--success {
       @include vf-icon-success($color-x-light, $color-transparent);
@@ -96,19 +98,34 @@
         margin-right: -$sph--small;
       }
     }
+
+    &.is-small {
+      & [class*='p-icon'] {
+        margin-left: $sph--x-small;
+        margin-right: $sph--x-small;
+
+        &:first-child {
+          margin-left: -$sph--x-small;
+        }
+
+        &:last-child {
+          margin-right: -$sph--x-small;
+        }
+      }
+    }
   }
 }
 
 @mixin vf-button-pattern(
-  $button-background-color: $colors--light-theme--background-default,
-  $button-text-color: $colors--light-theme--text-default,
+  $button-background-color: $colors--theme--background-default,
+  $button-text-color: $colors--theme--text-default,
   $button-disabled-background-color: $color-transparent,
-  $button-disabled-border-color: $colors--light-theme--border-high-contrast,
-  $button-border-color: $colors--light-theme--border-high-contrast,
-  $button-hover-background-color: $colors--light-theme--background-hover,
-  $button-hover-border-color: $colors--light-theme--border-high-contrast,
-  $button-active-background-color: $colors--light-theme--background-active,
-  $button-active-border-color: $colors--light-theme--border-high-contrast
+  $button-disabled-border-color: $colors--theme--border-high-contrast,
+  $button-border-color: $colors--theme--border-high-contrast,
+  $button-hover-background-color: $colors--theme--background-hover,
+  $button-hover-border-color: $colors--theme--border-high-contrast,
+  $button-active-background-color: $colors--theme--background-active,
+  $button-active-border-color: $colors--theme--border-high-contrast
 ) {
   background-color: $button-background-color;
   border-color: $button-border-color;

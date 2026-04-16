@@ -1,9 +1,6 @@
 @import 'settings';
 
 @mixin vf-p-tabs {
-  // for _patterns_tabs.scss
-  $color-tabs-active-bar: $colors--light-theme--text-default !default;
-
   .p-tabs {
     border-radius: 0;
     overflow: hidden;
@@ -11,8 +8,8 @@
     position: relative;
 
     &__list {
-      @extend %vf-pseudo-border--bottom;
-
+      // inset box shadow used to draw the border inside the list's box
+      box-shadow: inset 0 -1px 0 0 $colors--theme--border-default;
       display: flex;
       margin: 0 auto $spv--x-large;
       overflow-x: auto;
@@ -41,21 +38,20 @@
         $button-disabled-border-color: $color-transparent
       );
       @include vf-highlight-bar(transparent, bottom, false);
-
       align-items: center;
+      background-color: transparent;
       border: none;
-      color: $color-dark;
+      color: $colors--theme--text-default;
       display: flex;
       gap: $sph--small;
       height: 100%;
-      line-height: map-get($line-heights, default-text);
+      line-height: map-get($settings-text-default, line-height);
       margin-bottom: 0;
       padding: $spv--medium $sph--large;
       position: relative;
 
       &::before {
         @extend %vf-pseudo-border;
-        @include vf-transition(#{background-color, border-color}, snap, in);
 
         bottom: 0;
         z-index: 1;
@@ -71,23 +67,52 @@
         }
       }
 
-      // Display the highlight when focussing in modern browsers that support
+      &:visited {
+        color: $colors--theme--text-default;
+      }
+
+      // Display the highlight when focusing in modern browsers that support
       // focus-visible.
       &:focus:not(:focus-visible) {
-        @include vf-highlight-bar($color-tabs-active-bar, bottom, false);
+        @include vf-highlight-bar($colors--theme--text-default, bottom, false);
+      }
+
+      &:hover {
+        background-color: transparent;
+        @include vf-highlight-bar($colors--theme--border-default, bottom, false);
+
+        &::before,
+        &:focus:not(:focus-visible)::before {
+          bottom: 1px;
+          height: calc($bar-thickness - 1px);
+        }
+
+        // Hide the highlight when focusing (in combination with the parent
+        // states) in browsers that don't support focus-visible.
+        &:focus::before,
+        &:focus::after {
+          content: none;
+        }
+
+        // Display the highlight when focusing (in combination with the parent
+        // states) in modern browsers that support focus-visible.
+        &:focus:not(:focus-visible) {
+          @include vf-highlight-bar($colors--theme--border-default, bottom, false);
+        }
       }
 
       &:active,
       &[aria-selected='true'] {
-        @include vf-highlight-bar($color-tabs-active-bar, bottom, false);
+        background-color: transparent;
+        @include vf-highlight-bar($colors--theme--text-default, bottom, false);
 
-        // Display the highlight when focussing (in combination with the parent
+        // Display the highlight when focusing (in combination with the parent
         // states) in modern browsers that support focus-visible.
         &:focus:not(:focus-visible) {
-          @include vf-highlight-bar($color-tabs-active-bar, bottom, false);
+          @include vf-highlight-bar($colors--theme--text-default, bottom, false);
         }
 
-        // Hide the highlight when focussing (in combination with the parent
+        // Hide the highlight when focusing (in combination with the parent
         // states) in browsers that don't support focus-visible.
         &:focus::before,
         &:focus::after {

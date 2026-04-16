@@ -4,17 +4,13 @@ context:
   title: Breaking out of the grid | Layouts
 ---
 
-# Breaking out of the grid
-
-<hr>
-
 In some cases, there might be a good reason to break out of the constraints of a 12 column grid and allow content to bleed into the page margins - for example, tables with many columns that would otherwise result in heavy truncation or wrapping, charts with a lot of detail along the x axis, or card layouts that aim to impress with the abundance of available content. The fluid breakout layout allows you to do this.
 
 ## Anatomy of the fluid breakout layout
 
 ### Wrapper
 
-The `.l-fluid-breakout` serves as a wrapper, and allows for an aside and a main area. On screens smaller than `$breakpoint--large`, it acts as a single column. On larger screens it switches to a 3 column layout - a central area and two aside areas on either side.
+The `.l-fluid-breakout` serves as a wrapper, and allows for an aside and a main area. On screens smaller than `$breakpoint-large`, it acts as a single column. On larger screens it switches to a 3 column layout - a central area and two aside areas on either side.
 
 The wrapper aims to align as much as possible with the 12 column grid. On smaller screens, that is limited to ensuring the padding of both layouts match. Once the window width becomes large enough, the left edges of the regular 12 column grid and the central column of the fluid breakout layout also align. For this to be possible, two conditions need to be met:
 
@@ -31,7 +27,7 @@ View example of the fluid breakout layout with a left aside and a toolbar
 
 ### Aside
 
-The aside is optional. When present, the order of the aside can be changed from before to after the main area by re-arranging the markup. Depending on the screen width, that would place it above / below (on screens smaller than `$breakpoint--large`) or to the left / right on larger screens.
+The aside is optional. When present, the order of the aside can be changed from before to after the main area by re-arranging the markup. Depending on the screen width, that would place it above / below (on screens smaller than `$breakpoint-large`) or to the left / right on larger screens.
 
 An aside to the left, main area to the right:
 

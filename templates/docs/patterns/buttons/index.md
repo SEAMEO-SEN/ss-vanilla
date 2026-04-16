@@ -45,14 +45,6 @@ A negative button can be used to indicate a negative action that is destructive 
 View example of the negative button pattern
 </a></div>
 
-## Brand
-
-You can use the brand button with the main color of your brand.
-
-<div class="embedded-example"><a href="/docs/examples/patterns/buttons/brand/" class="js-example">
-View example of the brand button pattern
-</a></div>
-
 ## Link
 
 In some contexts you may need a button to look visually identical to a link.
@@ -97,7 +89,7 @@ View example of the icon button pattern
 
 In cases where a button needs to indicate that an action is occurring (e.g. saving data, processing a payment) while also preventing user interaction, the state class `is-processing` can be added to a disabled button to maintain full opacity.
 
-When replacing a label in a button with a loading icon make sure to keep the width of the button the same to avoid content moving around. The example below has a snippet of JavaScript to demo how to achieve that or you can use the [`ActionButton` React component](https://canonical.github.io/react-components/?path=/docs/actionbutton--default-story) that has this functionality built-in.
+When replacing a label in a button with a loading icon make sure to keep the width of the button the same to avoid content moving around. The example below has a snippet of JavaScript to demo how to achieve that or you can use the [`ActionButton` React component](https://canonical.github.io/react-components/?path=/docs/components-actionbutton--docs) that has this functionality built-in.
 
 <div class="embedded-example"><a href="/docs/examples/patterns/buttons/processing/" class="js-example">
 View example of the processing button pattern
@@ -105,14 +97,18 @@ View example of the processing button pattern
 
 ## Theming
 
-The buttons use Vanilla's light theme by default. There are two ways to switch between the light and the dark themes:
+The buttons use Vanilla's theme colours. You can switch the theme by adding `is-dark`, `is-light` or `is-paper` class name on any parent element or the button itself.
 
-- Override the default by adding a state to `p-putton`: `is-dark` when the default navigation is light, or `is-light` when the default has been changed to dark:
-- Change the default: go to `_settings_themes.scss` and set `$theme-default-p-button` to `dark`
+[View example of a dark theme button](/docs/examples/patterns/buttons/default?theme=dark)
 
-<div class="embedded-example"><a href="/docs/examples/patterns/buttons/dark" class="js-example">
-View example of the buttons with an is-dark class
-</a></div>
+## Brand
+
+<div class="p-notification--caution">
+  <div class="p-notification__content">
+    <h3 class="p-notification__title">Deprecated</h3>
+    <p class="p-notification__message">Brand-coloured buttons are deprecated since Vanilla 4.9.0 and will be removed in future version of Vanilla. Please use another type of button instead.</p>
+  </div>
+</div>
 
 ## Import
 
@@ -138,6 +134,6 @@ For more information see [Customising Vanilla](/docs/customising-vanilla/) in yo
 
 You can use buttons in React by installing our react-component library and importing `Button` or `ActionButton` component.
 
-[See the documentation for our React `Button` component](https://canonical.github.io/react-components/?path=/docs/button--base#button)
+[See the documentation for our React `Button` component](https://canonical.github.io/react-components/?path=/docs/components-button--docs)
 
-[See the documentation for our React `ActionButton` component](https://canonical.github.io/react-components/?path=/docs/actionbutton--default-story#actionbutton)
+[See the documentation for our React `ActionButton` component](https://canonical.github.io/react-components/?path=/docs/components-actionbutton--docs)

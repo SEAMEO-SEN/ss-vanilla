@@ -2,7 +2,7 @@
   $thumb-shadow: 0 0 $bar-thickness 1px rgba(0, 0, 0, 0.2);
   $thumb-size: 1rem;
   $thumb-radius: 50%;
-  $thumb-border: $input-border-thickness solid $color-mid-dark;
+  $thumb-border: $input-border-thickness solid $colors--theme--border-high-contrast;
   $track-height: $bar-thickness;
   $track-radius: $bar-thickness;
 
@@ -13,9 +13,12 @@
     -moz-appearance: none;
     appearance: none;
     // stylelint-enable property-no-vendor-prefix
+    background-color: $color-transparent;
     border-radius: $track-radius;
-    margin: $sp-small 0;
+    height: $track-height;
+    margin: ($spv--small - $track-height * 0.5) 0;
     padding: 0;
+    vertical-align: bottom;
     width: 100%;
 
     // Chrome
@@ -30,7 +33,7 @@
       -moz-appearance: none;
       appearance: none;
       // stylelint-enable property-no-vendor-prefix
-      background: $color-x-light;
+      background: $colors--theme--background-default;
       border: $thumb-border;
       border-radius: $thumb-radius;
       box-shadow: $thumb-shadow;
@@ -45,19 +48,19 @@
 
     // Firefox
     &::-moz-range-track {
-      background: $color-mid-light;
+      background: $colors--theme--border-default; // default; //mid-light;
       border-radius: $track-radius;
       height: $track-height;
     }
 
     &::-moz-range-progress {
-      background-color: $color-link;
+      background-color: $colors--theme--link-default; //-link;
       border-radius: $track-radius;
       height: $track-height;
     }
 
     &::-moz-range-thumb {
-      background: $color-x-light;
+      background: $colors--theme--background-default; // x-light;
       border: $thumb-border;
       border-radius: $thumb-radius;
       box-shadow: $thumb-shadow;
@@ -77,11 +80,11 @@
       outline: none;
 
       &::-webkit-slider-thumb {
-        outline: $bar-thickness solid $color-focus;
+        outline: $bar-thickness solid $colors--theme--focus;
       }
 
       &::-moz-range-thumb {
-        outline: $bar-thickness solid $color-focus;
+        outline: $bar-thickness solid $colors--theme--focus;
       }
     }
 

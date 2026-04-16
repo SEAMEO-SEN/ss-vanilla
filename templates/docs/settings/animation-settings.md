@@ -4,10 +4,6 @@ context:
   title: Animations | Settings
 ---
 
-# Animations
-
-<hr>
-
 Vanilla provides a choice of duration and easing for animating components.
 
 ## Duration
@@ -26,7 +22,7 @@ animation.
 | `slow`   | `.5s`         |
 | `sleepy` | `1s`          |
 
-<hr>
+<hr />
 
 ## Easing
 
@@ -37,7 +33,7 @@ Recommended durations for easing can be `easeInCubic` or `easeOutCubic`.
 | `out`   | `cubic-bezier(.215, .61, .355, 1)`   |
 | `in`    | `cubic-bezier(.55, .055, .675, .19)` |
 
-<hr>
+<hr />
 
 ## Spin
 
@@ -83,5 +79,6 @@ If you require multiple properties then the list must be interpolated as shown i
 @include vf-transition(#{height, width}, brisk, out);
 ```
 
-<span class="p-status-label--negative">Deprecated</span>
-Previously used `vf-animation` mixin has been deprecated in 3.7.0 and will be removed in future versions of Vanilla. Please use `vf-transition` instead.
+{{ status("deprecated") }}
+
+The previously used `vf-animation` mixin has been deprecated in 3.7.0 and will be removed in future versions of Vanilla. Please use `vf-transition` instead.

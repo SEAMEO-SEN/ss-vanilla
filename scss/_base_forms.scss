@@ -13,7 +13,7 @@
   // Default form input element styles
   %vf-input-elements {
     @extend %bordered-text-vertical-padding;
-    @include vf-focus($color-focus, $bar-thickness, true);
+    @include vf-focus-themed($has-validation: true);
     @include vf-animation(#{background-color}, fast);
 
     // stylelint-disable property-no-vendor-prefix
@@ -21,32 +21,50 @@
     -moz-appearance: textfield;
     appearance: textfield;
     // stylelint-enable property-no-vendor-prefix
-    background-color: $colors--light-theme--background-inputs;
+    background-color: $colors--theme--background-inputs;
     border: 0 solid transparent;
-    border-bottom: $input-border-thickness solid $colors--light-theme--text-default;
+    border-bottom: $input-border-thickness solid $colors--theme--border-high-contrast;
     border-radius: 0;
-    color: $color-dark;
+    border-top: $input-border-thickness solid transparent;
+    color: $colors--theme--text-default;
     font-family: unquote($font-base-family);
     font-size: 1rem;
     font-weight: $font-weight-regular-text;
-    line-height: map-get($line-heights, default-text);
+    line-height: map-get($settings-text-default, line-height);
     margin-bottom: $input-margin-bottom;
-    min-width: 10em;
-    padding-left: $sph--small;
-    padding-right: $sph--small;
+    min-width: 8em;
+    padding-left: $sph--large;
+    padding-right: $sph--large;
     vertical-align: baseline;
     width: 100%;
 
     &:hover {
-      background-color: $colors--light-theme--background-hover;
+      background-color: $colors--theme--background-hover;
     }
 
     &:active,
     &:focus {
-      background-color: $colors--light-theme--background-active;
+      background-color: $colors--theme--background-active;
     }
 
-    &.is-dense {
+    // stylelint-disable-next-line selector-max-type -- base styles can use type selectors
+    option,
+    option:checked {
+      background-color: $colors--theme--background-alt;
+      color: $colors--theme--text-default;
+    }
+
+    // stylelint-disable-next-line selector-max-type -- base styles can use type selectors
+    option:checked:not(:disabled) {
+      background-color: $colors--theme--background-active;
+    }
+
+    &::placeholder {
+      color: $colors--theme--text-muted;
+    }
+
+    &.is-dense,
+    .p-form-validation__select-wrapper.is-dense & {
       margin: 0 0 $spv-nudge-compensation 0;
       padding-bottom: calc($spv-nudge - $spv--x-small - $input-border-thickness);
       padding-top: calc($spv-nudge - $spv--x-small - $input-border-thickness);
@@ -77,24 +95,19 @@
 
   // Readonly form elements
   %vf-readonly-element {
-    color: $color-mid-light;
+    color: $colors--theme--text-muted;
     cursor: default;
-
-    &:hover,
-    &:active {
-      border-color: $color-mid-dark;
-      outline: none;
-    }
   }
 
   // stylelint-disable selector-max-type -- base styles can use type selectors
   label {
     cursor: pointer;
     display: inline-block;
+    line-height: map-get($settings-text-default, line-height);
     margin-bottom: $spv--large - $spv-nudge;
     margin-top: 0;
     max-width: $text-max-width;
-    padding-top: map-get($nudges, p);
+    padding-top: map-get($settings-text-p, nudge);
     width: fit-content;
 
     &.is-required::before {
@@ -134,7 +147,7 @@
 
   [type='file'] {
     @extend %bordered-text-vertical-padding;
-    @include vf-focus;
+    @include vf-focus-themed;
 
     margin-bottom: $input-margin-bottom;
     width: 100%;
@@ -152,11 +165,6 @@
     &::-webkit-search-results-decoration {
       display: none;
     }
-
-    &::-webkit-search-cancel-button {
-      -webkit-appearance: searchfield-cancel-button; // stylelint-disable-line property-no-vendor-prefix
-      cursor: pointer;
-    }
   }
 
   input[list] {
@@ -167,30 +175,24 @@
 
   // Select styles
   select {
-    @include vf-icon-chevron;
+    @include vf-icon-chevron-themed;
 
     // stylelint-disable property-no-vendor-prefix
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     // stylelint-enable property-no-vendor-prefix
-    background-color: $colors--light-theme--background-hover;
     background-position: right $sph--small center;
     background-repeat: no-repeat;
     background-size: map-get($icon-sizes, default);
     box-shadow: none;
-    color: $color-dark;
-    min-height: map-get($line-heights, default-text);
+    min-height: map-get($settings-text-default, line-height);
     padding-right: calc($default-icon-size + 2 * $sph--small);
     text-indent: 0.01px;
     text-overflow: '';
 
     &:hover {
       cursor: pointer;
-    }
-
-    option {
-      background-color: white;
     }
 
     &[multiple],
@@ -200,7 +202,6 @@
       height: auto;
 
       option {
-        background-color: $colors--light-theme--background-hover;
         font-weight: $font-weight-regular-text;
         line-height: calc($sp-unit * 2 - 2px);
         padding: $spv--x-small 0;
@@ -221,11 +222,16 @@
   fieldset {
     @extend %vf-card;
     @extend %vf-is-bordered;
-    @extend %vf-has-round-corners;
 
     margin-left: 0;
     margin-right: 0;
     padding: calc($spv--large - $input-border-thickness);
+  }
+
+  legend {
+    &.is-required::before {
+      content: '* ';
+    }
   }
   // stylelint-enable selector-max-type
 }

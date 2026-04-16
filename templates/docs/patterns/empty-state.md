@@ -4,11 +4,9 @@ context:
   title: Empty states | Components
 ---
 
-# Empty states
+State zero or the empty state is the moment in the app where there is no data to display in the UI. It is most commonly used when a new feature is developed or a user interacts with the page for the first time. It can also be used when all data is deleted or unavailable.
 
-<hr>
-
-State zero or the empty state is a state where there is no data to display in the UI. It is most commonly used when a new feature is developed or a user interacts with the page for the first time. It can also be used when all data is deleted or unavailable. Empty states inform, support, and provide constructive guidance about the next steps when there is nothing to display.
+Empty states should inform, support, and guide users to next steps when there is nothing to display.
 
 ## No content
 
@@ -44,7 +42,8 @@ To import either or all of these components into your project, copy the snippets
 @import 'vanilla-framework';
 @include vf-base;
 
-// dependencies for the no content empty state example
+// dependencies for no content empty state example
+@include vf-p-headings;
 @include vf-p-grid;
 @include vf-u-align;
 @include vf-p-buttons;
@@ -58,8 +57,9 @@ To import either or all of these components into your project, copy the snippets
 @include vf-p-icon-search;
 @include vf-u-layout;
 
-// dependencies for user action triggered empty state example
-@include vf-u-vertically-center;
+// Dependencies for error management empty state example
+@include vf-u-hide;
+@include vf-p-section;
 ```
 
 For more information see [Customising Vanilla](/docs/customising-vanilla/) in your projects, which includes overrides and importing instructions.

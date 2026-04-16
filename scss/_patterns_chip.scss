@@ -2,10 +2,20 @@
 @import 'settings';
 
 @mixin vf-p-chip {
+  %vf-chip-icon {
+    @extend %icon;
+    align-self: center;
+    background-size: map-get($icon-sizes, small);
+    flex: 0 0 auto;
+    @media (min-width: $breakpoint-x-large) {
+      background-size: math.div(map-get($icon-sizes, small), $font-size-ratio--largescreen); //ensure no rounding happens as it positions the icon off center
+    }
+  }
+
   %vf-chip {
     @extend %small-text;
     @include vf-transition(#{background-color, border-color}, snap, out);
-    @include vf-focus;
+    @include vf-focus-themed;
 
     align-items: baseline;
     border-radius: 1rem;
@@ -15,23 +25,24 @@
     padding: calc($spv--x-small - $input-border-thickness) $sph--small; // account for border thickness using calc
     position: relative;
     user-select: none;
-    vertical-align: calc($input-border-thickness - map-get($nudges, p));
+    vertical-align: calc($input-border-thickness - map-get($settings-text-p, nudge));
     white-space: nowrap;
 
+    [class*='p-icon--'],
     .p-chip__lead,
     .p-chip__value {
+      color: $colors--theme--text-default;
       display: inline;
       margin-bottom: 0;
       overflow: hidden;
       padding: 0;
       text-overflow: ellipsis;
       vertical-align: baseline;
+      @extend %small-text;
     }
 
     .p-chip__lead {
-      @extend %x-small-text;
-
-      text-transform: uppercase;
+      @extend %small-caps-text;
     }
 
     .p-chip__lead + .p-chip__value::before {
@@ -40,23 +51,20 @@
       content: ': ';
     }
 
-    .p-chip__value {
-      @extend %small-text;
-      font-weight: $font-weight-bold;
+    .p-chip__dismiss {
+      @extend %vf-chip-icon;
+      @include vf-icon-close-themed;
+
+      border-radius: 50%;
+      // Space away from the content preceding it in the chip body
+      margin-left: $sph--x-small;
     }
 
-    .p-chip__dismiss {
-      @extend %icon;
-      // also includes button and close icon styles in the theming section
+    & > [class*='p-icon--'] {
+      @extend %vf-chip-icon;
 
-      align-self: center;
-      background-size: map-get($icon-sizes, small);
-      border-radius: 50%;
-      flex: 0 0 auto;
-      margin-left: $sph--x-small;
-      @media (min-width: $breakpoint-x-large) {
-        background-size: math.div(map-get($icon-sizes, small), $font-size-ratio--largescreen); //ensure no rounding happens as it positions the icon off center
-      }
+      // Space the chip away from the content following it in the chip body
+      margin-right: $sph--x-small;
     }
 
     &.is-dense {
@@ -67,236 +75,253 @@
       margin: 0;
       vertical-align: baseline;
     }
+
+    &.is-readonly {
+      border-color: transparent;
+    }
+  }
+  @include vf-chips-default;
+  @include vf-chips-positive;
+  @include vf-chips-caution;
+  @include vf-chips-negative;
+  @include vf-chips-information;
+  @include vf-chips-branded;
+}
+
+@mixin vf-chip-interactive(
+  $color-background-hover: $colors--theme--background-neutral-hover,
+  $color-border-hover: $colors--theme--border-neutral,
+  $color-background-active: $colors--theme--background-neutral-active,
+  $color-border-active: $colors--theme--border-neutral
+) {
+  &:hover {
+    background-color: $color-background-hover;
+    border-color: $color-border-hover;
+    text-decoration: none;
   }
 
-  .p-chip,
-  .p-chip--positive,
-  .p-chip--caution,
-  .p-chip--negative,
+  &[aria-pressed='true'],
+  &.is-selected,
+  &:active {
+    background-color: $color-background-active;
+    border-color: $color-border-active;
+  }
+}
+
+// Default notification styling
+@mixin vf-chips-default {
+  .p-chip {
+    @extend %vf-chip;
+
+    background-color: $colors--theme--background-neutral-default;
+    border: $input-border-thickness solid $colors--theme--border-neutral;
+    border-color: $colors--theme--border-neutral;
+  }
+
+  // Status-color chips all use the button pattern mixin to set their colors, so they already have most button styling.
+  // We need to add the default button styling to the link default chip as well.
+  // stylelint-disable selector-max-type -- allow button selector for interactive chips
+  a.p-chip {
+    @include vf-button-pattern;
+    @include vf-chip-interactive;
+  }
+
+  button.p-chip {
+    @include vf-chip-interactive;
+  }
+  // stylelint-enable selector-max-type
+
+  .p-chip .p-chip__dismiss {
+    @include vf-button-pattern(
+      $button-background-color: transparent,
+      $button-border-color: transparent,
+      $button-hover-background-color: $colors--theme--background-neutral-hover,
+      $button-hover-border-color: transparent,
+      $button-active-background-color: $colors--theme--background-neutral-active,
+      $button-active-border-color: transparent
+    );
+  }
+}
+
+@mixin vf-chips-positive {
+  .p-chip--positive {
+    @extend %vf-chip;
+
+    background-color: $colors--theme--background-positive-default;
+    border: $input-border-thickness solid $colors--theme--border-positive;
+    border-color: $colors--theme--border-positive;
+  }
+
+  // stylelint-disable selector-max-type  -- allow button selector for interactive chips
+  button.p-chip--positive,
+  a.p-chip--positive {
+    @include vf-chip-interactive(
+      $color-background-hover: $colors--theme--background-positive-hover,
+      $color-border-hover: $colors--theme--border-positive,
+      $color-background-active: $colors--theme--background-positive-active,
+      $color-border-active: $colors--theme--border-positive
+    );
+  }
+  // stylelint-enable selector-max-type
+
+  .p-chip--positive .p-chip__dismiss {
+    @include vf-button-pattern(
+      $button-background-color: transparent,
+      $button-border-color: transparent,
+      $button-hover-background-color: $colors--theme--background-positive-hover,
+      $button-hover-border-color: transparent,
+      $button-active-background-color: $colors--theme--background-positive-active,
+      $button-active-border-color: transparent
+    );
+  }
+}
+
+@mixin vf-chips-caution {
+  .p-chip--caution {
+    @extend %vf-chip;
+
+    background-color: $colors--theme--background-caution-default;
+    border: $input-border-thickness solid $colors--theme--border-caution;
+    border-color: $colors--theme--border-caution;
+  }
+
+  // stylelint-disable selector-max-type  -- allow button selector for interactive chips
+  button.p-chip--caution,
+  a.p-chip--caution {
+    @include vf-chip-interactive(
+      $color-background-hover: $colors--theme--background-caution-hover,
+      $color-border-hover: $colors--theme--border-caution,
+      $color-background-active: $colors--theme--background-caution-active,
+      $color-border-active: $colors--theme--border-caution
+    );
+  }
+  // stylelint-enable selector-max-type
+
+  .p-chip--caution .p-chip__dismiss {
+    @include vf-button-pattern(
+      $button-background-color: transparent,
+      $button-border-color: transparent,
+      $button-hover-background-color: $colors--theme--background-caution-hover,
+      $button-hover-border-color: transparent,
+      $button-active-background-color: $colors--theme--background-caution-active,
+      $button-active-border-color: transparent
+    );
+  }
+}
+
+@mixin vf-chips-negative {
+  .p-chip--negative {
+    @extend %vf-chip;
+
+    background-color: $colors--theme--background-negative-default;
+    border: $input-border-thickness solid $colors--theme--border-negative;
+    border-color: $colors--theme--border-negative;
+  }
+
+  // stylelint-disable selector-max-type  -- allow button selector for interactive chips
+  button.p-chip--negative,
+  a.p-chip--negative {
+    @include vf-chip-interactive(
+      $color-background-hover: $colors--theme--background-negative-hover,
+      $color-border-hover: $colors--theme--border-negative,
+      $color-background-active: $colors--theme--background-negative-active,
+      $color-border-active: $colors--theme--border-negative
+    );
+  }
+  // stylelint-enable selector-max-type
+
+  .p-chip--negative .p-chip__dismiss {
+    @include vf-button-pattern(
+      $button-background-color: transparent,
+      $button-border-color: transparent,
+      $button-hover-background-color: $colors--theme--background-negative-hover,
+      $button-hover-border-color: transparent,
+      $button-active-background-color: $colors--theme--background-negative-active,
+      $button-active-border-color: transparent
+    );
+  }
+}
+
+@mixin vf-chips-information {
   .p-chip--information {
     @extend %vf-chip;
+
+    background-color: $colors--theme--background-information-default;
+    border: $input-border-thickness solid $colors--theme--border-information;
+    border-color: $colors--theme--border-information;
   }
 
-  // Theming
-  @if ($theme-default-p-chip == 'dark') {
-    .p-chip {
-      @include vf-chip-dark-theme;
-    }
-    .p-chip.is-light {
-      @include vf-chip-light-theme;
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip {
-      @include vf-chip-dark-theme($is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip.is-light {
-      @include vf-chip-light-theme($is-interactive: true);
-    }
+  // stylelint-disable selector-max-type  -- allow button selector for interactive chips
+  button.p-chip--information,
+  a.p-chip--information {
+    @include vf-chip-interactive(
+      $color-background-hover: $colors--theme--background-information-hover,
+      $color-border-hover: $colors--theme--border-information,
+      $color-background-active: $colors--theme--background-information-active,
+      $color-border-active: $colors--theme--border-information
+    );
+  }
+  // stylelint-enable selector-max-type
 
-    .p-chip--positive {
-      @include vf-chip-dark-theme(positive);
-    }
-    .p-chip--positive.is-light {
-      @include vf-chip-light-theme(positive);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--positive {
-      @include vf-chip-dark-theme($chip-type: positive, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--positive.is-light {
-      @include vf-chip-light-theme($chip-type: positive, $is-interactive: true);
-    }
-
-    .p-chip--caution {
-      @include vf-chip-dark-theme(caution);
-    }
-    .p-chip--caution.is-light {
-      @include vf-chip-light-theme(caution);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--caution {
-      @include vf-chip-dark-theme($chip-type: caution, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--caution.is-light {
-      @include vf-chip-light-theme($chip-type: caution, $is-interactive: true);
-    }
-
-    .p-chip--negative {
-      @include vf-chip-dark-theme(negative);
-    }
-    .p-chip--negative.is-light {
-      @include vf-chip-light-theme(negative);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--negative {
-      @include vf-chip-dark-theme($chip-type: negative, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--negative.is-light {
-      @include vf-chip-light-theme($chip-type: negative, $is-interactive: true);
-    }
-
-    .p-chip--information {
-      @include vf-chip-dark-theme(information);
-    }
-    .p-chip--information.is-light {
-      @include vf-chip-light-theme(information);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--information {
-      @include vf-chip-dark-theme($chip-type: information, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--information.is-light {
-      @include vf-chip-light-theme($chip-type: information, $is-interactive: true);
-    }
-  } @else {
-    .p-chip {
-      @include vf-chip-light-theme;
-    }
-    .p-chip.is-dark {
-      @include vf-chip-dark-theme;
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip {
-      @include vf-chip-light-theme($is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip.is-dark {
-      @include vf-chip-dark-theme($is-interactive: true);
-    }
-
-    .p-chip--positive {
-      @include vf-chip-light-theme(positive);
-    }
-    .p-chip--positive.is-dark {
-      @include vf-chip-dark-theme(positive);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--positive {
-      @include vf-chip-light-theme($chip-type: positive, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--positive.is-dark {
-      @include vf-chip-dark-theme($chip-type: positive, $is-interactive: true);
-    }
-
-    .p-chip--caution {
-      @include vf-chip-light-theme(caution);
-    }
-    .p-chip--caution.is-dark {
-      @include vf-chip-dark-theme(caution);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--caution {
-      @include vf-chip-light-theme($chip-type: caution, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--caution.is-dark {
-      @include vf-chip-dark-theme($chip-type: caution, $is-interactive: true);
-    }
-
-    .p-chip--negative {
-      @include vf-chip-light-theme(negative);
-    }
-    .p-chip--negative.is-dark {
-      @include vf-chip-dark-theme(negative);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--negative {
-      @include vf-chip-light-theme($chip-type: negative, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--negative.is-dark {
-      @include vf-chip-dark-theme($chip-type: negative, $is-interactive: true);
-    }
-
-    .p-chip--information {
-      @include vf-chip-light-theme(information);
-    }
-    .p-chip--information.is-dark {
-      @include vf-chip-dark-theme(information);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--information {
-      @include vf-chip-light-theme($chip-type: information, $is-interactive: true);
-    }
-    // stylelint-disable-next-line selector-max-type
-    button.p-chip--information.is-dark {
-      @include vf-chip-dark-theme($chip-type: information, $is-interactive: true);
-    }
+  .p-chip--information .p-chip__dismiss {
+    @include vf-button-pattern(
+      $button-background-color: transparent,
+      $button-border-color: transparent,
+      $button-hover-background-color: $colors--theme--background-information-hover,
+      $button-hover-border-color: transparent,
+      $button-active-background-color: $colors--theme--background-information-active,
+      $button-active-border-color: transparent
+    );
   }
 }
 
-@mixin vf-chip-theme($chip-type: neutral, $is-interactive: false, $colors-chip-tinted-backgrounds, $colors-chip-tinted-borders, $color-chip-value, $color-chip-lead) {
-  @if (not map-has-key($colors-chip-tinted-backgrounds, $chip-type)) {
-    $chip-type: neutral;
-  }
+@mixin vf-chips-branded {
+  .p-chip--branded {
+    @extend %vf-chip;
+    @extend %vf-button-dense-vertical-padding;
 
-  $color-background: map-get($colors-chip-tinted-backgrounds, $chip-type, 'default');
-  $color-background-hover: map-get($colors-chip-tinted-backgrounds, $chip-type, 'hover');
-  $color-background-active: map-get($colors-chip-tinted-backgrounds, $chip-type, 'active');
-  $color-border: map-get($colors-chip-tinted-borders, $chip-type);
+    align-items: center;
+    background-color: $colors--theme--background-alt;
+    gap: $sph--x-small;
+    height: 1.5rem;
+    justify-content: center;
+    margin-bottom: $spv-nudge-compensation;
+    min-width: max-content;
+    padding-left: $sph--x-small;
 
-  background-color: $color-background;
-  border: $input-border-thickness solid $color-border;
+    @include vf-theme-dark; // Default to dark theme
 
-  .p-chip__value {
-    color: $color-chip-value;
-  }
-  .p-chip__lead,
-  .p-chip__lead + .p-chip__value::before {
-    color: $color-chip-lead;
-  }
-
-  @if ($is-interactive) {
-    &:hover {
-      background-color: $color-background-hover;
-      border-color: $color-border;
+    // stylelint-disable selector-max-type -- Branded chip theming is based on theming of the document body.
+    // Apply light theme if the page or the chip component is dark
+    body.is-dark &,
+    &.is-dark {
+      @include vf-theme-light;
     }
-    &[aria-pressed='true'],
-    &.is-selected,
-    &:active {
-      background-color: $color-background-active;
-      border-color: $color-border;
-    }
-  } @else {
-    .p-chip__dismiss {
-      @include vf-icon-close($color-chip-lead);
 
-      @include vf-button-pattern(
-        $button-background-color: transparent,
-        $button-border-color: transparent,
-        $button-hover-background-color: $color-background-hover,
-        $button-hover-border-color: transparent,
-        $button-active-background-color: $color-background-active,
-        $button-active-border-color: transparent
-      );
+    // Override to dark theme if the page or the chip component is light or paper
+    body.is-light &,
+    body.is-paper &,
+    &.is-light,
+    &.is-paper {
+      @include vf-theme-dark;
+    }
+    // stylelint-enable selector-max-type
+
+    .p-chip__value {
+      color: $colors--theme--text-default;
+      font-weight: $font-weight-medium;
+    }
+
+    & > .p-icon--circle-of-friends {
+      @include vf-icon-circle-of-friends-themed;
+      background-size: contain;
+      margin: 0;
+    }
+
+    &:has(> .p-icon--circle-of-friends:only-child) {
+      border-radius: 50%;
+      padding: 0;
+      width: 1.5rem;
     }
   }
-}
-
-@mixin vf-chip-light-theme($chip-type: neutral, $is-interactive: false) {
-  @include vf-chip-theme(
-    $chip-type: $chip-type,
-    $is-interactive: $is-interactive,
-    $colors-chip-tinted-backgrounds: $colors-light-theme--tinted-backgrounds,
-    $colors-chip-tinted-borders: $colors-light-theme--tinted-borders,
-    $color-chip-value: $colors--light-theme--text-default,
-    $color-chip-lead: $colors--light-theme--text-default
-  );
-}
-
-@mixin vf-chip-dark-theme($chip-type: neutral, $is-interactive: false) {
-  @include vf-chip-theme(
-    $chip-type: $chip-type,
-    $is-interactive: $is-interactive,
-    $colors-chip-tinted-backgrounds: $colors-dark-theme--tinted-backgrounds,
-    $colors-chip-tinted-borders: $colors-dark-theme--tinted-borders,
-    $color-chip-value: $colors--dark-theme--text-default,
-    $color-chip-lead: $colors--dark-theme--text-default
-  );
 }

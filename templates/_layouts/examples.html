@@ -1,55 +1,53 @@
-<!DOCTYPE html>
+{% macro body_content() %}
+  {% block content %}{% endblock %}
+{% endmacro %}
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %}{% if self.title() %} | {% endif %}Examples | Vanilla framework documentation</title>
+{% if not is_combined %}
+{# In the non-combined case, render an entire HTML page #}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>{% block title %}{% endblock %}{% if self.title() %} | {% endif %}Examples | Vanilla framework
+        documentation</title>
 
-    {% if is_standalone %}
-    <link rel="stylesheet" type="text/css" href="{{ versioned_static('build/css/standalone/' + (self.standalone_css() if self.standalone_css is defined else 'base') + '.css') }}" />
-    {% else %}
-    <link rel="stylesheet" type="text/css" href="{{ versioned_static('build/css/build.css') }}" />
-    {% endif %}
-    <link rel="stylesheet" type="text/css" href="{{ versioned_static('build/css/docs/example.css') }}" />
-    <link rel="icon" href="https://assets.ubuntu.com/v1/ab36e6ed-vanilla_favicon_32px.png" type="image/x-icon" />
-    {% block style %}{% endblock %}
+      {% if is_standalone %}
+        <link rel="stylesheet" type="text/css"
+            href="{{ versioned_static('build/css/standalone/' + (self.standalone_css() if self.standalone_css is defined else 'base') + '.css') }}" />
+      {% else %}
+        <link rel="stylesheet" type="text/css" href="{{ versioned_static('build/css/build.css') }}" />
+      {% endif %}
+        <link rel="stylesheet" type="text/css" href="{{ versioned_static('build/css/docs/example.css') }}" />
+        <link rel="icon" href="https://assets.ubuntu.com/v1/ab36e6ed-vanilla_favicon_32px.png" type="image/x-icon" />
+      {% block style %}{% endblock %}
+      {% if is_not_themed %}
+        <script>
+          var SHOW_THEME_SWITCH = false;
+        </script>
+      {% else %}
+        <script>
+          var SHOW_THEME_SWITCH = true;
+        </script>
+      {% endif %}
 
-    <script>
-      (function() {
-        function inIframe () {
-          try {
-            return window.self !== window.top;
-          } catch (e) {
-            return true;
-          }
-        }
-
-        function fragmentFromString(htmlString) {
-          var temp = document.createElement('template');
-          temp.innerHTML = htmlString;
-          return temp.content;
-        }
-
-        if (!inIframe()) {
-          document.documentElement.classList.add("u-baseline-grid");
-
-          document.addEventListener('DOMContentLoaded', function() {
-            var body = document.body;
-            var controls = fragmentFromString('<div class="u-baseline-grid__toggle"><label class="p-switch"><input type="checkbox" class="p-switch__input js-baseline-toggle" /><span class="p-switch__slider"></span><span class="p-switch__label">Toggle baseline grid</span></label></div>');
-            body.appendChild(controls);
-
-            var toggle = document.querySelector('.js-baseline-toggle');
-            toggle.addEventListener('click', function (event) {
-              body.classList.toggle('u-baseline-grid');
-            });
-          });
-        }
-      })();
-    </script>
-  </head>
-
-  <body>
-    {% block content %}{% endblock %}
-  </body>
-</html>
+      <script defer src="{{ versioned_static('js/example-tools.js') }}"></script>
+    </head>
+    <body {% if is_dark %}class="is-dark" {% elif is_paper %}class="is-paper" {% endif %}>
+      {{ body_content() }}
+      {% block script %}{% endblock %}
+    </body>
+  </html>
+{% else %}
+  {# Include a link to the embedded template #}
+  <p>
+    <small><a href="/{{ self._TemplateReference__context.name }}">{{ self._TemplateReference__context.name }}</a></small>
+  </p>
+  {# In the combined case, render just the body, as the HTML & head is handled by the combined example #}
+  {{ body_content() }}
+  {% if is_combined and spacing_below and spacing_below > 0 %}
+    <div style="margin-bottom: {{ spacing_below }}rem">
+      <!-- This is a spacer to ensure the content following this example is not obscured by this example's content. -->
+    </div>
+  {% endif %}
+{% endif %}
