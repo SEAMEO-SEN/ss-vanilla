@@ -1,3 +1,8 @@
+@use '../scss/vanilla' as * with ($font-base-family: 'Signika, sans-serif',
+    $font-monospace: 'Signika, sans-serif',
+    $font-weight-regular-text: 400,
+    $font-weight-bold: 500);
+
 // fonts
 /* ---------------------------------------------------
     GOOGLE FONTS
@@ -153,95 +158,6 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* default fonts */
-$font-base-family: 'Signika, sans-serif';
-$font-monospace: 'Signika, sans-serif';
-$font-weight-regular-text: 400;
-$font-weight-bold: 500;
-
-@import '../scss/settings';
-@import '../scss/base';
-// Patterns
-
-@import '../scss/patterns_accordion';
-@import '../scss/patterns_article-pagination';
-@import '../scss/patterns_breadcrumbs';
-@import '../scss/patterns_buttons';
-@import '../scss/patterns_card';
-@import '../scss/patterns_chip';
-@import '../scss/patterns_badge';
-@import '../scss/patterns_code-snippet';
-@import '../scss/patterns_contextual-menu';
-@import '../scss/patterns_divider';
-@import '../scss/patterns_form-help-text';
-@import '../scss/patterns_form-validation';
-@import '../scss/patterns_form-tick-elements';
-@import '../scss/patterns_form-password-toggle';
-@import '../scss/patterns_forms';
-@import '../scss/patterns_grid';
-@import '../scss/patterns_heading-icon';
-@import '../scss/patterns_headings';
-@import '../scss/patterns_icons';
-@import '../scss/patterns_image';
-@import '../scss/patterns_links';
-@import '../scss/patterns_list-tree';
-@import '../scss/patterns_lists';
-@import '../scss/patterns_logo-section';
-@import '../scss/patterns_matrix';
-@import '../scss/patterns_media-object';
-@import '../scss/patterns_modal';
-@import '../scss/patterns_muted-heading';
-@import '../scss/patterns_navigation';
-@import '../scss/patterns_notifications';
-@import '../scss/patterns_pagination';
-@import '../scss/patterns_pull-quotes';
-@import '../scss/patterns_search-and-filter';
-@import '../scss/patterns_search-box';
-@import '../scss/patterns_separator';
-@import '../scss/patterns_side-navigation';
-@import '../scss/patterns_side-navigation-expandable';
-//@import '../scss/patterns_slider';
-@import '../scss/patterns_status-label';
-@import '../scss/patterns_strip';
-@import '../scss/patterns_switch';
-@import '../scss/patterns_segmented-control';
-@import '../scss/patterns_table-icons';
-@import '../scss/patterns_table-expanding';
-@import '../scss/patterns_table-of-contents';
-@import '../scss/patterns_table-mobile-card';
-@import '../scss/patterns_table-sortable';
-@import '../scss/patterns_tabs';
-@import '../scss/patterns_tooltips';
-
-// Layouts
-//@import '../scss/layouts_application';
-//@import '../scss/layouts_full-width';
-@import '../scss/layouts_site';
-@import '../scss/layouts_fluid-breakout';
-
-// Utilities
-@import '../scss/utilities_animations';
-@import '../scss/utilities_baseline-grid';
-@import '../scss/utilities_clearfix';
-@import '../scss/utilities_content-align';
-@import '../scss/utilities_embedded-media';
-@import '../scss/utilities_equal-height';
-@import '../scss/utilities_floats';
-@import '../scss/utilities_font-metrics';
-@import '../scss/utilities_hide';
-@import '../scss/utilities_image-position';
-@import '../scss/utilities_layout';
-@import '../scss/utilities_margin-collapse';
-@import '../scss/utilities_max-width';
-@import '../scss/utilities_muted-text';
-@import '../scss/utilities_off-screen';
-@import '../scss/utilities_padding-collapse';
-@import '../scss/utilities_show';
-@import '../scss/utilities_truncate';
-@import '../scss/utilities_vertical-spacing';
-@import '../scss/utilities_vertically-center';
-@import '../scss/utilities_no-print';
-
 // Include all the CSS
 @include vf-base;
 // Patterns
@@ -324,3 +240,8 @@ $font-weight-bold: 500;
 @include vf-u-show;
 @include vf-u-visualise-baseline;
 @include vf-u-no-print;
+
+.is-dark .p-icon--close,
+.p-icon--close.is-dark {
+    @include vf-icon-close($colors--dark-theme--icon);
+}
